@@ -1,5 +1,5 @@
 var _ = require("lodash");
-
+var bcrypt = require('bcryptjs');
 var {User} = require("../models/user");
 
 module.exports.registerUser = ( req,res ) => {
@@ -17,8 +17,22 @@ module.exports.registerUser = ( req,res ) => {
     })
 };
 
-module.exports.test = (req,res) => {
+module.exports.logIn = (req,res) => {
 
-  res.send(req.user);
+  var email = req.body.email;
+  var password = req.body.password;
+
+  User.findOne({'email' : email} , function(err , user) {
+
+    bcrypt.compare(password, user.password , (err , result)=>{
+      console.log(result);
+      if(result){
+        res.header('x-auth' , user.tokens[0].token );
+        return res.status(200).send(user);
+      }else{
+        return res.status(400).send(err);
+      }
+    });
+  });
 
 };
