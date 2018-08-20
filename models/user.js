@@ -13,6 +13,15 @@ var UserSchema = mongoose.Schema({
         trim: true,
         unique: false
     },
+    role: {
+      type: String,
+      enum: ["ceo", "foundation manager", "education manager",
+      "education specialist", "makerspace manager", "flow manager",
+      "flinc manager", "fixed fablab manager", "saudia lab manager",
+      "lab specialist", "foundation admin", "public relation", "accountant"],
+      required: true,
+      lowercase: true
+    },
     email: {
         type: String,
         required: true,
@@ -61,7 +70,6 @@ UserSchema.methods.toJSON = function (){
   return _.pick(userObject , ['name' , 'email']);
 };
 
-
 UserSchema.methods.generateAuthToken = function(){
 
   var user = this;
@@ -73,6 +81,7 @@ UserSchema.methods.generateAuthToken = function(){
     return token;
   });
 };
+
 
 UserSchema.pre('save' , function(next){
   var user = this;
