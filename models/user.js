@@ -67,7 +67,7 @@ UserSchema.statics.findByToken = function(token) {
 UserSchema.methods.toJSON = function (){
   var user = this ;
   var userObject = user.toObject();
-  return _.pick(userObject , ['name' , 'email']);
+  return _.pick(userObject , ['name' , 'email', 'role']);
 };
 
 UserSchema.methods.generateAuthToken = function(){
@@ -77,7 +77,7 @@ UserSchema.methods.generateAuthToken = function(){
   var token = jwt.sign({_id : user._id.toHexString() , access },'secret').toString();
 
   user.tokens.push({access , token});
-  return user.save().then(() =>{
+  return user.save().then(() => {
     return token;
   });
 };
@@ -85,9 +85,9 @@ UserSchema.methods.generateAuthToken = function(){
 
 UserSchema.pre('save' , function(next){
   var user = this;
-  if(user.isModified('password')){
-    bcrypt.genSalt(10,(err,salt)=>{
-      bcrypt.hash(user.password , salt , (err , hash)=>{
+  if( user.isModified('password') ){
+    bcrypt.genSalt(10, (err,salt) => {
+      bcrypt.hash(user.password,salt, (err , hash) => {
         user.password = hash;
         next();
       });

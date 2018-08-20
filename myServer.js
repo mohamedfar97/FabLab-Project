@@ -9,6 +9,7 @@ var app = express();
 app.use(bodyParser.json());
 app.post('/register', userCtrl.registerUser);
 app.post('/logIn' , userCtrl.logIn);
+app.get('/profile/:id', userCtrl.profile);
 
 app.listen(3000 , () => {
     console.log("Server up on port 3000");

@@ -17,22 +17,38 @@ module.exports.registerUser = ( req,res ) => {
     })
 };
 
-module.exports.logIn = (req,res) => {
+module.exports.logIn = ( req,res ) => {
 
   var email = req.body.email;
   var password = req.body.password;
 
   User.findOne({'email' : email} , function(err , user) {
 
-    bcrypt.compare(password, user.password , (err , result)=>{
+    bcrypt.compare(password, user.password , (err , result) => {
       console.log(result);
-      if(result){
+      if( result ) {
+        // Should that be more generic ?
         res.header('x-auth' , user.tokens[0].token );
         return res.status(200).send(user);
-      }else{
+      } else {
         return res.status(400).send(err);
       }
     });
   });
+
+};
+
+module.exports.profile = ( req,res ) => {
+  var id = req.params.id;
+
+  User.findById(id).then( (user) => {
+      if ( !user ) {
+          // Add a return message for the frontend to parse
+          return res.status(404).send();
+      }
+      res.status(200).send(user);
+  }).catch ( (err) => {
+      res.status(400).send(err);
+  })
 
 };
