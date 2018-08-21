@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 
 var {mongoose} = require('./dbConnect/dbConnect');
 var userCtrl =  require('./controllers/userController');
-var {authenticate} = require('./middleware/authentication');
+var mw = require('./middleware/authentication');
 var app = express();
 
 app.use(bodyParser.json());
