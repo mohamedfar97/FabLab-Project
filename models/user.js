@@ -36,6 +36,21 @@ var UserSchema = mongoose.Schema({
         required: true,
         minlength: 8
     },
+    phone: {
+        type: String,
+        validate: {
+            validator: function(v) {
+                return /01\d{9}/.test(v);
+            },
+            message: props => `${props.value} is not a valid phone number!`
+        },
+        required: true,
+        unique: true
+    },
+    gender: {
+        type: String,
+        enum: ['male','Male','female','Female']
+    },
     tokens: [{
         access: {
             type: String,
@@ -46,9 +61,7 @@ var UserSchema = mongoose.Schema({
             required: true
         }
     }]
-
 });
-
 
 UserSchema.statics.findByToken = function(token) {
 
@@ -67,7 +80,7 @@ UserSchema.statics.findByToken = function(token) {
 UserSchema.methods.toJSON = function (){
   var user = this ;
   var userObject = user.toObject();
-  return _.pick(userObject , ['name' , 'email', 'role']);
+  return _.pick(userObject , ['name' , 'email', 'role','phone','gender']);
 };
 
 UserSchema.methods.generateAuthToken = function(){

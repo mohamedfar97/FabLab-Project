@@ -4,7 +4,7 @@ var {User} = require("../models/user");
 
 module.exports.registerUser = ( req,res ) => {
 
-    var body = _.pick(req.body,['name','email','password','role']);
+    var body = _.pick(req.body,['name','email','password','role','phone','gender']);
     var user = new User(body);
 
     user.save().then( (user) => {
