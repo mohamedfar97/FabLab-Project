@@ -4,7 +4,7 @@ var {User} = require("../models/user");
 
 module.exports.registerUser = ( req,res ) => {
 
-    var body = _.pick(req.body,['name','email','password','role']);
+    var body = _.pick(req.body,['name','email','password','role','phone','gender']);
     var user = new User(body);
 
     user.save().then( (user) => {
@@ -25,9 +25,10 @@ module.exports.logIn = ( req,res ) => {
   User.findOne({'email' : email} , function(err , user) {
 
     bcrypt.compare(password, user.password , (err , result) => {
-      console.log(result);
+
       if( result ) {
         // Should that be more generic ?
+        //res.header('Access-Control-Allow-Origin', "*"); added CORS middleware 
         res.header('x-auth' , user.tokens[0].token );
         return res.status(200).send(user);
       } else {

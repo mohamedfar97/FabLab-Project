@@ -12,20 +12,20 @@
           <div class="col-auto">
           <div class="md-form">
               <i class="material-icons prefix">email</i>
-              <label for="defaultForm-email">email</label>
-              <input class="form-control" type="text" id="defaultForm-email" mdbActive>
+
+              <input class="form-control" type="text" id="defaultForm-email" placeholder="email" mdbActive #emailInput>
               <br>
           </div>
 
           <div class="md-form">
             <i class="material-icons prefix">lock</i>
-            <label for="defaultForm-pass">password</label>
-            <input class="form-control" type="password" id="defaultForm-pass" mdbActive>
+
+            <input class="form-control" type="password" id="defaultForm-pass" placeholder="password" mdbActive #passwordInput>
             <br>
           </div>
           </div>
           <div class="text-center">
-            <button type="submit" class="btn btn-info waves-light" >Login</button>
+            <button type="submit" class="btn btn-info waves-light" (click)="onLogIn() ">Login</button>
           </div>
         </form>
         <!-- Login form -->

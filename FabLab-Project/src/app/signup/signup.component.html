@@ -7,96 +7,109 @@
 
 
         <!--Register form-->
-        <form class="form" novalidate>
+        <form class="formGroup" novalidate (ngSubmit)="onSubmit(user)" [formGroup]="user" >
 
           <p class="h5 text-center mb-4">Sign up</p>
 
-          <div class="md-form mb-0">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="md-form mb-0">
-                  <i class="material-icons prefix">face</i>
-                  <input type="text" id="orangeForm-firstName" class="form-control" placeholder="first name" mdbActive>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="md-form mb-0">
-                  <i class="material-icons prefix">face</i>
-                  <input type="text" id="orangeForm-lastName" class="form-control" placeholder="last name" mdbActive>
+          <div class="md-form">
 
+
+                <div class="md-form md-7">
+                  <i class="material-icons prefix">face</i>
+                  <input type="text" id="orangeForm-name" class="form-control" placeholder="name" formControlName="name" mdbActive #firstNameInput>
                 </div>
-              </div>
-            </div>
+
+
           </div>
+
+
+          <div class="md-form">
+            <i class="material-icons prefix">card_travel</i>
+            <label for = "orangeForm-role" > role
+              <select  id="orangeForm-role" class="col-form-select" placeholder="role" formControlName="role" #roleInput>
+
+                <option>CEO</option>
+                <option>Foundation Manager</option>
+                <option>Education Manager</option>
+                <option>Makerspace Manager</option>
+                <option>FLoW Manager</option>
+                <option>FLiNC Manager</option>
+                <option>Fixed Fablab Manager</option>
+                <option>Saudia Lab Manager</option>
+                <option>Lab Specialist</option>
+                <option>Public Relation</option>
+                <option>Accountant</option>
+                <option>Foundation Admin</option>
+
+              </select>
+            </label>
+            <br>
+            <br>
+
+          </div>
+
 
           <div class="md-form">
             <i class="material-icons prefix">mail</i>
-            <input type="text" id="orangeForm-email" class="form-control" placeholder="email" mdbActive>
+            <input type="text" id="orangeForm-email" class="form-control" placeholder="email" formControlName="email" mdbActive #emailInput>
 
           </div>
 
           <div class="md-form">
             <i class="material-icons prefix">lock</i>
-            <input type="password" id="orangeForm-pass" class="form-control" placeholder="password" mdbActive>
+            <input type="password" id="orangeForm-pass" class="form-control" placeholder="password" formControlName="password" mdbActive #passwordInput>
 
           </div>
 
           <div class="md-form">
             <i class="material-icons prefix">lock</i>
-            <input type="password" id="orangeForm-passConfirm" class="form-control" placeholder="confirm password" mdbActive>
+            <input type="password" id="orangeForm-passConfirm" class="form-control" placeholder="confirm password" formControlName="confirmPassword" mdbActive #confirmedPasswordInput>
 
           </div>
 
           <div class="md-form">
             <i class="material-icons prefix">phone</i>
-            <input type="number" id="orangeForm-phone" class="form-control" placeholder="mobile number" mdbActive>
+            <input type="number" id="orangeForm-phone" class="form-control" placeholder="mobile number" formControlName="phone" mdbActive #phoneInput>
 
           </div>
 
           <div class="md-form">
-
             <div class="md-form mb-0">
-              <div class="row">
-                <div class="col-lg-2 col-md-2 col-sm-4 col-4">
-                  <i class="material-icons prefix">people</i>
+              <div class="row align-items-center">
+
+                <div class="col-lg-2">
+                    <i class="material-icons prefix">people</i>
 
                 </div>
 
-                <div class="col-lg-2 col-md-2 col-sm-4 col-4 pt-3 form-check form-check-radio">
-                  <div class="md-form mb-0">
+                <div class="col-sm-1">
+                    <label class="form-check-label" for="inlineCheckbox1">male</label>
 
-                    <input class="form-check-input" name = "gender" type="radio" value="male" checked> Male
-
-                  </div>
                 </div>
 
-                <div class="col-lg-8 col-md-8 col-sm-4 col-4 pt-3 form-check form-check-radio ">
-                  <div class="md-form mb-0">
+                <div class="col-md-2">
+                    <input class="form-check-input" name="gender" type="radio" id="inlineCheckbox1" value="male" formControlName="gender" #maleInput>
 
-                    <input class="form-check-input" name = "gender" type="radio" value="female" >Female
+                </div>
 
-                  </div>
+                <div class="col-sm-1">
+                    <label class="form-check-label" for="inlineCheckbox1">female</label>
+
+                </div>
+
+                <div class="col-md-2">
+                    <input class="form-check-input"  name="gender" type="radio" id="inlineCheckbox2" value="female" formControlName="gender" #femaleInput>
+
                 </div>
 
               </div>
             </div>
-
           </div>
 
-          <div class="md-form">
-            <label for = "orangeForm-role"  class="col-sm-2 col-form-label">role</label>
-            <select  id="orangeForm-role" class="col-sm-2 col-form-select" placeholder="role" >
-
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-            </select>
-
-          </div>
+          <br><br>
 
           <div class="text-center">
-            <button class="btn btn-deep-orange waves-light" type="submit" mdbRippleRadius>Sign up</button>
+            <button class="btn btn-deep-orange waves-light" type="submit" [disabled]="!user.valid"  mdbRippleRadius>Sign up</button>
           </div>
 
 
