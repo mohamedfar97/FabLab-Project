@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import {AuthService} from "../services/auth.service";
+import {AuthService} from "../../services/auth.service";
 import {Router, ActivatedRoute} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import * as Noty from 'noty';

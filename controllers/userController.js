@@ -28,7 +28,7 @@ module.exports.logIn = ( req,res ) => {
 
       if( result ) {
         // Should that be more generic ?
-        //res.header('Access-Control-Allow-Origin', "*"); added CORS middleware 
+        //res.header('Access-Control-Allow-Origin', "*"); added CORS middleware
         res.header('x-auth' , user.tokens[0].token );
         return res.status(200).send(user);
       } else {
@@ -41,7 +41,7 @@ module.exports.logIn = ( req,res ) => {
 
 module.exports.profile = ( req,res ) => {
   var id = req.params.id;
-
+  console.log(id);
   User.findById(id).then( (user) => {
       if ( !user ) {
           // Add a return message for the frontend to parse

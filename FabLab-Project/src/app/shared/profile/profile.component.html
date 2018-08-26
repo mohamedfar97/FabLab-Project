@@ -21,10 +21,12 @@
     </div>
 
     <!--Title-->
-    <h3 class="card-title"><strong>Mohamed el far</strong></h3>
-    <h4 class="indigo-text"><strong>CEO</strong></h4>
-    <h5 class="indigo-text" *ngIf="user.address"><strong>{{user.address.street}}, {{user.address.city}},
-      {{user.address.state}}, {{user.address.zip}}</strong></h5>
+    <h3 class="card-title"><strong>{{name}}</strong></h3>
+    <h4 class="indigo-text"><strong>{{role}}</strong></h4>
+    <h4 class="indigo-text"><strong>{{email}}</strong></h4>
+    <h4 class="indigo-text"><strong>{{phone}}</strong></h4>
+    <!-- <h5 class="indigo-text" *ngIf="user.address"><strong>{{user.address.street}}, {{user.address.city}},
+      {{user.address.state}}, {{user.address.zip}}</strong></h5> -->
 
 
     <button class="btn btn-deep-orange">Edit Profile</button>

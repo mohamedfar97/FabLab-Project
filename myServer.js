@@ -9,6 +9,7 @@ var app = express();
 
 app.use(
     cors({
+      "exposedHeaders":"x-auth",
       "origin": "*",
       "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
       "preflightContinue": false,
@@ -27,3 +28,4 @@ app.listen(3000 , () => {
 
 app.post('/register', userCtrl.registerUser);
 app.post('/logIn' ,  userCtrl.logIn);
+app.get('/profile/:id' , userCtrl.profile);
