@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import {AuthService} from "../../services/auth.service";
-import {Router, ActivatedRoute} from '@angular/router';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import * as Noty from 'noty';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from "../../services/auth.service";
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -31,29 +30,23 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit({value, valid}: { value: User, valid: boolean }) {
-
     this.register(value);
   }
 
   register(user : any) {
     var phone = '0'+user.phone;
-      this.authService.signUp(user.name, user.email, user.password, user.role, phone,user.gender)
-        .subscribe(
-          data => {
-            this.router.navigate(['/login']);
-          },
-          error => {
-
-              console.log(error);
-
-
-  });
+    this.authService.signUp(user.name, user.email, user.password, user.role, phone,user.gender)
+      .subscribe(
+        data => {
+          this.router.navigate(['/login']);
+        },
+        error => {
+            console.log(error);
+          });
+  }
 }
-}
-
 
 export interface User {
-
   name: string;
   email: string;
   password: string;
@@ -61,4 +54,4 @@ export interface User {
   role: string;
   gender: string;
   phone:any;
-};
+}

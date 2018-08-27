@@ -1,4 +1,5 @@
 var express = require('express');
+var https = require('https');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var cors = require('cors');
@@ -27,7 +28,21 @@ app.listen(3000 , () => {
 })
 
 
+app.get('/gitlab/test' , (req,res)=>{
+https.get('https://www.gitlab.com/api/v4//projects/7922086/repository/tree/?private_token=bXnG_t4YzxAaytvvLLAy&per_page=100',(resp)=>{
 
+
+
+    console.log(JSON.parse(resp));
+    res.send(resp);
+
+
+
+});
+
+
+
+});
 app.post('/register', userCtrl.registerUser);
 app.post('/logIn' ,  userCtrl.logIn);
 app.get('/profile/:id' , userCtrl.profile);

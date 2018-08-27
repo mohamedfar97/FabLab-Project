@@ -1,5 +1,6 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http , Headers } from '@angular/http';
+import { appConfig } from "../app.config";
 
 @Injectable()
 export class AuthService {
@@ -19,7 +20,7 @@ export class AuthService {
       phone:phone,
       gender:gender
     }
-    return this.http.post("http://localhost:3000/register", body, {headers:this.headers}).pipe();
+    return this.http.post(appConfig.apiUrl + "/register", body, {headers:this.headers}).pipe();
   }
 
   public getUserFromToken(token: any): any {
@@ -39,11 +40,10 @@ export class AuthService {
       email:email,
       password:password
     }
-    return this.http.post("http://localhost:3000/logIn", body, {headers:this.headers}).pipe();
+    return this.http.post(appConfig.apiUrl + "/logIn", body, {headers:this.headers}).pipe();
   }
 
   getProfile(id){
-    return this.http.get("http://localhost:3000/profile/"+id, {headers:this.headers}).pipe();
+    return this.http.get(appConfig.apiUrl + "/profile/" + id , {headers:this.headers}).pipe();
   }
-
 }

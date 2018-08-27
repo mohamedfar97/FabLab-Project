@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {HttpModule} from "@angular/http";
-import {Routes , RouterModule} from "@angular/router"
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { HttpModule } from "@angular/http";
+import { Routes , RouterModule } from "@angular/router"
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import * as Noty from 'noty';
+import { QuillModule } from "ngx-quill";
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -14,7 +14,8 @@ import { AuthService } from "./services/auth.service";
 import { GitLabService } from "./services/gitlab.service";
 import { ProfileComponent } from './shared/profile/profile.component';
 import { RepotreeComponent } from './gitlab/repotree/repotree.component';
-import {QuillModule} from "ngx-quill";
+import { RepofilesComponent } from './gitlab/repofiles/repofiles.component';
+import { RepofileComponent } from './gitlab/repofile/repofile.component';
 
 const appRoutes : Routes =[
 { path : '', component :  LoginComponent},
@@ -22,7 +23,8 @@ const appRoutes : Routes =[
 { path : 'signup', component : SignupComponent},
 { path : 'profile' , component: ProfileComponent},
 { path : 'repotree' , component : RepotreeComponent},
-{path : 'repotree' , redirectTo : 'repotree' , pathMatch: 'prefix'}
+{ path : 'repofiles' , component : RepofilesComponent},
+{path : 'repofile' , component : RepofileComponent}
 ]
 
 @NgModule({
@@ -32,9 +34,12 @@ const appRoutes : Routes =[
     LoginComponent,
     SignupComponent,
     ProfileComponent,
-    RepotreeComponent
+    RepotreeComponent,
+    RepofilesComponent,
+    RepofileComponent
   ],
   imports: [
+    QuillModule,
     BrowserModule,
     HttpClientModule,
     FormsModule,
