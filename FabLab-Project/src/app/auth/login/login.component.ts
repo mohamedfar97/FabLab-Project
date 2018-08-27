@@ -1,5 +1,6 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {AuthService} from "../services/auth.service";
+import {Component , OnInit} from '@angular/core';
+import {AuthService} from "../../services/auth.service";
+import { NgForm } from "@angular/forms";
 
 
 @Component({
@@ -9,17 +10,15 @@ import {AuthService} from "../services/auth.service";
 })
 export class LoginComponent implements OnInit {
 
-  @ViewChild('emailInput') emailInput: ElementRef;
-  @ViewChild('passwordInput') passwordInput: ElementRef;
-
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }
 
-  onLogIn() {
-    const email = this.emailInput.nativeElement.value;
-    const password = this.passwordInput.nativeElement.value;
+  onLogIn( form:NgForm ) {
+    console.log("form");
+    const email = form.value.email;
+    const password = form.value.password;
 
     this.authService.logIn(email,password)
       .subscribe( (res) => console.log(res),

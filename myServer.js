@@ -1,10 +1,12 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
+var cors = require('cors');
+
 var {mongoose} = require('./dbConnect/dbConnect');
 var userCtrl =  require('./controllers/userController');
 var {authenticate} = require('./middleware/authentication');
-var cors = require('cors');
+
 var app = express();
 
 app.use(
@@ -17,7 +19,7 @@ app.use(
 );
 app.use(bodyParser.json());
 
-app.use(logger(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
+// app.use(logger(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 
 app.listen(3000 , () => {
     console.log("Server up on port 3000");

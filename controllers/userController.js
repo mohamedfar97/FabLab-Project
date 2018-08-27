@@ -10,7 +10,6 @@ module.exports.registerUser = ( req,res ) => {
     user.save().then( (user) => {
       return user.generateAuthToken();
     }).then((token)=>{
-      var newUser =
       res.header('x-auth', token).send(user);
     }).catch( (err) => {
         return res.status(400).send(err);

@@ -28,6 +28,7 @@ export class AuthService {
       email:email,
       password:password
     }
+    console.log("done");
     return this.http.post("http://localhost:3000/logIn", body, {headers:headers}).pipe();
   }
 
