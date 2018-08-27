@@ -37,18 +37,15 @@ export class SignupComponent implements OnInit {
 
   register(user : any) {
     var phone = '0'+user.phone;
-      this.authService.signUp(user.name, user.email, user.password, user.role, phone,user.gender)
-        .subscribe(
-          data => {
-            this.router.navigate(['/login']);
-          },
-          error => {
-
-              console.log(error);
-
-
-  });
-}
+    this.authService.signUp(user.name, user.email, user.password, user.role, phone,user.gender)
+      .subscribe(
+        data => {
+          this.router.navigate(['/login']);
+        },
+        error => {
+            console.log(error);
+          });
+  }
 }
 
 

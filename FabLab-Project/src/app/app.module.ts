@@ -13,6 +13,10 @@ import * as Noty from 'noty';
 import { ProfileComponent } from './shared/profile/profile.component';
 import { RepotreeComponent } from './gitlab/repotree/repotree.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RepofilesComponent } from './gitlab/repofiles/repofiles.component';
+import { RepofileComponent } from './gitlab/repofile/repofile.component';
+import {QuillModule} from 'ngx-quill';
+
 
 const appRoutes : Routes =[
 { path : '', component :  LoginComponent},
@@ -20,19 +24,24 @@ const appRoutes : Routes =[
 { path : 'signup', component : SignupComponent},
 { path : 'profile' , component: ProfileComponent},
 { path : 'repotree' , component : RepotreeComponent},
-{path : 'repotree' , redirectTo : 'repotree' , pathMatch: 'prefix'}
+{ path : 'repofiles' , component : RepofilesComponent},
+{path : 'repofile' , component : RepofileComponent}
 ]
 
 @NgModule({
   declarations: [
+
     AppComponent,
     HeaderComponent,
     LoginComponent,
     SignupComponent,
     ProfileComponent,
-    RepotreeComponent
+    RepotreeComponent,
+    RepofilesComponent,
+    RepofileComponent
   ],
   imports: [
+    QuillModule,
     BrowserModule,
     HttpClientModule,
     FormsModule,
