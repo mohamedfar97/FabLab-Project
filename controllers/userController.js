@@ -40,7 +40,6 @@ module.exports.logIn = ( req,res ) => {
 
 module.exports.profile = ( req,res ) => {
   var id = req.params.id;
-  console.log(id);
   User.findById(id).then( (user) => {
       if ( !user ) {
           // Add a return message for the frontend to parse
@@ -51,4 +50,22 @@ module.exports.profile = ( req,res ) => {
       res.status(400).send(err);
   })
 
+};
+
+module.exports.editProfile = ( req,res ) => {
+    const newData = req.body;
+    const id = req.params.id;
+
+    if ( (! req.body.tokens) && (! req.body._id) ) {
+        User.findByIdAndUpdate( id , newData )
+            .then( (user) => {
+                return res.send(user);
+            }).catch( (err) => {
+                return res.send(err);
+        })
+    } else{
+        res.status(401).send({
+            errorMessage : "You cannot edit the id and tokens property"
+        });
+    }
 };
