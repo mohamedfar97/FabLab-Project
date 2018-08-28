@@ -2,7 +2,7 @@ var express = require('express');
 var request = require('request');
 var bodyParser = require('body-parser');
 var cors = require('cors');
-
+var https = require('https');
 var {mongoose} = require('./dbConnect/dbConnect');
 var userCtrl =  require('./controllers/userController');
 var {authenticate} = require('./middleware/authentication');
@@ -24,12 +24,31 @@ app.listen(3000 , () => {
     console.log("Server up on port 3000");
 });
 
-app.get('/gitlab/test', (req,res) => {
-    request.get("http://google.com/")
-        .on('response', (response) => {
-            console.log(response);
-            res.send(response);
-    })
+app.get('/gitlab/test', (ClientRequest,ClientResponse) => {
+
+  var options = {
+
+    host: 'gitlab.com',
+    path: '/api/v4/groups/?private_token=bXnG_t4YzxAaytvvLLAy'
+
+  };
+
+
+  https.get(options, function (res) {
+    var responseString = "";
+
+    res.on("data", function (data) {
+        responseString += data;
+        // save all the data from response
+    });
+    res.on("end", function () {
+        console.log(responseString);
+        ClientResponse.send(JSON.parse(responseString));
+        // print to console when response ends
+    });
+});
+
+
 });
 
 app.post('/register', userCtrl.registerUser);
