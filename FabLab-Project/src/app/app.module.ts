@@ -18,6 +18,11 @@ import { RepofilesComponent } from './gitlab/repofiles/repofiles.component';
 import { RepofileComponent } from './gitlab/repofile/repofile.component';
 import { SidebarComponent } from './header/sidebar/sidebar.component';
 
+
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 const appRoutes : Routes =[
 { path : '', component :  LoginComponent},
 { path : 'login', component :  LoginComponent },
@@ -40,7 +45,12 @@ const appRoutes : Routes =[
     RepofileComponent,
     SidebarComponent
   ],
+  exports: [BsDropdownModule, TooltipModule, ModalModule]
+  ,
   imports: [
+    BsDropdownModule.forRoot(),
+    TooltipModule.forRoot(),
+    ModalModule.forRoot(),
     QuillModule,
     BrowserModule,
     HttpClientModule,

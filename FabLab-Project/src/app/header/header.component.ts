@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import{SidebarComponent} from './sidebar/sidebar.component';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  status : boolean = true;
+  constructor(private sidebar : SidebarComponent) {
+
+  }
 
   ngOnInit() {
+
+  }
+  onClick(){
+    if(this.status){
+      this.sidebar.hide();
+    }else{
+        this.sidebar.show();
+    }
+
   }
 
 }
