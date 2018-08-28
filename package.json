@@ -23,5 +23,8 @@
     "npm": "^6.4.0",
     "request": "^2.88.0",
     "validator": "^10.5.0"
+  },
+  "devDependencies": {
+    "is-json": "^2.0.1"
   }
 }
