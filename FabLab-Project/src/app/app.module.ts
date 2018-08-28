@@ -16,6 +16,7 @@ import { ProfileComponent } from './shared/profile/profile.component';
 import { RepotreeComponent } from './gitlab/repotree/repotree.component';
 import { RepofilesComponent } from './gitlab/repofiles/repofiles.component';
 import { RepofileComponent } from './gitlab/repofile/repofile.component';
+import { SidebarComponent } from './header/sidebar/sidebar.component';
 
 const appRoutes : Routes =[
 { path : '', component :  LoginComponent},
@@ -36,7 +37,8 @@ const appRoutes : Routes =[
     ProfileComponent,
     RepotreeComponent,
     RepofilesComponent,
-    RepofileComponent
+    RepofileComponent,
+    SidebarComponent
   ],
   imports: [
     QuillModule,

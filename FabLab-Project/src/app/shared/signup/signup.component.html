@@ -1,27 +1,17 @@
 <div class="divider" style="padding-top:50px;"></div>
 <div class="container">
   <div class="myContainer">
-
     <div class="card card-signup">
       <div class="card-body">
-
-
         <!--Register form-->
         <form class="formGroup" novalidate (ngSubmit)="onSubmit(user)" [formGroup]="user" >
-
           <p class="h5 text-center mb-4">Sign up</p>
-
           <div class="md-form">
-
-
-                <div class="md-form md-7">
-                  <i class="material-icons prefix">face</i>
-                  <input type="text" id="orangeForm-name" class="form-control" placeholder="name" formControlName="name" mdbActive #firstNameInput>
-                </div>
-
-
+            <div class="md-form md-7">
+               <i class="material-icons prefix">face</i>
+               <input type="text" id="orangeForm-name" class="form-control" placeholder="name" formControlName="name" mdbActive #firstNameInput>
+            </div>
           </div>
-
 
           <div class="md-form">
             <i class="material-icons prefix">card_travel</i>
@@ -42,23 +32,16 @@
                 <option>Foundation Admin</option>
 
               </select>
-            </label>
-            <br>
-            <br>
-
+            </label> <br><br>
           </div>
-
-
           <div class="md-form">
             <i class="material-icons prefix">mail</i>
             <input type="text" id="orangeForm-email" class="form-control" placeholder="email" formControlName="email" mdbActive #emailInput>
-
           </div>
 
           <div class="md-form">
             <i class="material-icons prefix">lock</i>
             <input type="password" id="orangeForm-pass" class="form-control" placeholder="password" formControlName="password" mdbActive #passwordInput>
-
           </div>
 
           <div class="md-form">
