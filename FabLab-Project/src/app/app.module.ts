@@ -18,10 +18,12 @@ import { RepofilesComponent } from './gitlab/repofiles/repofiles.component';
 import { RepofileComponent } from './gitlab/repofile/repofile.component';
 import { SidebarComponent } from './header/sidebar/sidebar.component';
 
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
+
+import {MDBBootstrapModule} from 'angular-bootstrap-md';
 
 const appRoutes : Routes =[
 { path : '', component :  LoginComponent},
@@ -48,6 +50,8 @@ const appRoutes : Routes =[
   exports: [BsDropdownModule, TooltipModule, ModalModule]
   ,
   imports: [
+    NgbModule.forRoot(),
+    MDBBootstrapModule.forRoot(),
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),

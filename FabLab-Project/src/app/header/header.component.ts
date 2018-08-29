@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {AuthService} from "../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -9,12 +10,15 @@ import {AuthService} from "../services/auth.service";
 export class HeaderComponent implements OnInit {
   @Output() toggleClicked = new EventEmitter<{currentStatus : string}>();
   status : string;
+  user_id;
 
-  constructor(private authService : AuthService) {
+  constructor(private authService : AuthService,
+              private  router : Router) {
   }
 
   ngOnInit() {
-    this.status = "";
+    this.status = "active";
+    this.user_id = this.authService.getUserFromToken(sessionStorage.getItem("x-auth"))._id;
 
   }
 
@@ -32,6 +36,10 @@ export class HeaderComponent implements OnInit {
 
   isLoggedIn(){
     return sessionStorage.getItem("x-auth");
+  }
+  logOut(){
+    this.authService.logOut();
+    this.router.navigate(["/login"]);
   }
 
 }

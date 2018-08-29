@@ -14,9 +14,34 @@
       <li class="nav-item">
         <a class="nav-link" href="/signup">Sign Up </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/repotree">Gitlab </a>
+
+    </ul>
+    <ul class="nav navbar-nav navbar-right" *ngIf = "isLoggedIn()">
+      <li class="nav-item d-none d-lg-block d-md-block d-xl-block" *ngIf="isLoggedIn()">
+        <a class="nav-link waves-effect waves-light">0 <i class="fa fa-envelope"></i></a>
       </li>
+      <li>
+        <div class="btn-group">
+          <a  class="nav-link avatar dropdown-toggle waves-light pt-0" type="button" data-toggle="dropdown" aria-haspopup="true"
+                  mdbRippleRadius  aria-expanded="false">
+            <img src="/assets/Profile-avatar.png"
+                 class="img-fluid rounded-circle z-depth-0"><span
+            class="caret"></span>
+          </a>
+
+          <div class="dropdown-menu dropdown-primary pull-left">
+            <a class="dropdown-item waves-light" mdbRippleRadius
+               [routerLink]="['/profile']"
+                [queryParams] = '{id: user_id}'>Profile</a>
+            <a class="dropdown-item" href="/profile/editprofile">Edit Profile</a>
+
+            <div class="dropdown-divider"></div>
+
+            <a class="dropdown-item" (click) = "logOut()" href="/login">Log Out</a>
+          </div>
+        </div>
+      </li>
+
     </ul>
   </div>
 </nav>

@@ -11,12 +11,10 @@ export class AuthService {
   })
 
 
-  static isLoggedIn() : boolean{
-    if(localStorage.getItem('x-auth')){
-      return true;
-    }else{
-      return false;
-    }
+  logOut(){
+     localStorage.clear();
+     sessionStorage.clear();
+
   }
 
 

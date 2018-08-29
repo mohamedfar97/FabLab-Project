@@ -16,10 +16,18 @@ export class ProfileComponent implements OnInit {
   age : number;
   role : string;
 
+  user;
+
   constructor(private authService : AuthService,
               private route: ActivatedRoute ) {}
 
   ngOnInit() {
+
+    this.user = this.authService.getUserFromToken(sessionStorage.getItem("x-auth"));
+    this.name = this.user.name;
+    this.id = this.user._id;
+
+
     this.route.queryParams
       .subscribe(
         (queryParams : Params) => {

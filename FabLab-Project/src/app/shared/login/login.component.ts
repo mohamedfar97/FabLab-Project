@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
           var user = this.authService.getUserFromToken(sessionStorage.getItem('x-auth'));
           sessionStorage.setItem('name',user.name);
           this.sidebar.loadGroups();
+
           this.router.navigate(['/profile'] , {queryParams : {id:user._id}});
         },(error) => console.log(error) );
 

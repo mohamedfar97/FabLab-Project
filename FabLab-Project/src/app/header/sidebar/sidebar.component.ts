@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {GitLabService} from "../../services/gitlab.service";
+import {HeaderComponent} from "../header.component";
 
 @Component({
   selector: 'app-sidebar',
@@ -8,20 +9,22 @@ import {GitLabService} from "../../services/gitlab.service";
 })
 export class SidebarComponent implements OnInit {
 
-  status : string;
+
   rootId : number;
   groups = [];
 
-  constructor(private gitlabService : GitLabService) {
+  constructor(private gitlabService : GitLabService,
+              private  headerComponent : HeaderComponent) {
   }
 
   ngOnInit() {
   this.loadGroups();
+
+
   }
 
-  onToggle( newStatus : { currentStatus : string } ){
-    this.status = newStatus.currentStatus;
-  }
+
+
 
   loadGroups(){
 
