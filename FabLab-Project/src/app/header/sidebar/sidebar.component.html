@@ -11,38 +11,38 @@
 </head>
 
 <body>
-<app-header (toggleClicked)="onToggle($event)"></app-header>
+<!--<app-header (toggleClicked)="onToggle($event)"></app-header>-->
 
 <div class="wrapper">
   <!-- Sidebar Holder -->
   <nav id="sidebar" [ngClass]="status">
     <div class="sidebar-header">
 
-      <h4 class="text align-right">
-          <img src="/assets/Fablab_logo.png" width="35" height="35" class="d-inline-block align-middle" alt="">
-        FabLab</h4>
+      <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" >
+          <img src="/assets/Fablab_logo.png" width="35" height="35" alt="">
+        FabLab
+        <i class="material-icons align-middle">keyboard_arrow_down</i></a>
+      <ul class="collapse list-unstyled" id="pageSubmenu">
+        <br>
+        <li *ngFor = "let group of groups"  >
+          <div *ngIf="group.parent_id === this.rootId">
+            <a
+              [routerLink]="['/repotree']"
+              [queryParams] = "{full_path : group.full_path}"
+              >{{group.name}}</a>
+          </div>
+
+        </li>
+
+      </ul>
     </div>
 
     <ul class="list-unstyled components">
 
 
+
       <li>
         <a href="#">About</a>
-        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-        <ul class="collapse list-unstyled" id="pageSubmenu">
-          <li>
-            <a href="#">Page 1</a>
-          </li>
-          <li>
-            <a href="#">Page 2</a>
-          </li>
-          <li>
-            <a href="#">Page 3</a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">Portfolio</a>
       </li>
       <li>
         <a href="#">Contact</a>

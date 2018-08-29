@@ -1,4 +1,11 @@
 <link href="https://cdn.quilljs.com/1.2.2/quill.snow.css" rel="stylesheet">
 
-<img [src] = "fileContent" *ngIf = "this.isImage">
+<div class="card mx-auto" style="width: 36rem;" *ngIf = "this.isImage">
+  <div class="card-body">
+    <p class="card-text">File-Info : </p>
+  </div>
+  <img class="card-img-top" [src]="fileContent" alt="Card image cap">
+
+</div>
+
 <quill-editor [(ngModel)]="fileContent" [modules]="editorOptions" *ngIf = '!this.isImage'></quill-editor>

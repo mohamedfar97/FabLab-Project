@@ -10,6 +10,16 @@ export class AuthService {
     'Content-Type': 'application/json'
   })
 
+
+  static isLoggedIn() : boolean{
+    if(localStorage.getItem('x-auth')){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+
   signUp( name:String, email:String, password: String , role:String , phone:String, gender:String ) {
 
     let body = {
@@ -20,7 +30,7 @@ export class AuthService {
       phone:phone,
       gender:gender
     }
-    return this.http.post(appConfig.apiUrl + "/register", body, {headers:this.headers}).pipe();
+    return this.http.post(appConfig.apiUrl + "register", body, {headers:this.headers}).pipe();
   }
 
   public getUserFromToken(token: any): any {
@@ -40,10 +50,12 @@ export class AuthService {
       email:email,
       password:password
     }
-    return this.http.post(appConfig.apiUrl + "/logIn", body, {headers:this.headers}).pipe();
+    return this.http.post(appConfig.apiUrl + "logIn", body, {headers:this.headers}).pipe();
   }
 
   getProfile(id){
-    return this.http.get(appConfig.apiUrl + "/profile/" + id , {headers:this.headers}).pipe();
+    return this.http.get(appConfig.apiUrl + "profile/" + id , {headers:this.headers}).pipe();
   }
+
+
 }

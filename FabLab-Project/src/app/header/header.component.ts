@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-header',
@@ -9,11 +10,12 @@ export class HeaderComponent implements OnInit {
   @Output() toggleClicked = new EventEmitter<{currentStatus : string}>();
   status : string;
 
-  constructor() {
+  constructor(private authService : AuthService) {
   }
 
   ngOnInit() {
     this.status = "";
+
   }
 
   onHeaderToggle() {
@@ -26,6 +28,10 @@ export class HeaderComponent implements OnInit {
     this.toggleClicked.emit({
       currentStatus : this.status
     });
+  }
+
+  isLoggedIn(){
+    return sessionStorage.getItem("x-auth");
   }
 
 }

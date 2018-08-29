@@ -1,18 +1,22 @@
-<br><br>
+
 <div class="container">
   <div class = "panel panel-primary">
     <h1 class="panel-heading">Files</h1>
+    <br>
     <div class="panel-body">
       <div>
-        <ul class="list-group">
+        <ul class="list-group list-group-flush">
           <a [routerLink]="['/repofile']"
              [queryParams] = "{project_id : this.project_id , path : file.path }"
-             class="list-group-item" *ngFor = "let file of files">
+             class="list-group-item list-group-item-action" *ngFor = "let file of files">
           <div class="d-flex w-100 justify-content-between">
             <h5 class="list-group-item-heading">{{file.name}}</h5>
-              <span class="badge badge-primary badge-pill">{{file.path}}</span>
+              <span class="badge badge-warning badge-pill">
+
+                <i class="material-icons prefix">get_app</i>
+              </span>
           </div>
-            <small>{{file.id}}</small>
+
           </a>
         </ul>
       </div>

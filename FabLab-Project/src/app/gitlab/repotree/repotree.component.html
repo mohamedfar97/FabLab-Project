@@ -1,37 +1,44 @@
-<br><br>
-<div class="card-deck">
+<br>
+<div class="mx-auto">
   <div *ngFor="let group of groups" >
     <div *ngIf = "group.id == this.rootId">
-      <div class = "col-4">
-        <div class="card text-center border-info mb-3 rounded" style="width: 20rem; border-width:medium; border-style:inset;" >
-          <div class="card-body">
-            <h3 class="text-info">{{group.name}}</h3> <br>
+      <div class = "mx-auto">
+        <div class="card text-center mx-auto rounded" style="width: 50rem;" >
+          <div class="card-body mx-auto">
+            <h3 class="text-warning">{{group.name}}</h3> <br>
               <h6 class="card-subtitle mb-2 text-muted ">/{{group.full_path}}</h6>
               <h6 class="card-subtitle mb-2 text-muted ">{{group.description}}</h6><br><br>
+            <div class = "inline">
+              <div *ngFor="let project of projects">
+                <div *ngIf = "project.namespace.full_path === group.full_path">
+
+                  <a [routerLink]="['/repofiles']"
+                     [queryParams] = "{full_path : project.path_with_namespace , project_id : project.id }"
+                     class="card-link text-warning rounded">
+                    <i class="material-icons prefix align-bottom ">folder</i>
+                    {{project.name}}
+
+                  </a>
+
+                </div>
+              </div>
+
+
               <div *ngFor = 'let subgroup of groups'>
                 <div *ngIf = "subgroup.parent_id === group.id">
-                  <div class="card bg-warning text-white border border-warning mb-3 border-style:inset;" style = "witdh: 15rem;opacity:0.8;" >
+
                     <a [routerLink]="['/repotree']"
                        [queryParams] = "{full_path : subgroup.full_path}"
-                       class="card-link bg-warning text-white">
+                       class="card-link text-info rounded">
                         {{subgroup.name}}
                       <i class="material-icons prefix align-bottom ">keyboard_arrow_right</i>
                     </a>
-                  </div>
+                        <br>
                 </div>
               </div>
-            <div *ngFor="let project of projects">
-              <div *ngIf = "project.namespace.full_path === group.full_path">
-                <div class="card bg-warning text-white " style = "witdh: 16rem; border-style:inset; opacity:0.8;" >
-                  <a [routerLink]="['/repofiles']"
-                     [queryParams] = "{full_path : project.path_with_namespace , project_id : project.id }"
-                     class="card-link bg-warning text-white">
-                      {{project.name}}
-                    <i class="material-icons prefix align-bottom ">folder</i>
-                  </a>
-                </div>
-              </div>
-            </div>
+
+          </div>
+
           </div>
         </div> <br><br>
       </div>
