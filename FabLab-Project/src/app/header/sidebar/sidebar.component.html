@@ -11,8 +11,7 @@
 </head>
 
 <body>
-<button (click) = "onToggle()">Toggle</button>
-<app-header></app-header>
+<app-header (toggleClicked)="onToggle($event)"></app-header>
 
 <div class="wrapper">
   <!-- Sidebar Holder -->

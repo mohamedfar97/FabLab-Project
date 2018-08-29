@@ -7,21 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  status : string ;
+  status : string;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
 
   }
 
-  show(){
-    this.status = "";
-  }
-
-  hide(){
-    this.status = "active"
-
+  onToggle( newStatus : { currentStatus : string } ){
+    this.status = newStatus.currentStatus;
   }
 
 

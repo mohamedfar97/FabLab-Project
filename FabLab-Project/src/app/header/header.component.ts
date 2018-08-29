@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import{SidebarComponent} from './sidebar/sidebar.component';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,22 +6,26 @@ import{SidebarComponent} from './sidebar/sidebar.component';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  @Output() toggleClicked = new EventEmitter<{currentStatus : string}>();
+  status : string;
 
-  status : boolean = true;
-  constructor(private sidebar : SidebarComponent) {
-
+  constructor() {
   }
 
   ngOnInit() {
-
+    this.status = "";
   }
-  onClick(){
-    if(this.status){
-      this.sidebar.hide();
-    }else{
-        this.sidebar.show();
+
+  onHeaderToggle() {
+    if (this.status === "active") {
+      this.status = "";
+    } else {
+      this.status = "active";
     }
 
+    this.toggleClicked.emit({
+      currentStatus : this.status
+    });
   }
 
 }
