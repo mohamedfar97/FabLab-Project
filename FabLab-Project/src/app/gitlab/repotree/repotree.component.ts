@@ -27,13 +27,13 @@ export class RepotreeComponent implements OnInit {
         if (!this.full_path) {
           this.full_path = 'Fablabs'
         }
-        for (var i = 0; i < this.groups.length; i++) {
+
+        // SETTING THE ROOT ID WITH THE CURRENT FOLDER ID.
+        for (let i = 0; i < this.groups.length; i++) {
           if (this.groups[i].full_path === this.full_path) {
             this.rootId = this.groups[i].id;
           }
         }
-        console.log(this.rootId);
-        console.log(this.full_path);
     });
   }
 
@@ -42,13 +42,15 @@ export class RepotreeComponent implements OnInit {
       .subscribe((res : any) => {
         this.groups = JSON.parse(res._body);
 
-        for( var i = 0 ; i < this.groups.length ; i++ ) {
+        // WILL BE EXECUTED ONCE FOR THE "FABLABS" FOLDER
+        for( let i = 0 ; i < this.groups.length ; i++ ) {
           if( !this.groups[i].parent_id ){
             this.rootId = this.groups[i].id;
           }
         }
 
-        for( var i = 0 ; i < this.groups.length ; i++ ) {
+        // SETTING THE ROOT ID WITH THE CURRENT FOLDER ID.
+        for( let i = 0 ; i < this.groups.length ; i++ ) {
           if(this.groups[i].full_path === this.full_path ) {
             this.rootId = this.groups[i].id;
           }

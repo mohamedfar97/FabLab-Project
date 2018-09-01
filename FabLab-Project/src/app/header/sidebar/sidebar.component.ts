@@ -8,38 +8,28 @@ import {HeaderComponent} from "../header.component";
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-
-
   rootId : number;
   groups = [];
 
   constructor(private gitlabService : GitLabService,
-              private  headerComponent : HeaderComponent) {
+              private headerComponent : HeaderComponent) {
   }
 
   ngOnInit() {
-  this.loadGroups();
-
-
+    this.loadGroups();
   }
-
-
-
 
   loadGroups(){
+    this.gitlabService.getGroups()
+      .subscribe((res : any) => {
+        this.groups = JSON.parse(res._body);
+        console.log(this.groups);
 
-    this.gitlabService.getGroups().subscribe((res : any) => {
-      this.groups = JSON.parse(res._body);
-      console.log(this.groups);
-
-      for( var i = 0 ; i < this.groups.length ; i++ ) {
-        if( !this.groups[i].parent_id ){
-          this.rootId = this.groups[i].id;
+        for( var i = 0 ; i < this.groups.length ; i++ ) {
+          if( !this.groups[i].parent_id ){
+            this.rootId = this.groups[i].id;
+          }
         }
-      }
-
     });
-
   }
-
 }

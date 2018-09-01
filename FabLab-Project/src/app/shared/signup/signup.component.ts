@@ -30,17 +30,34 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit({value, valid}: { value: User, valid: boolean }) {
-    this.register(value);
+    if ( valid ) {
+      this.register(value);
+    } else {
+      // ALERT MESSAGE TO BE ADDED
+      console.log("Invalid Inputs");
+    }
   }
 
   register(user : any) {
-    var phone = '0'+user.phone;
-    this.authService.signUp(user.name, user.email, user.password, user.role, phone,user.gender)
+
+    let phone = '0' + user.phone;
+
+    let body = {
+      name:user.name,
+      email:user.email,
+      password:user.password,
+      role:user.role,
+      gender:user.gender,
+      phone
+    };
+
+    this.authService.signUp(body)
       .subscribe(
-        data => {
+        (data) => {
           this.router.navigate(['/login']);
         },
         error => {
+            // ALERT MESSAGE TO BE ADDED
             console.log(error);
           });
   }

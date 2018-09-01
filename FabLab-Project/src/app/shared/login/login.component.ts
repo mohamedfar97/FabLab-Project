@@ -1,9 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {SidebarComponent} from "../../header/sidebar/sidebar.component";
-import {AuthService} from "../../services/auth.service";
-import {GitLabService} from "../../services/gitlab.service";
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { SidebarComponent } from "../../header/sidebar/sidebar.component";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -13,12 +12,10 @@ import {GitLabService} from "../../services/gitlab.service";
 export class LoginComponent implements OnInit {
 
   user:FormGroup;
-  groups = [];
 
   constructor(private authService: AuthService,
               private router: Router,
-              private  sidebar : SidebarComponent,
-              private gitlabService : GitLabService) { }
+              private  sidebar : SidebarComponent) { }
 
   ngOnInit() {
     this.user = new FormGroup({
@@ -27,23 +24,29 @@ export class LoginComponent implements OnInit {
     });
   }
 
-
   onLogIn({value, valid}: { value: User, valid: boolean }) {
 
+    let body = {
+      email: value.email,
+      password: value.password
+    };
 
-    this.authService.logIn(value.email,value.password)
-      .subscribe( (res) => {
+    if ( valid ) {
+      this.authService.logIn(body)
+        .subscribe( (res) => {
           sessionStorage.setItem('x-auth',res.headers.get('x-auth'));
           var user = this.authService.getUserFromToken(sessionStorage.getItem('x-auth'));
           sessionStorage.setItem('name',user.name);
           this.sidebar.loadGroups();
-
           this.router.navigate(['/profile'] , {queryParams : {id:user._id}});
-        },(error) => console.log(error) );
-
-
-
-
+        },(error) => {
+          // ALERT MESSAGE TO BE ADDED
+          console.log(error);
+        } );
+    } else {
+      // ALERT MESSAGE TO BE ADDED
+      console.log("Invalid Inputs");
+    }
   }
 }
 

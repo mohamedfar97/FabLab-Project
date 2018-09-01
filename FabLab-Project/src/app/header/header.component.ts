@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
 export class HeaderComponent implements OnInit {
   @Output() toggleClicked = new EventEmitter<{currentStatus : string}>();
   status : string;
-  user_id;
+  user_id : string;
 
   constructor(private authService : AuthService,
               private  router : Router) {

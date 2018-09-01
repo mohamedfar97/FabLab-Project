@@ -5,59 +5,39 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-
-
 </head>
 
 <body>
-<!--<app-header (toggleClicked)="onToggle($event)"></app-header>-->
+  <div class="wrapper">
+    <nav id="sidebar" [ngClass]="this.headerComponent.status">
+      <div class="sidebar-header">
 
-<div class="wrapper">
-  <!-- Sidebar Holder -->
-  <nav id="sidebar" [ngClass]="this.headerComponent.status">
-    <div class="sidebar-header">
+        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" >
+            <img src="/assets/Fablab_logo.png" width="35" height="35" alt="">
+          FabLabs
+          <i class="material-icons align-middle">keyboard_arrow_down</i> </a>
 
-      <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" >
-          <img src="/assets/Fablab_logo.png" width="35" height="35" alt="">
-        FabLabs
-        <i class="material-icons align-middle">keyboard_arrow_down</i></a>
-      <ul class="collapse list-unstyled" id="pageSubmenu">
-        <br>
-        <li *ngFor = "let group of groups"  >
-          <div *ngIf="group.parent_id === this.rootId">
-            <a
-              [routerLink]="['/repotree']"
-              [queryParams] = "{full_path : group.full_path}"
-              >{{group.name}}</a>
-          </div>
+        <ul class="collapse list-unstyled" id="pageSubmenu"> <br>
+          <li *ngFor = "let group of groups"  >
+            <div *ngIf="group.parent_id === this.rootId">
+              <a [routerLink]="['/repotree']"
+                 [queryParams] = "{full_path : group.full_path}">
+                 {{group.name}} </a>
+            </div>
+          </li>
+        </ul>
+      </div>
 
-        </li>
-
+      <ul class="list-unstyled components">
+        <li> <a href="#">About</a> </li>
+        <li> <a href="#">Contact</a> </li>
       </ul>
+    </nav>
+
+    <div id="content">
+      <router-outlet></router-outlet>
     </div>
-
-    <ul class="list-unstyled components">
-
-
-
-      <li>
-        <a href="#">About</a>
-      </li>
-      <li>
-        <a href="#">Contact</a>
-      </li>
-    </ul>
-
-  </nav>
-
-  <!-- Page Content Holder -->
-  <div id="content">
-    <router-outlet></router-outlet>
   </div>
-</div>
-
-<!-- jQuery CDN - Slim version (=without AJAX) -->
 
 </body>
 

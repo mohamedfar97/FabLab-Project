@@ -23,6 +23,7 @@ app.use(bodyParser.json());
 
 app.listen(3000 , () => {
     console.log("Server up on port 3000");
+
 });
 
 //----------------------------User----------------------------
@@ -36,3 +37,4 @@ app.get('/gitlab/getGroups/:token', gitLabCtrl.getGroups);
 app.get('/gitlab/getProjects/:token', gitLabCtrl.getProjects);
 app.get('/gitlab/getProjectFiles/:token/:projectId', gitLabCtrl.getProjectFiles);
 app.get('/gitlab/getFile/:token/:projectId/:path', gitLabCtrl.getFile);
+app.post('/gitlab/uploadFile/:token/:projectId/:path?', gitLabCtrl.uploadFile);

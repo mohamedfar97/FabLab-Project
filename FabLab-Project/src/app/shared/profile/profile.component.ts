@@ -13,7 +13,6 @@ export class ProfileComponent implements OnInit {
   name : string;
   email : string;
   phone : string;
-  age : number;
   role : string;
 
   user;

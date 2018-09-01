@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http , Headers } from '@angular/http';
+import { Http , Headers } from "@angular/http";
+
 import { appConfig } from "../app.config";
 
 @Injectable()
@@ -8,27 +9,24 @@ export class AuthService {
 
    headers = new Headers ({
     'Content-Type': 'application/json'
-  })
+  });
 
-
-  logOut(){
-     localStorage.clear();
-     sessionStorage.clear();
-
+  signUp( user ) {
+    return this.http.post(appConfig.apiUrl + "register", user, {headers:this.headers}).pipe();
   }
 
+  logIn( user ) {
 
-  signUp( name:String, email:String, password: String , role:String , phone:String, gender:String ) {
+    return this.http.post(appConfig.apiUrl + "logIn", user, {headers:this.headers}).pipe();
+  }
 
-    let body = {
-      name:name,
-      email:email,
-      password:password,
-      role:role,
-      phone:phone,
-      gender:gender
-    }
-    return this.http.post(appConfig.apiUrl + "register", body, {headers:this.headers}).pipe();
+  getProfile( id ){
+    return this.http.get(appConfig.apiUrl + "profile/" + id , {headers:this.headers}).pipe();
+  }
+
+  logOut(){
+    localStorage.clear();
+    sessionStorage.clear();
   }
 
   public getUserFromToken(token: any): any {
@@ -41,19 +39,5 @@ export class AuthService {
       return null;
     }
   }
-
-  logIn( email:String , password:String ) {
-
-    let body = {
-      email:email,
-      password:password
-    }
-    return this.http.post(appConfig.apiUrl + "logIn", body, {headers:this.headers}).pipe();
-  }
-
-  getProfile(id){
-    return this.http.get(appConfig.apiUrl + "profile/" + id , {headers:this.headers}).pipe();
-  }
-
 
 }

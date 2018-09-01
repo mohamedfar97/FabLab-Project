@@ -40,12 +40,9 @@ export class RepofileComponent implements OnInit {
   ]
 };
 
-
-
   constructor(private gitLabService : GitLabService,
               private route:ActivatedRoute,
               private _sanitizer: DomSanitizer) {
-
   }
 
   ngOnInit() {
