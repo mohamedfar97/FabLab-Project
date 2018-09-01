@@ -16,12 +16,15 @@ export class AuthService {
   }
 
   logIn( user ) {
-
     return this.http.post(appConfig.apiUrl + "logIn", user, {headers:this.headers}).pipe();
   }
 
   getProfile( id ){
     return this.http.get(appConfig.apiUrl + "profile/" + id , {headers:this.headers}).pipe();
+  }
+
+  editProfile ( id , body ) {
+    return this.http.post(appConfig.apiUrl + "editProfile/" + id , body,{headers:this.headers}).pipe();
   }
 
   logOut(){

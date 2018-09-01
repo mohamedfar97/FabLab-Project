@@ -40,15 +40,13 @@ export class SignupComponent implements OnInit {
 
   register(user : any) {
 
-    let phone = '0' + user.phone;
-
     let body = {
       name:user.name,
       email:user.email,
       password:user.password,
       role:user.role,
-      gender:user.gender,
-      phone
+      phone:user.phone,
+      gender:user.gender
     };
 
     this.authService.signUp(body)
@@ -70,5 +68,5 @@ export interface User {
   confirmPassword: string;
   role: string;
   gender: string;
-  phone:any;
+  phone: string;
 }

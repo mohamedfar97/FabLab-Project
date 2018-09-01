@@ -42,4 +42,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(["/login"]);
   }
 
+  onProfile(){
+    this.router.navigate(["/profile"],{queryParams:{id:this.user_id}});
+  }
+
 }

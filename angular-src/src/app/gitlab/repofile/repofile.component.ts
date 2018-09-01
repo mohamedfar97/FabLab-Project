@@ -49,13 +49,14 @@ export class RepofileComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.spinnerService.show();
     this.route.queryParams
       .subscribe((queryParams : Params) => {
         this.project_id = queryParams['project_id'];
         this.path = queryParams['path'];
         this.isImage = this.path.includes('png') || this.path.includes('jpg');
 
-        this.spinnerService.show();
+
         this.gitLabService.getFile(this.project_id,this.path)
           .subscribe((res : any) => {
             this.spinnerService.hide();

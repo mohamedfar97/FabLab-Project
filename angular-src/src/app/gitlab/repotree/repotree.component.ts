@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GitLabService } from "../../services/gitlab.service";
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { QuillModule } from 'ngx-quill'
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 
 @Component({
@@ -18,7 +18,8 @@ export class RepotreeComponent implements OnInit {
   full_path = "";
 
   constructor(private gitLabService : GitLabService,
-              private route:ActivatedRoute  ) {
+              private route:ActivatedRoute,
+              private spinnerService: Ng4LoadingSpinnerService) {
 
     this.route.queryParams
       .subscribe((queryParams: Params) => {
@@ -38,6 +39,7 @@ export class RepotreeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.spinnerService.show()
     this.gitLabService.getGroups()
       .subscribe((res : any) => {
         this.groups = JSON.parse(res._body);
@@ -60,6 +62,7 @@ export class RepotreeComponent implements OnInit {
 
     this.gitLabService.getProjects()
       .subscribe((res : any) => {
+        this.spinnerService.hide();
         this.projects = JSON.parse(res._body);
         console.log(this.projects);
     });

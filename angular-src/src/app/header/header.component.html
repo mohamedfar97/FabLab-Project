@@ -31,10 +31,11 @@
 
           <div class="dropdown-menu dropdown-primary pull-left">
             <a class="dropdown-item waves-light" mdbRippleRadius
-               [routerLink]="['/profile']"
-               [queryParams] = '{id: user_id}'>Profile</a>
+               (click)="onProfile()">Profile</a>
 
-            <a class="dropdown-item" href="/profile/editprofile">Edit Profile</a>
+            <a class="dropdown-item"
+               [routerLink]="['/profile/editProfile']"
+               [queryParams] = '{id: user_id}'>Edit Profile</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" (click) = "logOut()" href="/login">Log Out</a>
           </div>

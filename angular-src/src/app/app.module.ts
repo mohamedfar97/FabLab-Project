@@ -27,6 +27,7 @@ import { QuillModule } from "ngx-quill";
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { NgStringPipesModule } from 'angular-pipes';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+import { EditProfileComponent } from './shared/edit-profile/edit-profile.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
     RepotreeComponent,
     RepofilesComponent,
     RepofileComponent,
-    SidebarComponent
+    SidebarComponent,
+    EditProfileComponent
   ],
   exports: [BsDropdownModule, TooltipModule, ModalModule]
   ,
