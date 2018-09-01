@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { GitLabService } from "../../services/gitlab.service";
 import { ActivatedRoute, Params } from '@angular/router';
 
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+
 @Component({
   selector: 'app-repofiles',
   templateUrl: './repofiles.component.html',
@@ -13,7 +15,8 @@ export class RepofilesComponent implements OnInit {
   files = [];
 
   constructor(private gitLabService : GitLabService,
-              private route:ActivatedRoute) {
+              private route:ActivatedRoute,
+              private spinnerService: Ng4LoadingSpinnerService) {
   }
 
   ngOnInit() {
@@ -22,8 +25,10 @@ export class RepofilesComponent implements OnInit {
         this.project_id = queryParams['project_id'];
     });
 
+    this.spinnerService.show();
     this.gitLabService.getProjectFiles(this.project_id)
       .subscribe((res : any) => {
+        this.spinnerService.hide();
         this.files = JSON.parse(res._body);
         console.log(this.files);
     });

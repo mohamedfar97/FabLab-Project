@@ -3,6 +3,8 @@ import { GitLabService } from "../../services/gitlab.service";
 import { ActivatedRoute, Params } from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
 
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+
 @Component({
   selector: 'app-repofile',
   templateUrl: './repofile.component.html',
@@ -42,7 +44,8 @@ export class RepofileComponent implements OnInit {
 
   constructor(private gitLabService : GitLabService,
               private route:ActivatedRoute,
-              private _sanitizer: DomSanitizer) {
+              private _sanitizer: DomSanitizer,
+              private spinnerService: Ng4LoadingSpinnerService) {
   }
 
   ngOnInit() {
@@ -52,8 +55,10 @@ export class RepofileComponent implements OnInit {
         this.path = queryParams['path'];
         this.isImage = this.path.includes('png') || this.path.includes('jpg');
 
+        this.spinnerService.show();
         this.gitLabService.getFile(this.project_id,this.path)
           .subscribe((res : any) => {
+            this.spinnerService.hide();
             this.file = JSON.parse(res._body);
             if( this.isImage ){
               this.fileContent = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'

@@ -26,6 +26,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { QuillModule } from "ngx-quill";
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { NgStringPipesModule } from 'angular-pipes';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { NgStringPipesModule } from 'angular-pipes';
     ReactiveFormsModule,
     QuillModule,
     NgStringPipesModule,
-    AppRoutingModule
+    AppRoutingModule,
+    Ng4LoadingSpinnerModule.forRoot()
   ],
   providers: [AuthService,GitLabService],
   bootstrap: [AppComponent]
