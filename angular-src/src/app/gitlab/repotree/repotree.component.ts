@@ -39,7 +39,8 @@ export class RepotreeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.spinnerService.show()
+    this.spinnerService.show();
+
     this.gitLabService.getGroups()
       .subscribe((res : any) => {
         this.groups = JSON.parse(res._body);
@@ -62,8 +63,8 @@ export class RepotreeComponent implements OnInit {
 
     this.gitLabService.getProjects()
       .subscribe((res : any) => {
-        this.spinnerService.hide();
         this.projects = JSON.parse(res._body);
+        this.spinnerService.hide();
         console.log(this.projects);
     });
   }

@@ -20,7 +20,7 @@ module.exports.logIn = ( req,res ) => {
 
   var email = req.body.email;
   var password = req.body.password;
-
+  console.log(password);
   User.findOne({'email' : email} , function(err , user) {
 
     bcrypt.compare(password, user.password , (err , result) => {

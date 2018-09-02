@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit {
   @Output() toggleClicked = new EventEmitter<{currentStatus : string}>();
   status : string;
   user_id : string;
+  user_name : string;
 
   constructor(private authService : AuthService,
               private  router : Router) {
@@ -19,6 +20,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.status = "active";
     this.user_id = this.authService.getUserFromToken(sessionStorage.getItem("x-auth"))._id;
+    this.user_name = this.authService.getUserFromToken(sessionStorage.getItem("x-auth")).name;
 
   }
 
