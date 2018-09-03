@@ -3,7 +3,7 @@ var https = require('https');
 var url = require('url');
 
 const gitLabHost = 'gitlab.com';
-var sendToGitLab = ( options , ClientResponse ) => {
+const sendToGitLab = ( options , ClientResponse ) => {
     https.get( options , function (res) {
         var responseString = "";
 
@@ -12,8 +12,13 @@ var sendToGitLab = ( options , ClientResponse ) => {
         });
 
         res.on("end", function () {
-            ClientResponse.send(JSON.parse(responseString));
+            ClientResponse.status(200).send(JSON.parse(responseString));
         });
+    }).on("error", (err) => {
+        ClientResponse.send(401).send({
+            errMsg:"Something Went Wrong While Connecting To Gitlab's API.",
+            data:err
+        })
     });
 };
 
