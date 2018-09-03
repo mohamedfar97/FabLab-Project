@@ -28,6 +28,8 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { NgStringPipesModule } from 'angular-pipes';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { EditProfileComponent } from './shared/edit-profile/edit-profile.component';
+import { FirstNamePipe } from './services/pipes/first-name.pipe';
+import { CapitalizeRolePipe } from './services/pipes/capitalize-role.pipe';
 
 
 @NgModule({
@@ -41,7 +43,9 @@ import { EditProfileComponent } from './shared/edit-profile/edit-profile.compone
     RepofilesComponent,
     RepofileComponent,
     SidebarComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    FirstNamePipe,
+    CapitalizeRolePipe
   ],
   exports: [BsDropdownModule, TooltipModule, ModalModule]
   ,

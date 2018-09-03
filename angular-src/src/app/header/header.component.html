@@ -19,7 +19,7 @@
     <ul class="nav navbar-nav navbar-right" *ngIf = "isLoggedIn()">
 
       <li class="nav-item d-none d-lg-block d-md-block d-xl-block" *ngIf="isLoggedIn()">
-        <h5 class="nav-link waves-effect waves-light">Hi {{user_name}} ! </h5>
+        <h5 class="nav-link waves-effect waves-light">Hi {{user_name | firstName }} ! </h5>
       </li>
 
 
