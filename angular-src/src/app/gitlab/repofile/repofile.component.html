@@ -1,10 +1,12 @@
 <link href="https://cdn.quilljs.com/1.2.2/quill.snow.css" rel="stylesheet">
 
 <div class="card mx-auto" style="width: 36rem;" *ngIf = "this.isImage">
-  <div class="card-body">
-    <p class="card-text">File-Info : </p>
-  </div>
   <img class="card-img-top" [src]="fileContent">
+  <div class="card-body">
+    <p class="card-text">File-name : {{fileName}}</p>
+    <p class="card-text"> File-Size : {{fileSize | filesize}}</p>
+  </div>
+
 
 </div>
 

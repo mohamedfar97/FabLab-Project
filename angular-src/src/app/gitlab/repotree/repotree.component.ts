@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { GitLabService } from "../../services/gitlab.service";
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class RepotreeComponent implements OnInit {
 
   constructor(private gitLabService : GitLabService,
               private route:ActivatedRoute,
-              private spinnerService: Ng4LoadingSpinnerService) {
+              private spinnerService: NgxSpinnerService) {
 
     this.route.queryParams
       .subscribe((queryParams: Params) => {

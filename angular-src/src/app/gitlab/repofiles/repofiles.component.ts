@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GitLabService } from "../../services/gitlab.service";
 import { ActivatedRoute, Params } from '@angular/router';
-
-import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { MatFileUploadModule } from 'angular-material-fileupload';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-repofiles',
@@ -16,7 +16,7 @@ export class RepofilesComponent implements OnInit {
 
   constructor(private gitLabService : GitLabService,
               private route:ActivatedRoute,
-              private spinnerService: Ng4LoadingSpinnerService) {
+              private spinnerService: NgxSpinnerService) {
   }
 
   ngOnInit() {

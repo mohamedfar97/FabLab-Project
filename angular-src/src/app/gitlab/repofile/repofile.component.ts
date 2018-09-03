@@ -3,7 +3,7 @@ import { GitLabService } from "../../services/gitlab.service";
 import { ActivatedRoute, Params } from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
 
-import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-repofile',
@@ -14,6 +14,8 @@ export class RepofileComponent implements OnInit {
   isImage : boolean = false;
   file;
   fileContent : any ="" ;
+  fileName = "";
+  fileSize = 0;
   project_id : string;
   path: string;
 
@@ -45,10 +47,11 @@ export class RepofileComponent implements OnInit {
   constructor(private gitLabService : GitLabService,
               private route:ActivatedRoute,
               private _sanitizer: DomSanitizer,
-              private spinnerService: Ng4LoadingSpinnerService) {
+              private spinnerService: NgxSpinnerService) {
   }
 
   ngOnInit() {
+
     this.spinnerService.show();
     this.route.queryParams
       .subscribe((queryParams : Params) => {
@@ -59,14 +62,18 @@ export class RepofileComponent implements OnInit {
 
         this.gitLabService.getFile(this.project_id,this.path)
           .subscribe((res : any) => {
-            this.spinnerService.hide();
+
             this.file = JSON.parse(res._body);
+            this.fileName = this.file.file_name;
+            this.fileSize = this.file.size;
+
             if( this.isImage ){
               this.fileContent = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
                          + this.file.content);
             }else {
               this.fileContent = atob(this.file.content);
             }
+            this.spinnerService.hide();
         });
       });
   }

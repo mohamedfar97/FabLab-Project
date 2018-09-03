@@ -30,6 +30,9 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { EditProfileComponent } from './shared/edit-profile/edit-profile.component';
 import { FirstNamePipe } from './services/pipes/first-name.pipe';
 import { CapitalizeRolePipe } from './services/pipes/capitalize-role.pipe';
+import {NgxSpinnerModule} from 'ngx-spinner';
+import { SizePipePipe } from './services/pipes/size-pipe.pipe';
+import { MatFileUploadModule } from 'angular-material-fileupload';
 
 
 @NgModule({
@@ -45,11 +48,14 @@ import { CapitalizeRolePipe } from './services/pipes/capitalize-role.pipe';
     SidebarComponent,
     EditProfileComponent,
     FirstNamePipe,
-    CapitalizeRolePipe
+    CapitalizeRolePipe,
+    SizePipePipe
   ],
   exports: [BsDropdownModule, TooltipModule, ModalModule]
   ,
   imports: [
+    MatFileUploadModule,
+    NgxSpinnerModule,
     NgbModule.forRoot(),
     MDBBootstrapModule.forRoot(),
     BsDropdownModule.forRoot(),
@@ -64,8 +70,7 @@ import { CapitalizeRolePipe } from './services/pipes/capitalize-role.pipe';
     ReactiveFormsModule,
     QuillModule,
     NgStringPipesModule,
-    AppRoutingModule,
-    Ng4LoadingSpinnerModule.forRoot()
+    AppRoutingModule
   ],
   providers: [AuthService,GitLabService],
   bootstrap: [AppComponent]
