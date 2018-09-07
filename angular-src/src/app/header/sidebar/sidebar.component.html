@@ -9,9 +9,8 @@
 
 <body>
   <div class="wrapper">
-    <nav id="sidebar" [ngClass]="this.headerComponent.status">
+    <nav id="sidebar" [ngClass]="sideStatus">
       <div class="sidebar-header">
-
         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" >
             <img src="/assets/Fablab_logo.png" width="35" height="35" alt="">
           FabLabs
@@ -35,12 +34,7 @@
     </nav>
 
     <div id="content">
-      <router-outlet>
-
-
-
-      </router-outlet>
-
+      <router-outlet></router-outlet>
     </div>
   </div>
 

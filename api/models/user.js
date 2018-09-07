@@ -92,7 +92,8 @@ UserSchema.methods.generateAuthToken = function(){
   var i = 0;
   while ( i < user.tokens.length ) {
     if ( user.tokens[i].access === "auth" ) {
-        user.tokens.push(i,{access , token});
+        user.tokens.splice(i,1);
+        user.tokens.push({access , token});
         break;
      }
      i++;
@@ -101,7 +102,6 @@ UserSchema.methods.generateAuthToken = function(){
   if ( i === user.tokens.length ) {
       user.tokens.push({access , token});
   }
-
 
   return user.save().then(() => {
     return token;

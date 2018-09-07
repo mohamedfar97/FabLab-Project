@@ -37,4 +37,5 @@ app.get('/gitlab/getGroups/:token', gitLabCtrl.getGroups);
 app.get('/gitlab/getProjects/:token', gitLabCtrl.getProjects);
 app.get('/gitlab/getProjectFiles/:token/:projectId', gitLabCtrl.getProjectFiles);
 app.get('/gitlab/getFile/:token/:projectId/:path', gitLabCtrl.getFile);
-app.post('/gitlab/uploadFile/:token/:projectId/:path?', gitLabCtrl.uploadFile);
+app.get('/gitlab/downloadProject/:token/:projectId/:projectName',gitLabCtrl.downProject);
+app.post('/gitlab/uploadFile/:token/:projectId/:path/:commitMessage', gitLabCtrl.uploadFile);
