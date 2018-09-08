@@ -33,6 +33,7 @@ import { CapitalizeRolePipe } from './services/pipes/capitalize-role.pipe';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import { SizePipePipe } from './services/pipes/size-pipe.pipe';
 import { FileDropModule } from 'ngx-file-drop';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -52,13 +53,12 @@ import { FileDropModule } from 'ngx-file-drop';
     CapitalizeRolePipe,
     SizePipePipe
   ],
-  exports: [BsDropdownModule, TooltipModule, ModalModule]
+  exports: [BsDropdownModule, TooltipModule]
   ,
   imports: [
-
     FileDropModule,
     NgxSpinnerModule,
-    NgbModule.forRoot(),
+    NgbModule,
     MDBBootstrapModule.forRoot(),
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
@@ -74,7 +74,7 @@ import { FileDropModule } from 'ngx-file-drop';
     NgStringPipesModule,
     AppRoutingModule
   ],
-  providers: [AuthService,GitLabService],
+  providers: [AuthService , GitLabService , NgbModal],
   bootstrap: [AppComponent]
 })
 export class AppModule {  }

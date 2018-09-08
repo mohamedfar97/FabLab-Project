@@ -1,0 +1,11 @@
+body {
+  margin: 10px;
+}
+
+h3 {
+  margin: 0;
+}
+
+.modal-dialog{
+  width: 350px;
+}

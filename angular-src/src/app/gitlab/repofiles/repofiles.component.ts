@@ -5,9 +5,7 @@ import { FileSystemDirectoryEntry, FileSystemFileEntry, UploadEvent, UploadFile 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Http } from '@angular/http';
 import { DomSanitizer } from '@angular/platform-browser';
-import {stringifyElement} from "@angular/platform-browser/testing/src/browser_util";
-//import {jsonParser} from 'big-json-streamer';
-
+import {ModalDismissReasons, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -42,8 +40,17 @@ export class RepofilesComponent implements OnInit {
               private route: ActivatedRoute,
               private spinnerService: NgxSpinnerService,
               private http: Http,
-              private _sanitizer: DomSanitizer) {
+              private _sanitizer: DomSanitizer,
+              private modalService: NgbModal) {
   }
+
+
+  closeResult: string;
+  modalReference: NgbModalRef;
+  commitMessage = 'Message';
+
+
+
 
   ngOnInit() {
     this.route.queryParams
@@ -58,6 +65,31 @@ export class RepofilesComponent implements OnInit {
         this.files = JSON.parse(res._body);
         console.log(this.files);
     });
+  }
+
+
+  open(content) {
+    this.modalReference = this.modalService.open(content);
+    this.modalReference.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+
+  }
+
+  Close() {
+    this.modalReference.dismiss();
   }
 
   public dropped(event: UploadEvent) {
@@ -84,16 +116,6 @@ export class RepofilesComponent implements OnInit {
 
         fileEntry.file((file: File) => {
 
-          var action = {
-            action : 'create',
-            file_path : droppedFile.relativePath,
-            encoding : 'base64',
-            content : ''
-          };
-
-          // Here you can access the real file
-
-
           const fileReader = new FileReader();
           fileReader.readAsDataURL(file);
            fileReader.onload = (e) => {
@@ -104,7 +126,7 @@ export class RepofilesComponent implements OnInit {
              let ReqBody =  {
 
                branch : 'master',
-               commit_message: 'test commit message',
+               commit_message: this.commitMessage,
                actions : [
                   {
                    action : 'create',
@@ -140,11 +162,6 @@ export class RepofilesComponent implements OnInit {
       }
 
     }
-
-
-
-
-
 
 
   }

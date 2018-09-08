@@ -1,29 +1,89 @@
 
 
 
-<div class="center">
-  <file-drop accept="file_extension"headertext="Drop files here" (onFileDrop)="dropped($event)"
-             >
-    <span>optional content (don't set headertext then)</span>
-  </file-drop>
-  <div class="upload-table">
-    <table class="table">
-      <thead>
-      <tr>
-        <th>Name</th>
-      </tr>
-      </thead>
-      <tbody class="upload-name-style">
-      <tr *ngFor="let item of uploadedFiles; let i=index">
-        <td><strong>{{ item.relativePath }}</strong></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+<a class="btn btn-sm btn-outline-dark" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+  <i class="material-icons prefix">cloud_upload</i>
+</a>
+
+<div class="collapse" id="collapseExample">
+
+
+    <div class="card">
+      <h5 class="card-header">
+
+        Push</h5>
+      <div class="card-body">
+        <form class="form-inline">
+          <div  class="form-group ">
+
+            <label for="message">
+              <i class="material-icons prefix">add_comment</i>
+              Commit Message:</label>
+
+            <input name = "Message" type="text" [(ngModel)]="commitMessage" class="form-control offset-xl-8" id="message">
+            
+          </div>
+        </form>
+        <br>
+        <p class="card-text">If uploaded a file that already exists data will be overwritten.</p>
+        <button class="btn btn-lg btn-outline-warning" (click)="open(content)">Upload...</button>
+      </div>
+    </div>
+
+
 </div>
- <div class="container">
+
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Upload Files...</h4>
+    <button type="button" class="close" aria-label="Close" (click)="Close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+
+        <div class="center">
+          <file-drop accept="file_extension" (onFileDrop)="dropped($event)"
+          >
+            <span>Upload Files Here...</span>
+          </file-drop>
+          <div class="upload-table">
+            <table class="table">
+              <thead *ngIf="uploadedFiles.length>0">
+              <tr>
+                <th>Name</th>
+              </tr>
+              </thead>
+              <tbody class="upload-name-style">
+              <tr *ngFor="let item of uploadedFiles; let i=index">
+                <td><strong>{{ item.relativePath }}</strong></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+
+
+
+
+
+<hr>
+<div class="container">
+
   <div class = "panel panel-primary">
-    <h1 class="panel-heading">Files</h1> <br>
+    <h1 class="panel-heading">Files</h1>
+
+    <br>
     <div class="panel-body">
       <div>
         <ul class="list-group list-group-flush">
@@ -32,7 +92,7 @@
              class="list-group-item list-group-item-action" *ngFor = "let file of files">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="list-group-item-heading">{{file.name}}</h5>
-                <span class="badge badge-warning badge-pill">
+              <span class="badge badge-warning badge-pill">
                   <i class="material-icons prefix">get_app</i>
                 </span>
             </div>
@@ -42,3 +102,4 @@
     </div>
   </div>
 </div>
+
