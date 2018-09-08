@@ -57,7 +57,8 @@ export class RepofileComponent implements OnInit {
       .subscribe((queryParams : Params) => {
         this.project_id = queryParams['project_id'];
         this.path = queryParams['path'];
-        this.isImage = this.path.includes('png') || this.path.includes('jpg');
+        this.isImage = this.path.includes('png') || this.path.includes('jpg') || this.path.includes('pdf');
+
 
 
         this.gitLabService.getFile(this.project_id,this.path)
@@ -67,11 +68,20 @@ export class RepofileComponent implements OnInit {
             this.fileName = this.file.file_name;
             this.fileSize = this.file.size;
 
-            if( this.isImage ){
-              this.fileContent = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
+            if( this.path.includes('png') ){
+              this.fileContent = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,'
                          + this.file.content);
+            }else if(this.path.includes('jpg')){
+              this.fileContent = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
+                + this.file.content);
+
+            }else if(this.path.includes('pdf')){
+              this.fileContent = this._sanitizer.bypassSecurityTrustResourceUrl('data:application/pdf;base64,'
+                + this.file.content);
+
             }else {
-              this.fileContent = atob(this.file.content);
+                this.fileContent = atob(this.file.content);
+            };
             }
             this.spinnerService.hide();
         });

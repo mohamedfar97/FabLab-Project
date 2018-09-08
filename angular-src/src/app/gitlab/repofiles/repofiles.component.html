@@ -1,17 +1,27 @@
 
 
-<label for="singleFile">Upload file</label>
-<input id="singleFile" type="file" [fileUploadInputFor]= "fileUploadQueue"/>
-<br>
 
-<mat-file-upload-queue #fileUploadQueue
-                       [fileAlias]="'file'"
-                       [httpUrl]="'http://localhost:8180/jax-rs-jersey-application-sample'">
-
-  <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"></mat-file-upload>
-</mat-file-upload-queue>
-
-<div class="container">
+<div class="center">
+  <file-drop accept="file_extension"headertext="Drop files here" (onFileDrop)="dropped($event)"
+             >
+    <span>optional content (don't set headertext then)</span>
+  </file-drop>
+  <div class="upload-table">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Name</th>
+      </tr>
+      </thead>
+      <tbody class="upload-name-style">
+      <tr *ngFor="let item of uploadedFiles; let i=index">
+        <td><strong>{{ item.relativePath }}</strong></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+ <div class="container">
   <div class = "panel panel-primary">
     <h1 class="panel-heading">Files</h1> <br>
     <div class="panel-body">

@@ -32,7 +32,8 @@ import { FirstNamePipe } from './services/pipes/first-name.pipe';
 import { CapitalizeRolePipe } from './services/pipes/capitalize-role.pipe';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import { SizePipePipe } from './services/pipes/size-pipe.pipe';
-import { MatFileUploadModule } from 'angular-material-fileupload';
+import { FileDropModule } from 'ngx-file-drop';
+
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
   exports: [BsDropdownModule, TooltipModule, ModalModule]
   ,
   imports: [
-    MatFileUploadModule,
+
+    FileDropModule,
     NgxSpinnerModule,
     NgbModule.forRoot(),
     MDBBootstrapModule.forRoot(),

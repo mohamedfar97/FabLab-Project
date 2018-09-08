@@ -32,4 +32,12 @@ export class GitLabService {
       .pipe();
   }
 
+  uploadFile(projectId : string , body ){
+    return this.http
+      .post(appConfig.apiUrl+ "gitLab/uploadFile/" + appConfig.private_token + "/" + projectId ,body)
+      .pipe();
+
+
+  }
+
 }

@@ -3,6 +3,8 @@ var https = require('https');
 var url = require('url');
 
 const gitLabHost = 'gitlab.com';
+
+
 const sendToGitLab = ( options , ClientResponse ) => {
     https.get( options , function (res) {
         var responseString = "";
@@ -12,10 +14,10 @@ const sendToGitLab = ( options , ClientResponse ) => {
         });
 
         res.on("end", function () {
-            ClientResponse.status(200).send(JSON.parse(responseString));
+            ClientResponse.status(200).send(responseString);
         });
     }).on("error", (err) => {
-        ClientResponse.send(401).send({
+        ClientResponse.status(401).send({
             errMsg:"Something Went Wrong While Connecting To Gitlab's API.",
             data:err
         })
@@ -67,14 +69,47 @@ module.exports.getFile = ( req,res ) => {
 };
 
 module.exports.uploadFile = ( req,res ) => {
+
     var queryData = url.parse(req.url, true).query;
 
-    projectId = req.params.projectId;
-    token = req.params.token;
-    path = queryData.path;
+    projectId = req.params.projectId.trim();
+    token = req.params.token.trim();
+
+
 
     var options = {
-        host: gitLabHost ,
-        path: '/api/v4/projects/' + projectId + "/uploads?private_token" + token
-    };
+
+        host:  gitLabHost ,
+        path: "/api/v4/projects/"+projectId+"/repository/commits?private_token="+token,
+        method : 'POST',
+        headers: {
+            "Content-Type": "application/json"
+
+        }
+
+    }
+
+
+
+    var request = https.request(options, (response) => {
+        var responseBody;
+        response.on('data', (chunk) => {
+
+            responseBody += chunk ;
+        });
+
+        response.on('end', () => {
+            console.log(responseBody)
+          res.status(201).send(responseBody);
+        });
+    });
+
+    request.on('error', (e) => {
+        console.log(e.message);
+    });
+
+    var body = JSON.stringify(req.body)
+
+    request.write(body)
+    request.end();
 };
