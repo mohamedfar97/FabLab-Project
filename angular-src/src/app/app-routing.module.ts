@@ -8,6 +8,7 @@ import { RepofilesComponent } from "./gitlab/repofiles/repofiles.component";
 import { LoginComponent } from "./shared/login/login.component";
 import { ProfileComponent } from "./shared/profile/profile.component";
 import { EditProfileComponent } from "./shared/edit-profile/edit-profile.component";
+import { CommitsComponent } from "./gitlab/commits/commits.component";
 
 const appRoutes : Routes = [
   { path : '', component :  LoginComponent},
@@ -17,7 +18,8 @@ const appRoutes : Routes = [
   { path : 'profile/editProfile' , component: EditProfileComponent },
   { path : 'repotree' , component : RepotreeComponent},
   { path : 'repofiles' , component : RepofilesComponent},
-  { path : 'repofile' , component : RepofileComponent}
+  { path : 'repofile' , component : RepofileComponent},
+  { path : 'commits' , component : CommitsComponent}
 ];
 
 @NgModule({

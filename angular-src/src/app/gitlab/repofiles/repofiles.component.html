@@ -1,14 +1,20 @@
 <div class="container">
   <button class="btn btn-lg btn-primary badge badge-pill float-right"
-            (click)="saveToFileSystem()">
+          (click)="saveToFileSystem()">
     <i class="material-icons prefix">cloud_download</i>
-
   </button>
 
-<button class="btn btn-lg btn-warning badge badge-pill float-right" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-  <i class="material-icons prefix">cloud_upload</i>
-</button>
+  <button class="btn btn-lg btn-warning badge badge-pill float-right" data-toggle="collapse"
+          href="#collapseExample" role="button" aria-expanded="false"
+          aria-controls="collapseExample">
+    <i class="material-icons prefix">cloud_upload</i>
+  </button>
 
+  <button class="btn btn-lg btn-primary badge badge-pill float-right"
+          [routerLink]="['/commits']"
+          [queryParams] = "{project_id : this.project_id }">
+    Commits
+  </button>
 
 </div>
 

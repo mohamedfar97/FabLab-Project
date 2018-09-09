@@ -150,3 +150,16 @@ module.exports.downProject = ( req,res ) => {
         });
     })
 };
+
+module.exports.getProjectCommits = ( req,res ) => {
+
+    var projectId = req.params.projectId;
+    var token = req.params.token;
+
+    var options = {
+        host: gitLabHost ,
+        path: '/api/v4/projects/' + projectId + '/repository/commits?private_token=' + token
+    };
+
+    getFromGitLab( options , res );
+};

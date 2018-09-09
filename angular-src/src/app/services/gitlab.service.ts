@@ -44,4 +44,10 @@ export class GitLabService {
         + "/" + projectName)
       .pipe();
   }
+
+  getProjectCommits(projectId : string ){
+    return this.http
+      .get(appConfig.apiUrl + "gitlab/getProjectCommits/" + appConfig.private_token + "/" + projectId)
+      .pipe();
+  }
 }

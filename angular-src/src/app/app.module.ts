@@ -33,6 +33,7 @@ import { NgxSpinnerModule} from 'ngx-spinner';
 import { SizePipePipe } from './services/pipes/size-pipe.pipe';
 import { FileDropModule } from 'ngx-file-drop';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { CommitsComponent } from './gitlab/commits/commits.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
     EditProfileComponent,
     FirstNamePipe,
     CapitalizeRolePipe,
-    SizePipePipe
+    SizePipePipe,
+    CommitsComponent
   ],
   exports: [BsDropdownModule, TooltipModule]
   ,
