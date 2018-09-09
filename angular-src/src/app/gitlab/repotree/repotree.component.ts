@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { GitLabService } from "../../services/gitlab.service";
 import { ActivatedRoute, Params } from '@angular/router';
 
-
 import { NgxSpinnerService } from 'ngx-spinner';
 
 

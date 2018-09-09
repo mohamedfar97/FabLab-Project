@@ -49,6 +49,9 @@ export class EditProfileComponent implements OnInit {
     this.authService.editProfile( id , body )
       .subscribe(
         (data) => {
+          console.log(data);
+          // sessionStorage.removeItem("x-auth");
+          // sessionStorage.setItem("x-auth")
           this.router.navigate(['/profile'],{queryParams:{id}});
         },
         error => {

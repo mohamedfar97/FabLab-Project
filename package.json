@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "archiver": "^3.0.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
@@ -24,6 +25,7 @@
     "noty": "^3.2.0-beta",
     "npm": "^6.4.0",
     "request": "^2.88.0",
+    "tar.gz": "^1.0.7",
     "validator": "^10.5.0"
   },
   "devDependencies": {

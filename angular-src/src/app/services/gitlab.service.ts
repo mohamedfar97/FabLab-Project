@@ -10,34 +10,38 @@ export class GitLabService {
 
   getGroups(){
     return this.http
-      .get(appConfig.apiUrl + "gitLab/getGroups/" + appConfig.private_token)
+      .get(appConfig.apiUrl + "gitlab/getGroups/" + appConfig.private_token)
       .pipe();
   }
 
   getProjects(){
     return this.http
-      .get(appConfig.apiUrl + "gitLab/getProjects/" + appConfig.private_token)
+      .get(appConfig.apiUrl + "gitlab/getProjects/" + appConfig.private_token)
       .pipe();
   }
 
   getProjectFiles( projectId : string ){
     return this.http
-      .get(appConfig.apiUrl + "gitLab/getProjectFiles/" + appConfig.private_token + "/" + projectId )
+      .get(appConfig.apiUrl + "gitlab/getProjectFiles/" + appConfig.private_token + "/" + projectId )
       .pipe();
   }
 
   getFile( projectId : string , path : string ){
     return this.http
-      .get(appConfig.apiUrl + "gitLab/getFile/" + appConfig.private_token + "/" + projectId + "/" + path)
+      .get(appConfig.apiUrl + "gitlab/getFile/" + appConfig.private_token + "/" + projectId + "/" + path)
       .pipe();
   }
 
   uploadFile(projectId : string , body ){
     return this.http
-      .post(appConfig.apiUrl+ "gitLab/uploadFile/" + appConfig.private_token + "/" + projectId ,body)
+      .post(appConfig.apiUrl + "gitLab/uploadFile/" + appConfig.private_token + "/" + projectId ,body)
       .pipe();
-
-
   }
 
+  downloadProject( projectId : string , projectName : string ){
+    return this.http
+      .get(appConfig.apiUrl + "gitlab/downloadProject/" + appConfig.private_token + "/" + projectId
+        + "/" + projectName)
+      .pipe();
+  }
 }

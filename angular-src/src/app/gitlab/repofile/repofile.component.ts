@@ -81,7 +81,6 @@ export class RepofileComponent implements OnInit {
 
             }else {
                 this.fileContent = atob(this.file.content);
-            };
             }
             this.spinnerService.hide();
         });

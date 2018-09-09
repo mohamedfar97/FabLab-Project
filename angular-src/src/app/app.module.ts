@@ -26,15 +26,13 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { QuillModule } from "ngx-quill";
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { NgStringPipesModule } from 'angular-pipes';
-import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { EditProfileComponent } from './shared/edit-profile/edit-profile.component';
 import { FirstNamePipe } from './services/pipes/first-name.pipe';
 import { CapitalizeRolePipe } from './services/pipes/capitalize-role.pipe';
-import {NgxSpinnerModule} from 'ngx-spinner';
+import { NgxSpinnerModule} from 'ngx-spinner';
 import { SizePipePipe } from './services/pipes/size-pipe.pipe';
 import { FileDropModule } from 'ngx-file-drop';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-
 
 
 @NgModule({

@@ -39,12 +39,21 @@ module.exports.logIn = ( req,res ) => {
           })
       }
       if( result ) {
-        // Should that be more generic ? (Not by position)
-        res.header('x-auth' , user.tokens[0].token );
-        return res.status(200).send(user);
+          var i = 0;
+          while ( i < user.tokens.length ) {
+              if ( user.tokens[i].access === "auth" ) {
+                  break;
+              }
+              i++;
+          }
+        res.header('x-auth' , user.tokens[i].token );
+        return res.status(200).send({
+            msg:"User Logged In",
+            data:user
+        });
       } else {
         return res.status(400).send({
-            errMsg:"Something Wrong Happened. :("
+            errMsg:"Cannot Login User. :("
         });
       }
     });
@@ -90,8 +99,11 @@ module.exports.editProfile = ( req,res ) => {
         User.findByIdAndUpdate( id , newData , { new:true } )
             .then( (user) => {
                 user.generateAuthToken()
-                    .then((token)=>{
-                        res.header('x-auth', token).send(user);
+                    .then( (token) => {
+                        return res.header('x-auth', token).status(200).send({
+                            msg:"Profile Updated.",
+                            data:user
+                        });
                     })
                     .catch( (err) => {
                         return res.status(400).send({
@@ -99,15 +111,12 @@ module.exports.editProfile = ( req,res ) => {
                             data:err
                         });
                     });
-                return res.status(200).send({
-                    msg:"Profile Updated.",
-                    data:user
-                });
             }).catch( (err) => {
+                console.log("err2");
                 return res.send(err);
         })
     } else{
-        res.status(400).send({
+        return res.status(400).send({
             errMsg : "You Cannot Edit This Properties."
         });
     }

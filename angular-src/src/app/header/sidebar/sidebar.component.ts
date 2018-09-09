@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {GitLabService} from "../../services/gitlab.service";
-import {HeaderComponent} from "../header.component";
+import { Component, Input, OnInit } from '@angular/core';
+import { GitLabService } from "../../services/gitlab.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -8,11 +7,11 @@ import {HeaderComponent} from "../header.component";
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
+  @Input() sideStatus:string = "";
   rootId : number;
   groups = [];
 
-  constructor(private gitlabService : GitLabService,
-              private headerComponent : HeaderComponent) {
+  constructor(private gitlabService : GitLabService) {
   }
 
   ngOnInit() {

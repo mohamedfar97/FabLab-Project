@@ -1,11 +1,13 @@
-var _ = require("lodash");
-var https = require('https');
-var url = require('url');
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
+const request = require('request');
 
 const gitLabHost = 'gitlab.com';
 
 
-const sendToGitLab = ( options , ClientResponse ) => {
+
+const getFromGitLab = ( options , ClientResponse ) => {
     https.get( options , function (res) {
         var responseString = "";
 
@@ -14,8 +16,17 @@ const sendToGitLab = ( options , ClientResponse ) => {
         });
 
         res.on("end", function () {
-            ClientResponse.status(200).send(responseString);
+          ClientResponse.status(200)
+              .send(responseString);
         });
+
+        res.on("error", (err) => {
+            ClientResponse.status(401).send({
+                errMsg:"Something Went Wrong While Fetch Data.",
+                data:err
+            })
+        });
+
     }).on("error", (err) => {
         ClientResponse.status(401).send({
             errMsg:"Something Went Wrong While Connecting To Gitlab's API.",
@@ -31,7 +42,7 @@ module.exports.getGroups = ( req,res ) => {
         host: gitLabHost,
         path: '/api/v4/groups/?private_token=' + token
     };
-    sendToGitLab( options , res );
+    getFromGitLab( options , res );
 };
 
 module.exports.getProjects = ( req,res ) => {
@@ -42,7 +53,7 @@ module.exports.getProjects = ( req,res ) => {
         path: '/api/v4/projects/?membership=true&private_token=' + token
     };
 
-    sendToGitLab( options , res );
+    getFromGitLab( options , res );
 };
 
 module.exports.getProjectFiles = ( req,res ) => {
@@ -53,7 +64,7 @@ module.exports.getProjectFiles = ( req,res ) => {
         host: gitLabHost ,
         path: '/api/v4/projects/' + projectId + '/repository/tree/?per_page=100&private_token=' + token
     };
-    sendToGitLab( options , res );
+    getFromGitLab( options , res );
 };
 
 module.exports.getFile = ( req,res ) => {
@@ -65,17 +76,13 @@ module.exports.getFile = ( req,res ) => {
         host: gitLabHost ,
         path: '/api/v4/projects/' + projectId + '/repository/files/' + path + '/?ref=master&private_token=' + token
     };
-    sendToGitLab( options , res );
+    getFromGitLab( options , res );
 };
 
 module.exports.uploadFile = ( req,res ) => {
 
-    var queryData = url.parse(req.url, true).query;
-
     projectId = req.params.projectId.trim();
     token = req.params.token.trim();
-
-
 
     var options = {
 
@@ -84,12 +91,8 @@ module.exports.uploadFile = ( req,res ) => {
         method : 'POST',
         headers: {
             "Content-Type": "application/json"
-
         }
-
-    }
-
-
+    };
 
     var request = https.request(options, (response) => {
         var responseBody;
@@ -112,4 +115,38 @@ module.exports.uploadFile = ( req,res ) => {
 
     request.write(body)
     request.end();
+
+};
+
+module.exports.downProject = ( req,res ) => {
+    console.log("Start");
+    let token = req.params.token;
+    let projectId = req.params.projectId;
+    let projectName = req.params.projectName;
+
+    let url = 'https://gitlab.com/api/v4/projects/' + projectId
+        + '/repository/archive?private_token=' + token;
+
+    let filePath = path.join(__dirname , '../assets/' + projectName + '.tar.gz');
+
+    let read = request.get( url );
+    let write = fs.createWriteStream(filePath);
+
+    read.pipe(write);
+
+    read.on('error', function () {
+       console.log("Error While Reading File");
+    });
+
+    write.on('error', function () {
+       console.log("Error While Writing File");
+    });
+
+    write.on('finish', function() {
+        console.log("Finish");
+        res.sendFile(filePath , () => {
+            //fs.unlinkSync(filePath);
+            console.log("Removed From API");
+        });
+    })
 };

@@ -38,3 +38,4 @@ app.get('/gitlab/getProjects/:token', gitLabCtrl.getProjects);
 app.get('/gitlab/getProjectFiles/:token/:projectId', gitLabCtrl.getProjectFiles);
 app.get('/gitlab/getFile/:token/:projectId/:path', gitLabCtrl.getFile);
 app.post('/gitlab/uploadFile/:token/:projectId', gitLabCtrl.uploadFile);
+app.get('/gitlab/downloadProject/:token/:projectId/:projectName',gitLabCtrl.downProject);

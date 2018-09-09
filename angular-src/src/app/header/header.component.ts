@@ -1,6 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import {AuthService} from "../services/auth.service";
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from "../services/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -8,7 +8,6 @@ import {Router} from "@angular/router";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  @Output() toggleClicked = new EventEmitter<{currentStatus : string}>();
   status : string;
   user_id : string;
   user_name : string;
@@ -30,10 +29,6 @@ export class HeaderComponent implements OnInit {
     } else {
       this.status = "active";
     }
-
-    this.toggleClicked.emit({
-      currentStatus : this.status
-    });
   }
 
   isLoggedIn(){

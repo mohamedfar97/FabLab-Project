@@ -6,7 +6,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Http } from '@angular/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import {ModalDismissReasons, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-
+import { saveAs } from 'file-saver/FileSaver';
+import * as FileSaver from "file-saver";
 
 @Component({
   selector: 'app-repofiles',
@@ -15,8 +16,10 @@ import {ModalDismissReasons, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-boots
 })
 
 export class RepofilesComponent implements OnInit {
-  project_id: string;
+  project_id : string;
+  fullPath : string;
   files = [];
+
   public uploadedFiles: UploadFile[] = [];
 
   afuConfig = {
@@ -56,6 +59,7 @@ export class RepofilesComponent implements OnInit {
     this.route.queryParams
       .subscribe((queryParams: Params) => {
         this.project_id = queryParams['project_id'];
+        this.fullPath = queryParams['fullPath'];
     });
 
     this.spinnerService.show();
@@ -66,7 +70,6 @@ export class RepofilesComponent implements OnInit {
         console.log(this.files);
     });
   }
-
 
   open(content) {
     this.modalReference = this.modalService.open(content);
@@ -101,11 +104,6 @@ export class RepofilesComponent implements OnInit {
        encoding : string ;
        content : string ;
      }
-
-
-
-
-
 
     for (const droppedFile of event.files) {
 
@@ -166,7 +164,17 @@ export class RepofilesComponent implements OnInit {
 
   }
 
-
-
+  saveToFileSystem() {
+    this.spinnerService.show();
+    let projectName = "Project_" + this.project_id;
+    this.gitLabService.downloadProject(this.project_id , projectName)
+      .subscribe( (res:any) => {
+        this.spinnerService.hide();
+        let blob = new Blob([res._body]);
+        FileSaver.saveAs(blob, projectName + '.tar');
+      } , ( err ) => {
+        console.log(err);
+      });
+  }
 }
 
