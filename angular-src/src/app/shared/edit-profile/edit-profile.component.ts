@@ -11,6 +11,7 @@ import  {FormControl, FormGroup, Validators } from "@angular/forms";
 export class EditProfileComponent implements OnInit {
 
   user:FormGroup;
+  id:string;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -21,6 +22,13 @@ export class EditProfileComponent implements OnInit {
       name: new FormControl('',Validators.required),
       phone: new FormControl('',[Validators.required,Validators.min(11)])
     });
+
+    this.route.queryParams
+      .subscribe(
+        (queryParams : Params) => {
+          this.id = queryParams['id'];
+        });
+
   }
 
   onSubmit({value, valid}: { value: User, valid: boolean }) {
@@ -38,28 +46,17 @@ export class EditProfileComponent implements OnInit {
       phone:user.phone
     };
 
-    let id:string = "";
-
-    this.route.queryParams
+    this.authService.editProfile( this.id , body )
       .subscribe(
-        (queryParams : Params) => {
-          id = queryParams['id'];
-        });
-
-    this.authService.editProfile( id , body )
-      .subscribe(
-        (data) => {
-          console.log(data);
-          // sessionStorage.removeItem("x-auth");
-          // sessionStorage.setItem("x-auth")
-          this.router.navigate(['/profile'],{queryParams:{id}});
+        (res) => {
+          sessionStorage.setItem("x-auth" , res.headers.get('x-auth') );
+          this.router.navigate(['/profile'],{queryParams:{id:this.id}});
         },
         error => {
           // ALERT MESSAGE TO BE ADDED
           console.log(error);
         });
   }
-
 }
 
 export interface User {

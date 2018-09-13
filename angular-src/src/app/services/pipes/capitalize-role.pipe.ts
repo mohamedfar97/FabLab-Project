@@ -6,18 +6,20 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class CapitalizeRolePipe implements PipeTransform {
 
   transform(value: string) {
-    let splittedRole = value.split(" ");
-    if ( splittedRole[0] === "ceo" ) {
-      return "CEO";
-    }
+    if ( value ) {
+      let splittedRole = value.split(" ");
+      if ( splittedRole[0] === "ceo" ) {
+        return "CEO";
+      }
 
-    var finalRole : string = "";
+      let finalRole : string = "";
 
-    for ( let i = 0 ; i < splittedRole.length ; i++ ) {
-      let tempStr = splittedRole[i].substring(1,splittedRole[i].length) + " ";
-      finalRole += splittedRole[i][0].toUpperCase() + tempStr;
+      for ( let i = 0 ; i < splittedRole.length ; i++ ) {
+        let tempStr = splittedRole[i].substring(1,splittedRole[i].length) + " ";
+        finalRole += splittedRole[i][0].toUpperCase() + tempStr;
+      }
+      return finalRole;
     }
-    return finalRole;
   }
 
 }

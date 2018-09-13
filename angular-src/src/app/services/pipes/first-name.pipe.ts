@@ -6,8 +6,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class FirstNamePipe implements PipeTransform {
 
   transform(value: string): any {
-    let split = value.split(" ");
-    return split[0];
+    if ( value ) {
+      let split = value.split(" ");
+      return split[0];
+    }
   }
 
 }

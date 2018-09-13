@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
         .subscribe( (res) => {
           sessionStorage.setItem('x-auth',res.headers.get('x-auth'));
           var user = this.authService.getUserFromToken(sessionStorage.getItem('x-auth'));
-          sessionStorage.setItem('name',user.name);
           this.sidebar.loadGroups();
           this.router.navigate(['/profile'] , {queryParams : {id:user._id}});
         },(error) => {

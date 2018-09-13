@@ -1,12 +1,12 @@
-var _ = require("lodash");
-var bcrypt = require('bcryptjs');
-var {User} = require("../models/user");
+const _ = require("lodash");
+const bcrypt = require('bcryptjs');
+const {User} = require("../models/user");
 const {ObjectID} = require("mongodb");
 
 module.exports.registerUser = ( req,res ) => {
 
-    var body = _.pick(req.body,['name','email','password','role','phone','gender']);
-    var user = new User(body);
+    let body = _.pick(req.body,['name','email','password','role','phone','gender','age']);
+    let user = new User(body);
 
     user.save().then( (user) => {
       return user.generateAuthToken();
@@ -27,8 +27,8 @@ module.exports.registerUser = ( req,res ) => {
 
 module.exports.logIn = ( req,res ) => {
 
-  var email = req.body.email;
-  var password = req.body.password;
+  let email = req.body.email;
+  let password = req.body.password;
 
   User.findOne({'email' : email} , function(err , user) {
 
@@ -39,7 +39,7 @@ module.exports.logIn = ( req,res ) => {
           })
       }
       if( result ) {
-          var i = 0;
+          let i = 0;
           while ( i < user.tokens.length ) {
               if ( user.tokens[i].access === "auth" ) {
                   break;
@@ -112,12 +112,14 @@ module.exports.editProfile = ( req,res ) => {
                         });
                     });
             }).catch( (err) => {
-                console.log("err2");
-                return res.send(err);
+                return res.send({
+                    errMsg:"Cannot Update Profile.",
+                    data:err
+                });
         })
     } else{
         return res.status(400).send({
-            errMsg : "You Cannot Edit This Properties."
+            errMsg : "You Cannot Edit These Properties."
         });
     }
 };

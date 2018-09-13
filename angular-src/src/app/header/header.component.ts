@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { AuthService } from "../services/auth.service";
 import { Router } from "@angular/router";
 
@@ -18,9 +18,10 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.status = "active";
-    this.user_id = this.authService.getUserFromToken(sessionStorage.getItem("x-auth"))._id;
-    this.user_name = this.authService.getUserFromToken(sessionStorage.getItem("x-auth")).name;
-
+    if (this.isLoggedIn()) {
+      this.user_id = this.authService.getUserFromToken(sessionStorage.getItem("x-auth"))._id;
+      this.user_name = this.authService.getUserFromToken(sessionStorage.getItem("x-auth")).name;
+    }
   }
 
   onHeaderToggle() {
@@ -40,7 +41,11 @@ export class HeaderComponent implements OnInit {
   }
 
   onProfile(){
-    this.router.navigate(["/profile"],{queryParams:{id:this.user_id}});
+    this.router.navigate(["/profile"],{queryParamsHandling: 'preserve' });
+  }
+
+  onEditProfile(){
+    this.router.navigate(["/profile/editProfile"],{queryParamsHandling: 'preserve' });
   }
 
 }

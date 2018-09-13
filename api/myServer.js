@@ -1,14 +1,14 @@
-var express = require('express');
-var request = require('request');
-var bodyParser = require('body-parser');
-var cors = require('cors');
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
-var {mongoose} = require('./dbConnect/dbConnect');
-var userCtrl =  require('./controllers/userController');
-var gitLabCtrl =  require('./controllers/gitLabController');
-var {authenticate} = require('./middleware/authentication');
+const {mongoose} = require('./dbConnect/dbConnect');
+const {authenticate} = require('./middleware/authentication');
+const userCtrl =  require('./controllers/userController');
+const gitLabCtrl =  require('./controllers/gitLabController');
+const messagesCtrl =  require('./controllers/messagesController')
 
-var app = express();
+const app = express();
 
 app.use(
     cors({
@@ -32,11 +32,16 @@ app.post('/logIn', userCtrl.logIn);
 app.get('/profile/:id', userCtrl.profile);
 app.post('/editProfile/:id', userCtrl.editProfile);
 
-//----------------------------GitLab----------------------------
+//----------------------------GitLab--------------------------
 app.get('/gitlab/getGroups/:token', gitLabCtrl.getGroups);
 app.get('/gitlab/getProjects/:token', gitLabCtrl.getProjects);
 app.get('/gitlab/getProjectFiles/:token/:projectId', gitLabCtrl.getProjectFiles);
 app.get('/gitlab/getFile/:token/:projectId/:path', gitLabCtrl.getFile);
-app.post('/gitlab/uploadFile/:token/:projectId', gitLabCtrl.uploadFile);
 app.get('/gitlab/downloadProject/:token/:projectId/:projectName',gitLabCtrl.downProject);
 app.get('/gitlab/getProjectCommits/:token/:projectId' , gitLabCtrl.getProjectCommits);
+app.post('/gitlab/uploadFile/:token/:projectId', gitLabCtrl.uploadFile);
+
+//----------------------------Messages------------------------
+app.get('/messages/getSentMessages/:id', messagesCtrl.viewSentMessages);
+app.get('/messages/getReceivedMessages/:id', messagesCtrl.viewReceivedMessages);
+app.post('/messages/sendMessage', messagesCtrl.sendMessage);

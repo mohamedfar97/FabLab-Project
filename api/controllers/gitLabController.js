@@ -125,9 +125,9 @@ module.exports.downProject = ( req,res ) => {
     let projectName = req.params.projectName;
 
     let url = 'https://gitlab.com/api/v4/projects/' + projectId
-        + '/repository/archive?private_token=' + token;
+        + '/repository/archive?private_token=' + token + '&format=zip';
 
-    let filePath = path.join(__dirname , '../assets/' + projectName + '.tar.gz');
+    let filePath = path.join(__dirname , '../assets/' + projectName + '.zip');
 
     let read = request.get( url );
     let write = fs.createWriteStream(filePath);
@@ -143,9 +143,10 @@ module.exports.downProject = ( req,res ) => {
     });
 
     write.on('finish', function() {
-        console.log("Finish");
+
         res.sendFile(filePath , () => {
             //fs.unlinkSync(filePath);
+            console.log("Finish");
             console.log("Removed From API");
         });
     })

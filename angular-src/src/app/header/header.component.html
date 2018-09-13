@@ -19,7 +19,7 @@
     <ul class="nav navbar-nav navbar-right" *ngIf = "isLoggedIn()">
 
       <li class="nav-item d-none d-lg-block d-md-block d-xl-block" *ngIf="isLoggedIn()">
-        <h5 class="nav-link waves-effect waves-light">Hi {{user_name | firstName }} ! </h5>
+        <h5 class="nav-link waves-effect waves-light">Hi {{ user_name | firstName }} ! </h5>
       </li>
 
 
@@ -42,8 +42,7 @@
                (click)="onProfile()">Profile</a>
 
             <a class="dropdown-item"
-               [routerLink]="['/profile/editProfile']"
-               [queryParams] = '{id: this.user_id}'>Edit Profile</a>
+               (click)="onEditProfile()">Edit Profile</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" (click) = "logOut()" href="/login">Log Out</a>
           </div>

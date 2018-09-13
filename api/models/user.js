@@ -1,11 +1,11 @@
-var mongoose = require('mongoose');
-var validator = require('validator');
-var jwt = require('jsonwebtoken');
-var _ = require('lodash');
-var bcrypt = require('bcryptjs');
+const mongoose = require('mongoose');
+const validator = require('validator');
+const jwt = require('jsonwebtoken');
+const _ = require('lodash');
+const bcrypt = require('bcryptjs');
 
 
-var UserSchema = mongoose.Schema({
+const UserSchema = mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -51,6 +51,26 @@ var UserSchema = mongoose.Schema({
         type: String,
         enum: ['male','Male','female','Female']
     },
+    sentMessages: [{
+        messageId: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true
+        },
+        receiverName: {
+            type: String,
+            required: true
+        }
+    }],
+    receivedMessages: [{
+        messageId: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true
+        },
+        senderName: {
+            type: String,
+            required: true
+        }
+    }],
     tokens: [{
         access: {
             type: String,
@@ -123,6 +143,6 @@ UserSchema.pre('save' , function(next){
   }
 });
 
-var User = mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
 
 module.exports = {User};
