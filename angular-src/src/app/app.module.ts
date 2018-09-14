@@ -34,6 +34,7 @@ import { SizePipePipe } from './services/pipes/size-pipe.pipe';
 import { FileDropModule } from 'ngx-file-drop';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { CommitsComponent } from './gitlab/commits/commits.component';
+import { FolderFilesComponent } from './gitlab/repofiles/folder-files/folder-files.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { CommitsComponent } from './gitlab/commits/commits.component';
     FirstNamePipe,
     CapitalizeRolePipe,
     SizePipePipe,
-    CommitsComponent
+    CommitsComponent,
+    FolderFilesComponent
   ],
   exports: [BsDropdownModule, TooltipModule]
   ,

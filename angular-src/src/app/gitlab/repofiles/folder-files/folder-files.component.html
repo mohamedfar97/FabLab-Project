@@ -1,0 +1,21 @@
+<div class="container">
+  <div class = "panel panel-primary">
+    <h1 class="panel-heading">Files</h1>
+    <br>
+    <div class="panel-body">
+      <div>
+        <ul class="list-group list-group-flush">
+          <a (click)="onOpenFile(file)"
+             class="list-group-item list-group-item-action" *ngFor = "let file of folderFiles">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="list-group-item-heading">{{file.name}}</h5>
+              <span class="badge badge-warning badge-pill">
+                  <i class="material-icons prefix">get_app</i>
+                </span>
+            </div>
+          </a>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

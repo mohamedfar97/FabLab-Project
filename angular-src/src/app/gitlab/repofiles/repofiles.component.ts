@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GitLabService } from '../../services/gitlab.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import { FileSystemDirectoryEntry, FileSystemFileEntry, UploadEvent, UploadFile } from 'ngx-file-drop';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Http } from '@angular/http';
@@ -19,6 +19,7 @@ export class RepofilesComponent implements OnInit {
   project_id : string;
   fullPath : string;
   files = [];
+  treeFiles = [];
 
   public uploadedFiles: UploadFile[] = [];
 
@@ -41,6 +42,7 @@ export class RepofilesComponent implements OnInit {
 
   constructor(private gitLabService: GitLabService,
               private route: ActivatedRoute,
+              private router: Router,
               private spinnerService: NgxSpinnerService,
               private http: Http,
               private _sanitizer: DomSanitizer,
@@ -52,14 +54,11 @@ export class RepofilesComponent implements OnInit {
   modalReference: NgbModalRef;
   commitMessage = 'Message';
 
-
-
-
   ngOnInit() {
     this.route.queryParams
       .subscribe((queryParams: Params) => {
         this.project_id = queryParams['project_id'];
-        this.fullPath = queryParams['fullPath'];
+        this.fullPath = queryParams['full_path'];
     });
 
     this.spinnerService.show();
@@ -67,7 +66,16 @@ export class RepofilesComponent implements OnInit {
       .subscribe((res: any) => {
         this.spinnerService.hide();
         this.files = JSON.parse(res._body);
+
+        for ( let i = 0; i < this.files.length; i++ ) {
+          if ( this.files[i].type === "tree") {
+            this.treeFiles.push(this.files[i]);
+            this.files.splice(i,1);
+            i--;
+          }
+        }
         console.log(this.files);
+        console.log(this.treeFiles);
     });
   }
 
@@ -176,5 +184,16 @@ export class RepofilesComponent implements OnInit {
         console.log(err);
       });
   }
+
+  onOpenFolder(folder) {
+    this.router.navigate(['/subdirectory'],
+      { queryParams: {
+          full_path: this.fullPath,
+          project_id: this.project_id,
+          path: folder.path
+        }
+      });
+  }
 }
+
 

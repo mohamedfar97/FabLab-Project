@@ -69,8 +69,10 @@ module.exports.getProjectFiles = ( req,res ) => {
 
 module.exports.getFile = ( req,res ) => {
     var projectId = req.params.projectId;
-    var path = req.params.path;
+    var path = encodeURIComponent(req.params.path);
     var token = req.params.token;
+
+    console.log(path);
 
     var options = {
         host: gitLabHost ,
@@ -163,4 +165,19 @@ module.exports.getProjectCommits = ( req,res ) => {
     };
 
     getFromGitLab( options , res );
+};
+
+module.exports.getSubdirectoriesContent = ( req,res ) => {
+
+    var projectId = req.params.projectId;
+    var token = req.params.token;
+    var path = req.params.path;
+
+    var options = {
+        host: gitLabHost ,
+        path: '/api/v4/projects/' + projectId + '/repository/tree/?per_page=100&private_token=' + token
+        + '&path=' + path
+    };
+
+    getFromGitLab( options,res );
 };

@@ -50,4 +50,12 @@ export class GitLabService {
       .get(appConfig.apiUrl + "gitlab/getProjectCommits/" + appConfig.private_token + "/" + projectId)
       .pipe();
   }
+
+  getSubdirectoriesContent( projectId : string , path : string ) {
+    return this.http
+      .get(appConfig.apiUrl + 'gitlab/getSubdirectoriesContent/' + appConfig.private_token
+        + '/' + projectId + '/' + path)
+    .pipe();
+  }
+
 }

@@ -35,7 +35,7 @@
               Commit Message:</label>
 
             <input name = "Message" type="text" [(ngModel)]="commitMessage" class="form-control offset-xl-8" id="message">
-            
+
           </div>
         </form>
         <br>
@@ -107,6 +107,18 @@
     <div class="panel-body">
       <div>
         <ul class="list-group list-group-flush">
+
+          <a class="list-group-item list-group-item-action"
+             (click)="onOpenFolder(treeFile)"
+             *ngFor = "let treeFile of treeFiles">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="list-group-item-heading">{{treeFile.name}}</h5>
+              <span class="badge badge-warning badge-pill">
+                  <i class="material-icons prefix">navigate_next</i>
+                </span>
+            </div>
+          </a>
+
           <a [routerLink]="['/repofile']"
              [queryParams] = "{project_id : this.project_id , path : file.path }"
              class="list-group-item list-group-item-action" *ngFor = "let file of files">

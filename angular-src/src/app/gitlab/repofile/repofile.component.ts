@@ -83,7 +83,9 @@ export class RepofileComponent implements OnInit {
                 this.fileContent = atob(this.file.content);
             }
             this.spinnerService.hide();
-        });
+        } , (error) => {
+            console.log("Error While Loading File");
+          });
       });
   }
 }
