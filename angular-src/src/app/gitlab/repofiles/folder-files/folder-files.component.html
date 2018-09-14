@@ -5,6 +5,17 @@
     <div class="panel-body">
       <div>
         <ul class="list-group list-group-flush">
+
+          <a (click)="onOpenFolder(treeFile)"
+             class="list-group-item list-group-item-action" *ngFor = "let treeFile of treeFolderFiles">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="list-group-item-heading">{{treeFile.name}}</h5>
+              <span class="badge badge-warning badge-pill">
+                  <i class="material-icons prefix">navigate_next</i>
+                </span>
+            </div>
+          </a>
+
           <a (click)="onOpenFile(file)"
              class="list-group-item list-group-item-action" *ngFor = "let file of folderFiles">
             <div class="d-flex w-100 justify-content-between">

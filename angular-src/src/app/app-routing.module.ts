@@ -21,12 +21,13 @@ const appRoutes : Routes = [
   { path : 'repofiles' , component : RepofilesComponent},
   { path : 'repofile' , component : RepofileComponent},
   { path : 'commits' , component : CommitsComponent},
-  { path : 'subdirectory' , component : FolderFilesComponent}
+  { path : 'subdirectory' , component : FolderFilesComponent , runGuardsAndResolvers: 'always'}
 ];
 
 @NgModule({
   imports:[
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes
+      , {onSameUrlNavigation: 'reload'})
   ],
   exports:[
     RouterModule
