@@ -42,14 +42,14 @@ export class CommitsComponent implements OnInit {
       if (this.filterSelector){
         console.log("Name");
         for ( let i = 0 ; i < this.commits.length ; i++ ) {
-          if ( this.commits[i].author_name.includes(tempKeyword) ) {
+          if ( this.commits[i].author_name.includes(tempKeyword) || this.commits[i].author_name.toLowerCase().includes(tempKeyword)) {
             this.searchCommits.push(this.commits[i]);
           }
         }
       }else{
         console.log("message");
         for ( let i = 0 ; i < this.commits.length ; i++ ) {
-          if ( this.commits[i].title.includes(tempKeyword) ) {
+          if ( this.commits[i].title.includes(tempKeyword) || this.commits[i].title.toLowerCase().includes(tempKeyword) ) {
             this.searchCommits.push(this.commits[i]);
           }
         }
