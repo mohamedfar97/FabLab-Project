@@ -13,6 +13,7 @@ export class CommitsComponent implements OnInit {
   commits = [];
   searchCommits = [];
   filterSelector ;
+  searchField;
 
   constructor( private gitlabService: GitLabService,
                private spinnerService: NgxSpinnerService,
@@ -40,14 +41,12 @@ export class CommitsComponent implements OnInit {
     this.searchCommits = [];
 
       if (this.filterSelector){
-        console.log("Name");
         for ( let i = 0 ; i < this.commits.length ; i++ ) {
           if ( this.commits[i].author_name.includes(tempKeyword) || this.commits[i].author_name.toLowerCase().includes(tempKeyword)) {
             this.searchCommits.push(this.commits[i]);
           }
         }
       }else{
-        console.log("message");
         for ( let i = 0 ; i < this.commits.length ; i++ ) {
           if ( this.commits[i].title.includes(tempKeyword) || this.commits[i].title.toLowerCase().includes(tempKeyword) ) {
             this.searchCommits.push(this.commits[i]);
@@ -64,7 +63,7 @@ export class CommitsComponent implements OnInit {
     }else{
       this.filterSelector = false;
     }
-
+    this.SearchCommits(this.searchField);
   }
 
 }

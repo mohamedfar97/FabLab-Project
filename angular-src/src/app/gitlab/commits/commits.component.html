@@ -12,7 +12,7 @@
     <br>
   <form>
     <div class="form-group">
-      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Search..." (input)="SearchCommits($event.target.value)">
+      <input name="search" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Search..." [(ngModel)] = "searchField" (input)="SearchCommits($event.target.value)">
     </div>
     <label class="form-check-label" for="exampleCheck1">Search by:</label>
     <div class="form-check">
