@@ -12,6 +12,7 @@ export class CommitsComponent implements OnInit {
   projectId: string;
   commits = [];
   searchCommits = [];
+  filterSelector ;
 
   constructor( private gitlabService: GitLabService,
                private spinnerService: NgxSpinnerService,
@@ -34,13 +35,36 @@ export class CommitsComponent implements OnInit {
       });
   }
 
-  searchCommitsByCommitMessage ( keyword: string ) {
+  SearchCommits (keyword: string) {
     const tempKeyword = keyword.trim();
-    for ( let i = 0 ; i < this.searchCommits.length ; i++ ) {
-      if ( this.searchCommits[i].title.includes(tempKeyword) ) {
-        this.searchCommits.splice(i, 1);
+    this.searchCommits = [];
+
+      if (this.filterSelector){
+        console.log("Name");
+        for ( let i = 0 ; i < this.commits.length ; i++ ) {
+          if ( this.commits[i].author_name.includes(tempKeyword) ) {
+            this.searchCommits.push(this.commits[i]);
+          }
+        }
+      }else{
+        console.log("message");
+        for ( let i = 0 ; i < this.commits.length ; i++ ) {
+          if ( this.commits[i].title.includes(tempKeyword) ) {
+            this.searchCommits.push(this.commits[i]);
+          }
+        }
       }
+
+
+  }
+
+  setradio(value : string){
+    if(value === "name"){
+      this.filterSelector = true;
+    }else{
+      this.filterSelector = false;
     }
+
   }
 
 }

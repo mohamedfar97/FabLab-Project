@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SidebarComponent } from "../../header/sidebar/sidebar.component";
 import { AuthService } from "../../services/auth.service";
+import {HeaderComponent} from "../../header/header.component";
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private router: Router,
-              private  sidebar : SidebarComponent) { }
+              private  sidebar : SidebarComponent,
+              private  header : HeaderComponent) { }
 
   ngOnInit() {
     this.user = new FormGroup({
@@ -37,6 +39,7 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('x-auth',res.headers.get('x-auth'));
           var user = this.authService.getUserFromToken(sessionStorage.getItem('x-auth'));
           this.sidebar.loadGroups();
+          this.header.user_name = user.name;
           this.router.navigate(['/profile'] , {queryParams : {id:user._id}});
         },(error) => {
           // ALERT MESSAGE TO BE ADDED
