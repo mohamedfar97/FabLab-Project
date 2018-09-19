@@ -35,17 +35,26 @@ export class HeaderComponent implements OnInit {
   isLoggedIn(){
     return sessionStorage.getItem("x-auth");
   }
+
   logOut(){
     this.authService.logOut();
     this.router.navigate(["/login"]);
   }
 
   onProfile(){
-    this.router.navigate(["/profile"],{queryParamsHandling: 'preserve' });
+    this.router.navigate(["/profile"],
+      { queryParams: {
+          id: this.user_id
+        }
+      });
   }
 
   onEditProfile(){
-    this.router.navigate(["/profile/editProfile"],{queryParamsHandling: 'preserve' });
+    this.router.navigate(["/profile/editProfile"],
+      { queryParams: {
+          id: this.user_id
+      }
+    });
   }
 
 }

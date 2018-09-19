@@ -83,8 +83,8 @@ module.exports.getFile = ( req,res ) => {
 
 module.exports.uploadFile = ( req,res ) => {
 
-    projectId = req.params.projectId.trim();
-    token = req.params.token.trim();
+    var projectId = req.params.projectId.trim();
+    var token = req.params.token.trim();
 
     var options = {
 
@@ -99,7 +99,6 @@ module.exports.uploadFile = ( req,res ) => {
     var request = https.request(options, (response) => {
         var responseBody;
         response.on('data', (chunk) => {
-
             responseBody += chunk ;
         });
 
@@ -113,9 +112,9 @@ module.exports.uploadFile = ( req,res ) => {
         console.log(e.message);
     });
 
-    var body = JSON.stringify(req.body)
+    var body = JSON.stringify(req.body);
 
-    request.write(body)
+    request.write(body);
     request.end();
 
 };
@@ -127,31 +126,26 @@ module.exports.downProject = ( req,res ) => {
     let projectName = req.params.projectName;
 
     let url = 'https://gitlab.com/api/v4/projects/' + projectId
-        + '/repository/archive?private_token=' + token + '&format=zip';
+        + '/repository/archive?private_token=' + token;
 
-    let filePath = path.join(__dirname , '../assets/' + projectName + '.zip');
+    let filePath = path.join(__dirname , '../assets/' + projectName + '.tar.gz');
+    let fileContent = fs.createWriteStream(filePath);
 
-    let read = request.get( url );
-    let write = fs.createWriteStream(filePath);
+    let tempPath = path.join(__dirname , '../assets/Lasercutter-Projects-master.tar.gz');
 
-    read.pipe(write);
-
-    read.on('error', function () {
-       console.log("Error While Reading File");
-    });
-
-    write.on('error', function () {
-       console.log("Error While Writing File");
-    });
-
-    write.on('finish', function() {
-
-        res.sendFile(filePath , () => {
-            //fs.unlinkSync(filePath);
-            console.log("Finish");
-            console.log("Removed From API");
-        });
-    })
+    request.get( url )
+        .on('error' , () => {
+            console.log("Error Occurred !!");
+            fileContent.end();
+        })
+        .on('data' , (data) => {
+            fileContent.write(data);
+        })
+        .on('end' , () => {
+            console.log("End Of Reading !!");
+            fileContent.end();
+            res.sendFile(tempPath);
+        })
 };
 
 module.exports.getProjectCommits = ( req,res ) => {

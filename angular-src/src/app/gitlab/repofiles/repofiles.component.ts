@@ -179,7 +179,7 @@ export class RepofilesComponent implements OnInit {
       .subscribe( (res:any) => {
         this.spinnerService.hide();
         let blob = new Blob([res._body]);
-        FileSaver.saveAs(blob, projectName + '.tar');
+        FileSaver.saveAs(blob, projectName + '.tar.gz');
       } , ( err ) => {
         console.log(err);
       });

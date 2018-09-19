@@ -12,16 +12,16 @@ import { CommitsComponent } from "./gitlab/commits/commits.component";
 import {FolderFilesComponent} from "./gitlab/repofiles/folder-files/folder-files.component";
 
 const appRoutes : Routes = [
-  { path : '', component :  LoginComponent},
+  { path : '', component :  LoginComponent },
   { path : 'login', component :  LoginComponent },
-  { path : 'signup', component : SignupComponent},
-  { path : 'profile' , component: ProfileComponent},
+  { path : 'signup', component : SignupComponent },
+  { path : 'profile' , component: ProfileComponent },
   { path : 'profile/editProfile' , component: EditProfileComponent },
-  { path : 'repotree' , component : RepotreeComponent},
-  { path : 'repofiles' , component : RepofilesComponent},
-  { path : 'repofile' , component : RepofileComponent},
-  { path : 'commits' , component : CommitsComponent},
-  { path : 'subdirectory' , component : FolderFilesComponent , runGuardsAndResolvers: 'always'}
+  { path : 'repotree' , component : RepotreeComponent },
+  { path : 'repofiles' , component : RepofilesComponent },
+  { path : 'repofile' , component : RepofileComponent },
+  { path : 'commits' , component : CommitsComponent },
+  { path : 'subdirectory' , component : FolderFilesComponent , runGuardsAndResolvers: 'always' }
 ];
 
 @NgModule({

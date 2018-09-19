@@ -20,17 +20,9 @@ export class FolderFilesComponent implements OnInit {
   constructor(private gitLabService: GitLabService,
               private route: ActivatedRoute,
               private router: Router,
-              private spinnerService: NgxSpinnerService) { }
+              private spinnerService: NgxSpinnerService) {}
 
   ngOnInit() {
-
-    this.router.events
-      .subscribe((event:any) => {
-        if ( event instanceof NavigationEnd ) {
-          
-        }
-      });
-
     this.route.queryParams
       .subscribe((queryParams: Params) => {
         this.projectId = queryParams['project_id'];

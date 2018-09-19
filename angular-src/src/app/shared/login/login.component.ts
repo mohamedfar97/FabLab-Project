@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private router: Router,
-              private  sidebar : SidebarComponent,
-              private  header : HeaderComponent) { }
+              private sidebar : SidebarComponent,
+              private header : HeaderComponent) { }
 
   ngOnInit() {
     this.user = new FormGroup({
@@ -38,9 +38,11 @@ export class LoginComponent implements OnInit {
         .subscribe( (res) => {
           sessionStorage.setItem('x-auth',res.headers.get('x-auth'));
           var user = this.authService.getUserFromToken(sessionStorage.getItem('x-auth'));
+
           this.sidebar.loadGroups();
           this.header.user_name = user.name;
           this.router.navigate(['/profile'] , {queryParams : {id:user._id}});
+
         },(error) => {
           // ALERT MESSAGE TO BE ADDED
           console.log(error);
