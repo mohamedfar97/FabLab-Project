@@ -1,10 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark" >
   <a class="navbar-brand">
-    <a class="collapsebtn" (click) = "onHeaderToggle(status)" type="button" *ngIf="isLoggedIn()">
+    <img src="/assets/Fablab_logo.png" width="50" height="50" class="d-inline-block -align-left" alt="">
+    <a class="collapsebtn offset-2" (click) = "onHeaderToggle(status)" type="button" *ngIf="isLoggedIn()">
      <span class="navbar-toggler-icon collapseIcon"></span>
    </a>
-    <img src="/assets/GizaSystems_logo.png" width="130" height="80" class="d-inline-block align-right" alt="">
-    </a>
+   </a>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto"></ul>
     <ul class="nav navbar-nav navbar-right" *ngIf = "!isLoggedIn()">
@@ -35,6 +35,7 @@
             <img src="/assets/Profile-avatar.png"
                  class="img-fluid rounded-circle z-depth-0"><span
             class="caret"></span>
+
           </a>
 
           <div class="dropdown-menu dropdown-primary pull-left">

@@ -12,7 +12,7 @@
     <nav id="sidebar" [ngClass]="sideStatus">
       <div class="sidebar-header">
         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" >
-            <img src="/assets/Fablab_logo.png" width="35" height="35" alt="">
+          <i class="material-icons  align-middle">group_work</i>
           FabLabs
           <i class="material-icons align-middle">keyboard_arrow_down</i> </a>
 
@@ -26,6 +26,42 @@
           </li>
         </ul>
       </div>
+
+
+
+      <div class="sidebar-header">
+        <a href="#mailSubmenu" data-toggle="collapse" aria-expanded="false" >
+          <i class="material-icons  align-middle">mail</i>
+          Messages
+          <i class="material-icons align-middle">keyboard_arrow_down</i> </a>
+
+        <ul class="collapse list-unstyled" id="mailSubmenu"> <br>
+          <li>
+            <div>
+              <a [routerLink]="['/messages/inbox']"
+                 [queryParams] = "{full_path : h}">
+                Inbox </a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <a [routerLink]="['/messages/sentbox']"
+                 [queryParams] = "{full_path : h}">
+                SentBox </a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <a [routerLink]="['/messages/compose']"
+                 [queryParams] = "{full_path : h}">
+                Compose Message </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+
+
 
       <ul class="list-unstyled components">
         <li> <a href="#">About</a> </li>

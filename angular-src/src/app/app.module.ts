@@ -35,6 +35,9 @@ import { FileDropModule } from 'ngx-file-drop';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { CommitsComponent } from './gitlab/commits/commits.component';
 import { FolderFilesComponent } from './gitlab/repofiles/folder-files/folder-files.component';
+import { InboxComponent } from './messages/inbox/inbox.component';
+import { SentboxComponent } from './messages/sentbox/sentbox.component';
+import { ComposeComponent } from './messages/compose/compose.component';
 
 
 @NgModule({
@@ -53,7 +56,10 @@ import { FolderFilesComponent } from './gitlab/repofiles/folder-files/folder-fil
     CapitalizeRolePipe,
     SizePipePipe,
     CommitsComponent,
-    FolderFilesComponent
+    FolderFilesComponent,
+    InboxComponent,
+    SentboxComponent,
+    ComposeComponent
   ],
   exports: [BsDropdownModule, TooltipModule]
   ,
@@ -72,7 +78,6 @@ import { FolderFilesComponent } from './gitlab/repofiles/folder-files/folder-fil
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
-    QuillModule,
     NgStringPipesModule,
     AppRoutingModule
   ],

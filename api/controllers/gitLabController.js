@@ -131,8 +131,6 @@ module.exports.downProject = ( req,res ) => {
     let filePath = path.join(__dirname , '../assets/' + projectName + '.tar.gz');
     let fileContent = fs.createWriteStream(filePath);
 
-    let tempPath = path.join(__dirname , '../assets/Lasercutter-Projects-master.tar.gz');
-
     request.get( url )
         .on('error' , () => {
             console.log("Error Occurred !!");
@@ -144,7 +142,7 @@ module.exports.downProject = ( req,res ) => {
         .on('end' , () => {
             console.log("End Of Reading !!");
             fileContent.end();
-            res.sendFile(tempPath);
+            res.sendFile(filePath);
         })
 };
 

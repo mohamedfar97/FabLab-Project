@@ -10,6 +10,9 @@ import { ProfileComponent } from "./shared/profile/profile.component";
 import { EditProfileComponent } from "./shared/edit-profile/edit-profile.component";
 import { CommitsComponent } from "./gitlab/commits/commits.component";
 import {FolderFilesComponent} from "./gitlab/repofiles/folder-files/folder-files.component";
+import {InboxComponent} from "./messages/inbox/inbox.component";
+import {SentboxComponent} from "./messages/sentbox/sentbox.component";
+import {ComposeComponent} from "./messages/compose/compose.component";
 
 const appRoutes : Routes = [
   { path : '', component :  LoginComponent },
@@ -21,7 +24,10 @@ const appRoutes : Routes = [
   { path : 'repofiles' , component : RepofilesComponent },
   { path : 'repofile' , component : RepofileComponent },
   { path : 'commits' , component : CommitsComponent },
-  { path : 'subdirectory' , component : FolderFilesComponent , runGuardsAndResolvers: 'always' }
+  { path : 'subdirectory' , component : FolderFilesComponent , runGuardsAndResolvers: 'always' },
+  { path : 'messages/inbox' , component : InboxComponent},
+  { path : 'messages/sentbox' , component : SentboxComponent},
+  { path : 'messages/compose' , component : ComposeComponent}
 ];
 
 @NgModule({
