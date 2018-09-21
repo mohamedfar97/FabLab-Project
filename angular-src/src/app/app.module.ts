@@ -38,6 +38,8 @@ import { FolderFilesComponent } from './gitlab/repofiles/folder-files/folder-fil
 import { InboxComponent } from './messages/inbox/inbox.component';
 import { SentboxComponent } from './messages/sentbox/sentbox.component';
 import { ComposeComponent } from './messages/compose/compose.component';
+import {MessagingService} from "./services/messaging.service";
+import { ContentPeekPipe } from './services/pipes/content-peek.pipe';
 
 
 @NgModule({
@@ -59,7 +61,8 @@ import { ComposeComponent } from './messages/compose/compose.component';
     FolderFilesComponent,
     InboxComponent,
     SentboxComponent,
-    ComposeComponent
+    ComposeComponent,
+    ContentPeekPipe
   ],
   exports: [BsDropdownModule, TooltipModule]
   ,
@@ -81,7 +84,7 @@ import { ComposeComponent } from './messages/compose/compose.component';
     NgStringPipesModule,
     AppRoutingModule
   ],
-  providers: [AuthService , GitLabService , NgbModal],
+  providers: [AuthService , GitLabService , MessagingService , NgbModal],
   bootstrap: [AppComponent]
 })
 export class AppModule {  }

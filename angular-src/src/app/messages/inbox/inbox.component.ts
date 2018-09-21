@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {MessagingService} from "../../services/messaging.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-inbox',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InboxComponent implements OnInit {
 
-  constructor() { }
+  receivedMessages = [];
+
+  constructor(private messagingService: MessagingService,
+              private authService: AuthService) { }
 
   ngOnInit() {
+
+    let currentUserEmail = this.authService.getUserFromToken(sessionStorage.getItem("x-auth")).email;
+
+    this.messagingService
+      .getReceivedMessages(currentUserEmail)
+      .subscribe((res:any) => {
+        this.receivedMessages = (JSON.parse(res._body)).data;
+      }, (err) => {
+        console.log(err);
+      })
   }
 
 }

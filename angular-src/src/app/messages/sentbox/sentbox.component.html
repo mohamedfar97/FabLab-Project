@@ -13,25 +13,34 @@
     <div class="panel panel-primary">
       <div class="panel-body message">
 
+        <div class="list-group" *ngFor="let message of sentMessages">
 
+          <a class="list-group-item">
 
-        <div class="list-group">
-          <a href="#" class="list-group-item">
+            <div class="float-right">
+              <a class="badge badge-danger float-right" (click)="onDeleteMessage(message)" >
+                <i class="material-icons prefix">delete</i>
+              </a>
+              <br><br>
+              <label class="badge badge-warning float-right">
+                {{message.messageDate | date:'medium'}}
+              </label>
+            </div>
 
-            <span class="glyphicon glyphicon-star-empty"></span><span class="name" style="min-width: 120px;
-                                            display: inline-block;">Bhaumik Patel</span> <span class="">This is big title</span>
-            <span class="text-muted" style="font-size: 11px;">- Hi hello how r u ?</span>
-            <label class="badge badge-warning float-right">12:10 AM</label>
+            <span class="name" style="min-width: 120px;display: inline-block;">
+                  To : {{message.receiver}}
+            </span> <br>
+
+            <span class="">
+                  Subject : {{message.subject}}
+            </span> <br>
+
+            <span class="text-muted" style="font-size: 11px;">
+                  Message : {{message.message | contentPeek }}
+            </span>
+
           </a>
-
-          
-          <a href="#" class="list-group-item">
-
-            <span class="glyphicon glyphicon-star-empty"></span><span class="name" style="min-width: 120px;
-                                            display: inline-block;">Bhaumik Patel</span> <span class="">This is big title</span>
-            <span class="text-muted" style="font-size: 11px;">- Hi hello how r u ?</span>
-            <label class="badge badge-warning float-right">12:10 AM</label>
-          </a>
+          <br>
         </div>
 
 

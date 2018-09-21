@@ -35,13 +35,13 @@ module.exports.viewSentMessages = ( req,res ) => {
               return res.status(200)
                   .send( {
                       msg: "Retrieved All Messages.",
-                      data: messages
+                      data: messages.reverse()
                   })
           } else {
              return res.status(200)
                   .send( {
                       msg: "You Did Not Send Any Messages.",
-                      data: messagess
+                      data: messages
                   })
           }
       }).catch( (error) => {
@@ -64,7 +64,7 @@ module.exports.viewReceivedMessages = ( req,res ) => {
                 return res.status(200)
                     .send( {
                         msg: "Retrieved All Messages.",
-                        data: messages
+                        data: messages.reverse()
                     })
             } else {
                 return res.status(200)

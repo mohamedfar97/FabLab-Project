@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {User} from "../../shared/login/login.component";
+import {AuthService} from "../../services/auth.service";
+import {MessagingService} from "../../services/messaging.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-compose',
@@ -35,23 +37,47 @@ export class ComposeComponent implements OnInit {
       ]
   };
 
-  constructor() { }
+  constructor(private messagingService: MessagingService,
+              private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit() {
 
     this.message = new FormGroup({
       to: new FormControl('', [Validators.required , Validators.email]),
-      subject: new FormControl('', Validators.required),
+      subject: new FormControl(''),
       content: new FormControl('', Validators.required)
     });
   }
 
   onSend({value, valid}: { value: Message, valid: boolean }){
 
-    if(valid){
-      //Send Message
-    }
+    console.log();
 
+    if( valid ){
+
+      let currentUser = this.authService.getUserFromToken(sessionStorage.getItem('x-auth'));
+
+      // To Remove The <p> Tags Sent With Messages
+      let content = value.content.substring(3,value.content.length-4);
+
+      let body = {
+        sender: currentUser.email,
+        receiver: value.to,
+        subject: value.subject,
+        message: content
+      };
+
+      this.messagingService.sendMessage(body)
+        .subscribe( (res:any) => {
+          console.log(JSON.parse(res._body).msg);
+          this.router.navigate(['/messages/sentbox'])
+        } , (err) => {
+          console.log("Some error");
+        })
+    } else {
+      console.log("Please Fill All Required Fields Correctly");
+    }
   }
 }
 

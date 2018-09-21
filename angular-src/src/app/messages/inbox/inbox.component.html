@@ -13,28 +13,27 @@
     <div class="panel panel-primary">
       <div class="panel-body message">
 
+            <div class="list-group" *ngFor="let message of receivedMessages">
 
+              <a class="list-group-item">
+                <span class="name" style="min-width: 120px;display: inline-block;">
+                  From : {{message.sender}}
+                </span> <br>
 
-            <div class="list-group">
-              <a href="#" class="list-group-item">
+                <span class="">
+                  Subject : {{message.subject}}
+                </span> <br>
 
-                <span class="glyphicon glyphicon-star-empty"></span><span class="name" style="min-width: 120px;
-                                            display: inline-block;">Bhaumik Patel</span> <span class="">This is big title</span>
-                <span class="text-muted" style="font-size: 11px;">- Hi hello how r u ?</span>
-                <label class="badge badge-warning float-right">12:10 AM</label>
+                <span class="text-muted" style="font-size: 11px;">
+                  Message : {{message.message | contentPeek }}
+                </span>
+
+                <label class="badge badge-warning float-right">
+                  {{message.messageDate | date:'medium'}}
+                </label>
               </a>
 
-
-              <a href="#" class="list-group-item">
-
-                <span class="glyphicon glyphicon-star-empty"></span><span class="name" style="min-width: 120px;
-                                            display: inline-block;">Bhaumik Patel</span> <span class="">This is big title</span>
-                <span class="text-muted" style="font-size: 11px;">- Hi hello how r u ?</span>
-                <label class="badge badge-warning float-right">12:10 AM</label>
-              </a>
             </div>
-
-
 
       </div>
     </div>

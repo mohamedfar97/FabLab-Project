@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from "../../services/auth.service";
+import {MessagingService} from "../../services/messaging.service";
 
 @Component({
   selector: 'app-sentbox',
@@ -7,9 +9,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SentboxComponent implements OnInit {
 
-  constructor() { }
+  sentMessages = [];
+
+  constructor(private messagingService: MessagingService,
+              private authService: AuthService) { }
 
   ngOnInit() {
+
+    let currentUserEmail = this.authService.getUserFromToken(sessionStorage.getItem("x-auth")).email;
+
+    this.messagingService
+      .getSentMessages(currentUserEmail)
+      .subscribe((res:any) => {
+        this.sentMessages = (JSON.parse(res._body)).data;
+        console.log(this.sentMessages);
+      }, (err) => {
+        console.log(err);
+      })
+  }
+
+  onDeleteMessage( message ){
+    this.messagingService
+      .deleteMessage(message._id)
+      .subscribe((res:any) => {
+        console.log(res);
+      },(err) => {
+        console.log(err);
+      })
   }
 
 }

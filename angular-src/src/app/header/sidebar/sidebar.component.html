@@ -36,20 +36,7 @@
           <i class="material-icons align-middle">keyboard_arrow_down</i> </a>
 
         <ul class="collapse list-unstyled" id="mailSubmenu"> <br>
-          <li>
-            <div>
-              <a [routerLink]="['/messages/inbox']"
-                 [queryParams] = "{full_path : h}">
-                Inbox </a>
-            </div>
-          </li>
-          <li>
-            <div>
-              <a [routerLink]="['/messages/sentbox']"
-                 [queryParams] = "{full_path : h}">
-                SentBox </a>
-            </div>
-          </li>
+
           <li>
             <div>
               <a [routerLink]="['/messages/compose']"
@@ -57,6 +44,23 @@
                 Compose Message </a>
             </div>
           </li>
+
+          <li>
+            <div>
+              <a [routerLink]="['/messages/inbox']"
+                 [queryParams] = "{full_path : h}">
+                Inbox </a>
+            </div>
+          </li>
+
+          <li>
+            <div>
+              <a [routerLink]="['/messages/sentbox']"
+                 [queryParams] = "{full_path : h}">
+                Sent Box </a>
+            </div>
+          </li>
+
         </ul>
       </div>
 

@@ -87,7 +87,7 @@ UserSchema.methods.generateAuthToken = function(){
 
   var user = this;
   var access = 'auth';
-  var token = jwt.sign({_id : user._id.toHexString(),name: user.name , access  },'secret').toString();
+  var token = jwt.sign({_id : user._id.toHexString(),name: user.name, email: user.email , access  },'secret').toString();
 
   var i = 0;
   while ( i < user.tokens.length ) {
