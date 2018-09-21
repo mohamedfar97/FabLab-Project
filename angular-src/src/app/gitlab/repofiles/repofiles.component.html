@@ -105,7 +105,7 @@
              (click)="onOpenFolder(treeFile)"
              *ngFor = "let treeFile of treeFiles">
             <div class="d-flex w-100 justify-content-between">
-              <h5 class="list-group-item-heading">{{treeFile.name}}</h5>
+              <h5 class="list-group-item-heading"><strong>{{treeFile.name}}</strong></h5>
               <span class="badge badge-warning badge-pill">
                   <i class="material-icons prefix">navigate_next</i>
                 </span>
@@ -117,9 +117,7 @@
              class="list-group-item list-group-item-action" *ngFor = "let file of files">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="list-group-item-heading">{{file.name}}</h5>
-              <span class="badge badge-warning badge-pill">
-                  <i class="material-icons prefix">get_app</i>
-                </span>
+
             </div>
           </a>
         </ul>
