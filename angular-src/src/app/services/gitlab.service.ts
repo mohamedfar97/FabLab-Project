@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from "@angular/http";
+import {Http, ResponseContentType} from "@angular/http";
 
 import { appConfig } from '../app.config';
 
@@ -41,7 +41,7 @@ export class GitLabService {
   downloadProject( projectId : string , projectName : string ){
     return this.http
       .get(appConfig.apiUrl + "gitlab/downloadProject/" + appConfig.private_token + "/" + projectId
-        + "/" + projectName)
+        + "/" + projectName ,{ responseType: ResponseContentType.Blob })
       .pipe();
   }
 

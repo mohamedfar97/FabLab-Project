@@ -142,7 +142,10 @@ module.exports.downProject = ( req,res ) => {
         .on('end' , () => {
             console.log("End Of Reading !!");
             fileContent.end();
-            res.sendFile(filePath);
+            res.sendFile(filePath , () => {
+                console.log("Removed From API");
+                fs.unlinkSync(filePath);
+            });
         })
 };
 
