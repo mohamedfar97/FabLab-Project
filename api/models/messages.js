@@ -1,12 +1,10 @@
 const mongoose = require('mongoose');
-const {ObjectID} = require("mongodb");
 const validator = require('validator');
 
 const MessageSchema = mongoose.Schema({
     sender:{
         type: String,
         required: true,
-        unique: true,
         validate: {
             validator: validator.isEmail,
             message: '{Value} is an invalid email'
@@ -15,11 +13,13 @@ const MessageSchema = mongoose.Schema({
     receiver:{
         type: String,
         required: true,
-        unique: true,
         validate: {
             validator: validator.isEmail,
             message: '{Value} is an invalid email'
         }
+    },
+    subject: {
+        type: String
     },
     message:{
         type: String,

@@ -1,140 +1,112 @@
 const _ = require("lodash");
-const async = require('async');
 
-const {User} = require("../models/user");
 const {Messages} = require("../models/messages");
 
 module.exports.sendMessage = ( req,res ) => {
-    let body = _.pick(req.body,['sender','receiver','message','sendingDate']);
+    let body = _.pick(req.body, ['sender', 'receiver', 'message','subject']);
     body.messageDate = new Date();
 
     let message = new Messages(body);
 
     message.save()
-        .then( (message) => {
-            User.findOne({email:message.sender})
-                .then( (sendingUser) => {
-                        User.findOne({email:message.receiver})
-                            .then( (receivingUser) => {
-                                sendingUser.sentMessages.push({
-                                    messageId: message._id,
-                                    receiverName: receivingUser.name
-                                });
-                                sendingUser.save()
-                                    .then( () => {
-                                        receivingUser.receivedMessages.push({
-                                            messageId: message._id,
-                                            senderName: sendingUser.name
-                                        });
-                                        receivingUser.save()
-                                            .then( () => {
-                                                return res.send(message);
-                                            }).catch( (error) => {
-                                            return res.send({
-                                                msg: "Cannot Save in Received Messages",
-                                                err: error
-                                            })
-                                        });
-                                    }).catch( (error) => {
-                                    return res.send({
-                                        msg: "Cannot Save in Sent Messages",
-                                        err: error
-                                    })
-                            }).catch( (error) => {
-                            return res.send({
-                                msg: "Cannot Find A Receiving User",
-                                err: error
-                            })
-                        });
-                    });
-
-                });
+        .then ( (message) => {
+            return res.status(200)
+                .send( {
+                    msg: "Message Sent",
+                    data: message
+                })
         }).catch( (error) => {
-            return res.send({
-                msg: "Cannot Send Message",
-                error: error
-            });
+            return res.status(400)
+                .send( {
+                    errMsg: "Cannot Send Message",
+                    err: error
+                })
     })
+
 };
 
 module.exports.viewSentMessages = ( req,res ) => {
 
-  let id = req.params.id;
-  let userSentMessages = [];
+  let userEmail = req.params.email;
 
-  User.findById(id)
-      .then( (user) => {
-
-          if ( user.sentMessages.length === 0 ) {
-              return res.send({
-                  msg: 'Cannot Find Any Messages',
-                  data: userSentMessages
-              });
+  Messages.find( {sender: userEmail} )
+      .then( (messages) => {
+          if ( messages.length > 0 ) {
+              return res.status(200)
+                  .send( {
+                      msg: "Retrieved All Messages.",
+                      data: messages
+                  })
+          } else {
+             return res.status(200)
+                  .send( {
+                      msg: "You Did Not Send Any Messages.",
+                      data: messagess
+                  })
           }
-
-          for ( let i = 0 ; i < user.sentMessages.length ; i++ ) {
-              Messages.findById(user.sentMessages[i].messageId)
-                  .then( (message) => {
-                      userSentMessages.push(message);
-                      if ( i === (user.sentMessages.length - 1)) {
-                          return res.send({
-                              msg: 'Fetched All Messages',
-                              data: userSentMessages
-                          });
-                      }
-                  }).catch( (error) => {
-                      return res.send({
-                          msg: 'Cannot Find Any Messages',
-                          data: userSentMessages,
-                          err: error
-                      })
+      }).catch( (error) => {
+          return res.status(404)
+              .send( {
+                  errMsg: "Cannot Load Messages.",
+                  err: error
               })
-          }
-      }).catch( (err) => {
-      return res.send({
-          msg: 'Cannot Find User',
-          data: err
-      });
   })
+
 };
 
 module.exports.viewReceivedMessages = ( req,res ) => {
 
-    let id = req.params.id;
-    let userReceivedMessages = [];
+    let userEmail = req.params.email;
 
-    User.findById(id)
-        .then( (user) => {
-
-            if ( user.receivedMessages.length === 0 ) {
-                return res.send({
-                    msg: 'Cannot Find Any Messages',
-                    data: userReceivedMessages
-                });
-            }
-
-            for ( let i = 0 ; i < user.receivedMessages.length ; i++ ) {
-                Messages.findById(user.receivedMessages[i].messageId)
-                    .then( (message) => {
-                        userReceivedMessages.push(message);
-                        if ( i === (user.receivedMessages.length - 1)) {
-                            return res.send({
-                                msg: 'Fetched All Messages',
-                                data: userReceivedMessages
-                            });
-                        }
-                    }).catch( (error) => {
-                    return res.send({
-                        msg: 'Cannot Find Any Messages',
-                        data: userReceivedMessages,
-                        err: error
+    Messages.find( {receiver: userEmail} )
+        .then( (messages) => {
+            if ( messages.length > 0 ) {
+                return res.status(200)
+                    .send( {
+                        msg: "Retrieved All Messages.",
+                        data: messages
                     })
-                })
+            } else {
+                return res.status(200)
+                    .send( {
+                        msg: "You Did Not Receive Any Messages.",
+                        data: messages
+                    })
             }
-        }).catch( (err) => {
-        return res.send({
-            msg: 'Cannot Find User',
-            data: err
-        });
+        }).catch( (error) => {
+        return res.status(404)
+            .send( {
+                errMsg: "Cannot Load Messages.",
+                err: error
+            })
     })
+};
+
+module.exports.deleteMessage = ( req,res ) => {
+
+    let messageId = req.params.messageId;
+
+    Messages.findByIdAndDelete( messageId )
+        .then( (message) => {
+            if ( message ) {
+                return res.status(200)
+                    .send({
+                        msg: "Message Deleted",
+                        data: message
+                    })
+            } else {
+                return res.status(404)
+                    .send({
+                        errMsg: "Cannot Find Message To Be Deleted",
+                        data:message
+                    })
+            }
+        }).catch( (error) => {
+            return res.status(400)
+                .send({
+                    errMsg: "Cannot Retrieve Message Info",
+                    err: error
+                })
+    })
+
 };

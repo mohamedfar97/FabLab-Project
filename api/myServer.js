@@ -3,10 +3,13 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const {mongoose} = require('./dbConnect/dbConnect');
-const {authenticate} = require('./middleware/authentication');
+
+const authMW = require('./middleware/authentication');
+const messageMW = require('./middleware/messagesMW');
+
 const userCtrl =  require('./controllers/userController');
 const gitLabCtrl =  require('./controllers/gitLabController');
-const messagesCtrl =  require('./controllers/messagesController')
+const messagesCtrl =  require('./controllers/messagesController');
 
 const app = express();
 
@@ -43,6 +46,7 @@ app.get('/gitlab/getProjectCommits/:token/:projectId' , gitLabCtrl.getProjectCom
 app.post('/gitlab/uploadFile/:token/:projectId', gitLabCtrl.uploadFile);
 
 //----------------------------Messages------------------------
-app.get('/messages/getSentMessages/:id', messagesCtrl.viewSentMessages);
-app.get('/messages/getReceivedMessages/:id', messagesCtrl.viewReceivedMessages);
-app.post('/messages/sendMessage', messagesCtrl.sendMessage);
+app.get('/messages/getSentMessages/:email', authMW.isValidEmail, messagesCtrl.viewSentMessages);
+app.get('/messages/getReceivedMessages/:email', authMW.isValidEmail, messagesCtrl.viewReceivedMessages);
+app.post('/messages/sendMessage', messageMW.isValidSender, messageMW.isValidReceiver, messagesCtrl.sendMessage);
+app.delete('/messages/deleteMessage/:messageId', messageMW.isValidMessageId, messagesCtrl.deleteMessage);

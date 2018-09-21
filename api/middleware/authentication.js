@@ -7,7 +7,7 @@ module.exports.isAuthenticated = function(req , res , next) {
       req.user = user ;
       req.token = token ;
       next();
-    }else{
+    } else{
       return res.status(401).send();
     }
 
@@ -15,6 +15,31 @@ module.exports.isAuthenticated = function(req , res , next) {
     res.status(401).send();
   });
 };
+
+module.exports.isValidEmail = function( req,res,next ) {
+
+    let userEmail = req.params.email;
+
+    User.findOne( {email: userEmail} )
+        .then( (user) => {
+            if ( user ) {
+                next()
+            } else {
+                return res.status(404)
+                    .send({
+                        errMsg: "Cannot Find User Email"
+                    })
+            }
+        }).catch( (error) => {
+        return res.status(400)
+            .send({
+                errMsg: "Cannot Retrieve User Information",
+                err: error
+            })
+    })
+
+};
+
 
 module.exports.isCEO = ( req, res, next ) => {
   if ( req.user.role !== "ceo" ) {

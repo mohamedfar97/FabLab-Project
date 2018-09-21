@@ -51,26 +51,6 @@ const UserSchema = mongoose.Schema({
         type: String,
         enum: ['male','Male','female','Female']
     },
-    sentMessages: [{
-        messageId: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true
-        },
-        receiverName: {
-            type: String,
-            required: true
-        }
-    }],
-    receivedMessages: [{
-        messageId: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true
-        },
-        senderName: {
-            type: String,
-            required: true
-        }
-    }],
     tokens: [{
         access: {
             type: String,
