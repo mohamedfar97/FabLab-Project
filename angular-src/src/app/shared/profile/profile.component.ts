@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { ActivatedRoute , Params } from '@angular/router'
+import {ActivatedRoute, Params, Router} from '@angular/router'
 
 @Component({
   selector: 'app-profile',
@@ -9,7 +9,7 @@ import { ActivatedRoute , Params } from '@angular/router'
 })
 export class ProfileComponent implements OnInit {
 
-  id : number;
+  id : string;
   name : string;
   email : string;
   phone : string;
@@ -18,7 +18,8 @@ export class ProfileComponent implements OnInit {
   user;
 
   constructor(private authService : AuthService,
-              private route: ActivatedRoute ) {}
+              private route: ActivatedRoute,
+              private router : Router) {}
 
   ngOnInit() {
 
@@ -36,7 +37,7 @@ export class ProfileComponent implements OnInit {
     this.authService.getProfile(this.id)
       .subscribe(
         (res : any) => {
-          var user = JSON.parse(res._body);
+          let user = JSON.parse(res._body);
           this.name = user.name;
           this.email = user.email;
           this.phone = user.phone;
@@ -44,4 +45,13 @@ export class ProfileComponent implements OnInit {
           console.log(user);
         });
   }
+
+  onEditProfile(){
+    this.router.navigate(["/profile/editProfile"],
+      { queryParams: {
+          id: this.id
+        }
+      });
+  }
+
 }
