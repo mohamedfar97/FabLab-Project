@@ -4,7 +4,7 @@ const cors = require('cors');
 
 const {mongoose} = require('./dbConnect/dbConnect');
 
-const authMW = require('./middleware/authentication');
+const authMW = require('./middleware/authMW');
 const messageMW = require('./middleware/messagesMW');
 
 const userCtrl =  require('./controllers/userController');
@@ -29,10 +29,15 @@ app.listen(3000 , () => {
 });
 
 //----------------------------User----------------------------
-app.get('/profile/:id', userCtrl.profile);
+app.get('/profile/:id', authMW.isValidUserId, userCtrl.profile);
+app.get('/getPendingUsers/:adminId', authMW.isValidAdminId, userCtrl.getAllPendingUsers);
+app.get('/viewAllUsers', userCtrl.viewAllUsers);
+app.get('/viewUnverifiedUsers/:adminId', authMW.isValidAdminId, userCtrl.viewUnverifiedUsers);
 app.post('/register', userCtrl.registerUser);
 app.post('/logIn', userCtrl.logIn);
-app.post('/editProfile/:id', userCtrl.editProfile);
+app.post('/editProfile/:id', authMW.isValidUserId, userCtrl.editProfile);
+app.post('/verifyUser/:adminId', authMW.isValidAdminId, userCtrl.verifyUser);
+app.post('/addAdmin/:adminId', authMW.isValidAdminId, userCtrl.addAdmin);
 
 //----------------------------GitLab--------------------------
 app.get('/gitlab/getGroups/:token', gitLabCtrl.getGroups);

@@ -1,4 +1,5 @@
 var {User} = require("../models/user");
+const {ObjectID} = require("mongodb");
 
 module.exports.isAuthenticated = function(req , res , next) {
   var token = req.header('x-auth');
@@ -14,6 +15,75 @@ module.exports.isAuthenticated = function(req , res , next) {
   }).catch((e) => {
     res.status(401).send();
   });
+};
+
+module.exports.isValidUserId = function( req,res,next ) {
+
+  let userId = req.params.id;
+
+  if ( ! ObjectID.isValid(userId) ) {
+      return res.status(400)
+          .send({
+              errMag: "Invalid User ID."
+          })
+  }
+
+  User.findById(userId)
+      .then( (user) => {
+          if ( user ) {
+              next()
+          } else {
+              return res.status(404)
+                  .send({
+                      errMsg: "Cannot Find User."
+                  })
+          }
+      }).catch( (error) => {
+            return res.status(400)
+                .send({
+                    errMsg: "Cannot Retrieve User Information.",
+                    err: error
+            })
+         })
+
+};
+
+module.exports.isValidAdminId = function ( req,res,next ) {
+
+    let adminId = req.params.adminId;
+
+    if ( ! ObjectID.isValid(adminId) ) {
+        return res.status(400)
+            .send({
+                errMsg: "Invalid Admin ID."
+            })
+    }
+
+    User.findById(adminId)
+        .then( (user) => {
+            if ( user ) {
+                if ( user.role === "admin" ) {
+                    next();
+                } else {
+                    return res.status(401)
+                        .send({
+                            errMsg: "You Are Not An Admin"
+                        })
+                }
+            } else {
+                return res.status(404)
+                    .send({
+                        errMsg: "Cannot Find Admin User."
+                    })
+            }
+        }).catch( (error) => {
+            return res.status(400)
+                .send({
+                    errMsg: "Cannot Fetch User Information",
+                    err: error
+                })
+    })
+
 };
 
 module.exports.isValidEmail = function( req,res,next ) {

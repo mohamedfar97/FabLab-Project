@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SidebarComponent } from "../../header/sidebar/sidebar.component";
 import { AuthService } from "../../services/auth.service";
-import {HeaderComponent} from "../../header/header.component";
+import { HeaderComponent } from "../../header/header.component";
 
 @Component({
   selector: 'app-login',

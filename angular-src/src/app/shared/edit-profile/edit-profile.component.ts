@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
 import  {FormControl, FormGroup, Validators } from "@angular/forms";
+import {HeaderComponent} from "../../header/header.component";
 
 @Component({
   selector: 'app-edit-profile',
@@ -15,7 +16,8 @@ export class EditProfileComponent implements OnInit {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private header : HeaderComponent) { }
 
   ngOnInit() {
     this.user = new FormGroup({
@@ -50,6 +52,7 @@ export class EditProfileComponent implements OnInit {
       .subscribe(
         (res) => {
           sessionStorage.setItem("x-auth" , res.headers.get('x-auth') );
+          this.header.user_name = user.name;
           this.router.navigate(['/profile'],{queryParams:{id:this.id}});
         },
         error => {
