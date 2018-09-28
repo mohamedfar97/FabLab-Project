@@ -62,7 +62,7 @@ module.exports.isValidAdminId = function ( req,res,next ) {
     User.findById(adminId)
         .then( (user) => {
             if ( user ) {
-                if ( user.role === "admin" ) {
+                if ( user.isAdmin ) {
                     next();
                 } else {
                     return res.status(401)
@@ -109,6 +109,31 @@ module.exports.isValidEmail = function( req,res,next ) {
     })
 
 };
+
+module.exports.isValidUsername = function( req,res,next ) {
+
+    let reqUsername = req.params.username;
+
+    User.findOne( {username: reqUsername} )
+        .then( (user) => {
+            if ( user ) {
+                next()
+            } else {
+                return res.status(404)
+                    .send({
+                        errMsg: "Cannot Find Username"
+                    })
+            }
+        }).catch( (error) => {
+        return res.status(400)
+            .send({
+                errMsg: "Cannot Retrieve User Information",
+                err: error
+            })
+    })
+
+};
+
 
 
 module.exports.isCEO = ( req, res, next ) => {

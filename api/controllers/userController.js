@@ -5,9 +5,11 @@ const {ObjectID} = require("mongodb");
 
 module.exports.registerUser = ( req,res ) => {
 
-    let body = _.pick(req.body,['name','email','password','role','phone','gender']);
+    console.log("Registering User");
 
-    if ( body.role !== "admin") {
+    let body = _.pick(req.body,['username','name','email','password','role','phone','gender']);
+
+    if ( ! body.isAdmin ) {
         let user = new User(body);
         user.save()
             .then( (user) => {
@@ -149,15 +151,7 @@ module.exports.viewUnverifiedUsers = ( req,res ) => {
 module.exports.verifyUser = ( req,res ) => {
 
     let userId = req.body.userId;
-    let adminId = req.body.adminId;
     let verified = req.body.verified;
-
-    if ( ! ObjectID.isValid(adminId) ) {
-        return res.status(400)
-            .send({
-                errMsg: "Invalid Admin ID."
-            })
-    }
 
     if ( ! ObjectID.isValid(userId) ) {
         return res.status(400)
@@ -172,31 +166,6 @@ module.exports.verifyUser = ( req,res ) => {
                 errMsg: "Invalid Verification Status."
             })
     }
-
-
-    User.findById( adminId )
-        .then( (user) => {
-            if ( user ) {
-                if ( user.role !== "admin" ) {
-                    return res.status(401)
-                        .send({
-                            errMsg: "You Are Not Allowed To Verify Users."
-                        })
-                }
-            } else {
-                return res.status(404)
-                    .send({
-                        errMsg: "Cannot Find Admin."
-                    })
-            }
-        }).catch( (error) => {
-            return res.status(400)
-                .send({
-                    errMsg: "Cannot Retrieve Admin Info",
-                    err: error
-                })
-    });
-
 
     let newInfo = {
       isReviewed: true,
@@ -238,8 +207,10 @@ module.exports.verifyUser = ( req,res ) => {
 
 module.exports.addAdmin = ( req,res ) => {
 
-    let body = _.pick(req.body,['name','email','password','phone','gender']);
-    body.role = "admin";
+    let body = _.pick(req.body,['username','name','email','password','phone','gender','role']);
+    body.isAdmin = true;
+    body.isReviewed = true;
+    body.isVerified = true;
     let user = new User(body);
 
     user.save()

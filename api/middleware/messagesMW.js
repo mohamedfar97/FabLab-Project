@@ -4,16 +4,16 @@ const {User} = require("../models/user");
 const {Messages} = require("../models/messages");
 
 module.exports.isValidSender = function ( req,res,next ) {
-    let senderEmail = req.body.sender || req.params.email;
+    let senderUsername = req.body.sender || req.params.username;
 
-    User.findOne( {email: senderEmail })
+    User.findOne( {username: senderUsername })
         .then( (user) => {
             if ( user ) {
                 next()
             } else {
                 return res.status(404)
                     .send({
-                        errMsg: "Cannot Find Sender Email"
+                        errMsg: "Cannot Find Sender Username"
                     })
             }
         }).catch( (error) => {
@@ -26,16 +26,16 @@ module.exports.isValidSender = function ( req,res,next ) {
 };
 
 module.exports.isValidReceiver = function ( req,res,next ) {
-    let receiverEmail = req.body.receiver || req.params.email;
+    let receiverUsername = req.body.receiver || req.params.username;
 
-    User.findOne( {email: receiverEmail })
+    User.findOne( {username: receiverUsername })
         .then( (user) => {
             if ( user ) {
                 next()
             } else {
                 return res.status(404)
                     .send({
-                        errMsg: "Cannot Find Receiver Email"
+                        errMsg: "Cannot Find Receiver Username"
                     })
             }
         }).catch( (error) => {

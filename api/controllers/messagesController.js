@@ -27,9 +27,9 @@ module.exports.sendMessage = ( req,res ) => {
 
 module.exports.viewSentMessages = ( req,res ) => {
 
-  let userEmail = req.params.email;
+  let reqUsername = req.params.username;
 
-  Messages.find( {sender: userEmail} )
+  Messages.find( {sender: reqUsername} )
       .then( (messages) => {
           if ( messages.length > 0 ) {
               return res.status(200)
@@ -56,9 +56,9 @@ module.exports.viewSentMessages = ( req,res ) => {
 
 module.exports.viewReceivedMessages = ( req,res ) => {
 
-    let userEmail = req.params.email;
+    let reqUsername = req.params.username;
 
-    Messages.find( {receiver: userEmail} )
+    Messages.find( {receiver: reqUsername } )
         .then( (messages) => {
             if ( messages.length > 0 ) {
                 return res.status(200)

@@ -13,12 +13,19 @@ const UserSchema = mongoose.Schema({
         trim: true,
         unique: false
     },
+    username: {
+      type: String,
+      required: true,
+      trim: true,
+      minlength: 1,
+      unique: true
+    },
     role: {
       type: String,
       enum: ["ceo", "foundation manager", "education manager",
       "education specialist", "makerspace manager", "flow manager",
       "flinc manager", "fixed fablab manager", "saudia lab manager",
-      "lab specialist", "foundation admin", "public relation", "accountant", "admin"],
+      "lab specialist", "foundation admin", "public relation", "accountant"],
       required: true,
       lowercase: true
     },
@@ -35,6 +42,10 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true,
         minlength: 8
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false
     },
     isVerified: {
         type: Boolean,
@@ -95,7 +106,7 @@ UserSchema.methods.generateAuthToken = function(){
 
   var user = this;
   var access = 'auth';
-  var token = jwt.sign({_id : user._id.toHexString(),name: user.name, email: user.email , access  },'secret').toString();
+  var token = jwt.sign({_id : user._id.toHexString(),name: user.name, username: user.username , access  },'secret').toString();
 
   var i = 0;
   while ( i < user.tokens.length ) {

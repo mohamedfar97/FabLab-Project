@@ -16,10 +16,10 @@ export class SentboxComponent implements OnInit {
 
   ngOnInit() {
 
-    let currentUserEmail = this.authService.getUserFromToken(sessionStorage.getItem("x-auth")).email;
+    let currentUsername = this.authService.getUserFromToken(sessionStorage.getItem("x-auth")).username;
 
     this.messagingService
-      .getSentMessages(currentUserEmail)
+      .getSentMessages(currentUsername)
       .subscribe((res:any) => {
         this.sentMessages = (JSON.parse(res._body)).data;
         console.log(this.sentMessages);

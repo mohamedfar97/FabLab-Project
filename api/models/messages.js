@@ -1,22 +1,13 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
 
 const MessageSchema = mongoose.Schema({
     sender:{
         type: String,
-        required: true,
-        validate: {
-            validator: validator.isEmail,
-            message: '{Value} is an invalid email'
-        }
+        required: true
     },
     receiver:{
         type: String,
-        required: true,
-        validate: {
-            validator: validator.isEmail,
-            message: '{Value} is an invalid email'
-        }
+        required: true
     },
     subject: {
         type: String

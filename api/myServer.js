@@ -50,7 +50,7 @@ app.get('/gitlab/getProjectCommits/:token/:projectId' , gitLabCtrl.getProjectCom
 app.post('/gitlab/uploadFile/:token/:projectId', gitLabCtrl.uploadFile);
 
 //----------------------------Messages------------------------
-app.get('/messages/getSentMessages/:email', authMW.isValidEmail, messagesCtrl.viewSentMessages);
-app.get('/messages/getReceivedMessages/:email', authMW.isValidEmail, messagesCtrl.viewReceivedMessages);
+app.get('/messages/getSentMessages/:username', authMW.isValidUsername, messagesCtrl.viewSentMessages);
+app.get('/messages/getReceivedMessages/:username', authMW.isValidUsername, messagesCtrl.viewReceivedMessages);
 app.post('/messages/sendMessage', messageMW.isValidSender, messageMW.isValidReceiver, messagesCtrl.sendMessage);
 app.delete('/messages/deleteMessage/:messageId', messageMW.isValidMessageId, messagesCtrl.deleteMessage);

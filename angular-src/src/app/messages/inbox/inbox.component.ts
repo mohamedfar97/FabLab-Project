@@ -16,10 +16,10 @@ export class InboxComponent implements OnInit {
 
   ngOnInit() {
 
-    let currentUserEmail = this.authService.getUserFromToken(sessionStorage.getItem("x-auth")).email;
+    let currentUsername = this.authService.getUserFromToken(sessionStorage.getItem("x-auth")).username;
 
     this.messagingService
-      .getReceivedMessages(currentUserEmail)
+      .getReceivedMessages(currentUsername)
       .subscribe((res:any) => {
         this.receivedMessages = (JSON.parse(res._body)).data;
       }, (err) => {

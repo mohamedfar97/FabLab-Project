@@ -44,7 +44,7 @@ export class ComposeComponent implements OnInit {
   ngOnInit() {
 
     this.message = new FormGroup({
-      to: new FormControl('', [Validators.required , Validators.email]),
+      to: new FormControl('', [Validators.required]),
       subject: new FormControl(''),
       content: new FormControl('', Validators.required)
     });
@@ -58,14 +58,13 @@ export class ComposeComponent implements OnInit {
 
       let currentUser = this.authService.getUserFromToken(sessionStorage.getItem('x-auth'));
 
-      // To Remove The <p> Tags Sent With Messages
-      let content = value.content.substring(3,value.content.length-4);
+      console.log(currentUser);
 
       let body = {
-        sender: currentUser.email,
+        sender: currentUser.username,
         receiver: value.to,
         subject: value.subject,
-        message: content
+        message: value.content
       };
 
       this.messagingService.sendMessage(body)
@@ -73,7 +72,7 @@ export class ComposeComponent implements OnInit {
           console.log(JSON.parse(res._body).msg);
           this.router.navigate(['/messages/sentbox'])
         } , (err) => {
-          console.log("Some error");
+          console.log(err);
         })
     } else {
       console.log("Please Fill All Required Fields Correctly");
