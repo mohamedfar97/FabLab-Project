@@ -25,7 +25,7 @@ const UserSchema = mongoose.Schema({
       enum: ["ceo", "foundation manager", "education manager",
       "education specialist", "makerspace manager", "flow manager",
       "flinc manager", "fixed fablab manager", "saudia lab manager",
-      "lab specialist", "foundation admin", "public relation", "accountant"],
+      "lab specialist", "foundation admin", "public relation", "accountant","admin"],
       required: true,
       lowercase: true
     },

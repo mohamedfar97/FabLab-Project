@@ -30,6 +30,7 @@
     "validator": "^10.5.0"
   },
   "devDependencies": {
+    "@angular/cli": "^6.2.3",
     "is-json": "^2.0.1",
     "nodemon": "^1.18.4"
   }

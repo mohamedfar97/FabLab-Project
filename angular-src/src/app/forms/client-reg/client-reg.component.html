@@ -1,0 +1,31 @@
+<!--<div class="divider" style="padding-top:50px;"></div>-->
+<div class="container">
+  <div class="myContainer">
+    <div class="card card-signup">
+      <div class="card-body">
+        <!--Register form-->
+        <form class="formGroup" novalidate (ngSubmit)="onSubmit(clientReg)" [formGroup]="clientReg" >
+          <p class="h5 text-center mb-4">Sign up</p>
+
+          <div class="md-form mb-0">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="md-form mb-0">
+                  <i class="material-icons prefix">face</i>
+                  <input type="text" id="orangeForm-name" class="form-control" placeholder="name" formControlName="name" mdbActive #nameInput>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+          <div class="text-center">
+            <button class="btn btn-deep-orange waves-light" type="submit" [disabled]="!user.valid"  mdbRippleRadius>Sign up</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

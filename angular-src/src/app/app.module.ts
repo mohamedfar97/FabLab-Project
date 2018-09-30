@@ -43,6 +43,9 @@ import {ProjectDiscussionService} from "./services/project-discussion.service";
 import { ContentPeekPipe } from './services/pipes/content-peek.pipe';
 import {ChatComponent} from "./chat/chat.component";
 
+import { ClientRegComponent } from './forms/client-reg/client-reg.component';
+
+
 
 @NgModule({
   declarations: [
@@ -65,7 +68,8 @@ import {ChatComponent} from "./chat/chat.component";
     InboxComponent,
     SentboxComponent,
     ComposeComponent,
-    ContentPeekPipe
+    ContentPeekPipe,
+    ClientRegComponent
   ],
   exports: [BsDropdownModule, TooltipModule]
   ,

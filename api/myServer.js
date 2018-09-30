@@ -10,7 +10,12 @@ const messageMW = require('./middleware/messagesMW');
 const userCtrl =  require('./controllers/userController');
 const gitLabCtrl =  require('./controllers/gitLabController');
 const messagesCtrl =  require('./controllers/messagesController');
+
 const discussionsCtrl =  require('./controllers/discussionController');
+
+const clientCtrl =  require('./controllers/clientController');
+const logs =  require('./controllers/logsController');
+
 
 const {GroupMessage} = require("./models/group-messages");
 const socket = require('socket.io');
@@ -62,6 +67,9 @@ app.post('/editProfile/:id', authMW.isValidUserId, userCtrl.editProfile);
 app.post('/verifyUser/:adminId', authMW.isValidAdminId, userCtrl.verifyUser);
 app.post('/addAdmin/:adminId', authMW.isValidAdminId, userCtrl.addAdmin);
 
+//----------------------------Client------------------------
+app.post('/client/clientRegistration',clientCtrl.register);
+
 //----------------------------GitLab--------------------------
 app.get('/gitlab/getGroups/:token', gitLabCtrl.getGroups);
 app.get('/gitlab/getProjects/:token', gitLabCtrl.getProjects);
@@ -78,6 +86,14 @@ app.get('/messages/getReceivedMessages/:username', authMW.isValidUsername, messa
 app.post('/messages/sendMessage', messageMW.isValidSender, messageMW.isValidReceiver, messagesCtrl.sendMessage);
 app.delete('/messages/deleteMessage/:messageId', messageMW.isValidMessageId, messagesCtrl.deleteMessage);
 
+
 //---------------------------Discussions----------------------
 
 app.get('/messages/getDiscussionTopMessages/:discussion', discussionsCtrl.getDiscussionTopMessages);
+
+//----------------------------Logs----------------------------
+app.get('/machineLog/getMachineLogs', logs.viewMachineLogs);
+app.post('/machineLog/reserveMachine/:customerId', authMW.isValidCustomerId, logs.reserveMachine);
+app.post('/machineLog/viewMachineLogOnADay', logs.viewMachineLogsOnADay);
+
+
