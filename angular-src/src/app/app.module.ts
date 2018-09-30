@@ -40,6 +40,7 @@ import { SentboxComponent } from './messages/sentbox/sentbox.component';
 import { ComposeComponent } from './messages/compose/compose.component';
 import {MessagingService} from "./services/messaging.service";
 import { ContentPeekPipe } from './services/pipes/content-peek.pipe';
+import { ClientRegComponent } from './forms/client-reg/client-reg.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { ContentPeekPipe } from './services/pipes/content-peek.pipe';
     InboxComponent,
     SentboxComponent,
     ComposeComponent,
-    ContentPeekPipe
+    ContentPeekPipe,
+    ClientRegComponent
   ],
   exports: [BsDropdownModule, TooltipModule]
   ,

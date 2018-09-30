@@ -1,20 +1,30 @@
-var {User} = require("../models/user");
+const {User} = require("../models/user");
+const {Customer} = require("../models/customer");
 const {ObjectID} = require("mongodb");
 
-module.exports.isAuthenticated = function(req , res , next) {
-  var token = req.header('x-auth');
-  User.findByToken(token).then((user)=>{
-    if(user){
-      req.user = user ;
-      req.token = token ;
-      next();
-    } else{
-      return res.status(401).send();
-    }
+module.exports.isAuthenticated = function( req,res,next ) {
 
-  }).catch((e) => {
-    res.status(401).send();
-  });
+  let token = req.header('x-auth');
+
+  User.findByToken(token)
+      .then( (user)=>{
+            if ( user ) {
+                req.user = user ;
+                req.token = token ;
+                next();
+            } else {
+                return res.status(401)
+                    .send({
+                        errMsg: "No Such Token."
+                    });
+            }
+       }).catch( (error) => {
+            return res.status(401)
+                .send({
+                    errMsg: "Cannot Fetch Token Info.",
+                    err: error
+                });
+        });
 };
 
 module.exports.isValidUserId = function( req,res,next ) {
@@ -50,7 +60,7 @@ module.exports.isValidUserId = function( req,res,next ) {
 
 module.exports.isValidAdminId = function ( req,res,next ) {
 
-    let adminId = req.params.adminId;
+    let adminId = req.params.adminId || req.body.adminId;
 
     if ( ! ObjectID.isValid(adminId) ) {
         return res.status(400)
@@ -88,7 +98,7 @@ module.exports.isValidAdminId = function ( req,res,next ) {
 
 module.exports.isValidEmail = function( req,res,next ) {
 
-    let userEmail = req.params.email;
+    let userEmail = req.params.email || req.body.email;
 
     User.findOne( {email: userEmail} )
         .then( (user) => {
@@ -112,7 +122,7 @@ module.exports.isValidEmail = function( req,res,next ) {
 
 module.exports.isValidUsername = function( req,res,next ) {
 
-    let reqUsername = req.params.username;
+    let reqUsername = req.params.username || req.body.username;
 
     User.findOne( {username: reqUsername} )
         .then( (user) => {
@@ -131,6 +141,30 @@ module.exports.isValidUsername = function( req,res,next ) {
                 err: error
             })
     })
+
+};
+
+module.exports.isValidCustomerId = function( req,res,next ) {
+
+    let customerId = req.params.customerId || req.body.customerId;
+
+    Customer.findById( customerId )
+        .then( (customer) => {
+            if ( customer ) {
+                next();
+            } else {
+                return res.status(404)
+                    .send({
+                        errMsg: "No Such Customer ID."
+                    })
+            }
+        }).catch( (err) => {
+        return res.status(400)
+            .send({
+                errMsg: "Cannot Search For Customer.",
+                error: err
+            })
+    });
 
 };
 
