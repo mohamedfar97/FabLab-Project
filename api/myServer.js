@@ -10,7 +10,10 @@ const messageMW = require('./middleware/messagesMW');
 const userCtrl =  require('./controllers/userController');
 const gitLabCtrl =  require('./controllers/gitLabController');
 const messagesCtrl =  require('./controllers/messagesController');
+const discussionsCtrl =  require('./controllers/discussionController');
 
+const {GroupMessage} = require("./models/group-messages");
+const socket = require('socket.io');
 const app = express();
 
 app.use(
@@ -24,9 +27,29 @@ app.use(
 );
 app.use(bodyParser.json());
 
-app.listen(3000 , () => {
+const server = app.listen(3000 , () => {
     console.log("Server up on port 3000");
 });
+
+//-----------------------SOCKETS--------------------------
+
+const  io = socket(server);
+
+io.on('connection' , (socket) => {
+    console.log(socket.id);
+    //socket.emit("hello" , {greetings : "hello "})
+
+    socket.on('discussionMessage' , (message) => {
+        console.log(message);
+        let msg = new GroupMessage(message);
+        msg.save().then( (message) => {
+            return  io.sockets.emit('discussionMessage' , message);
+        });
+
+    })
+});
+
+
 
 //----------------------------User----------------------------
 app.get('/profile/:id', authMW.isValidUserId, userCtrl.profile);
@@ -54,3 +77,7 @@ app.get('/messages/getSentMessages/:username', authMW.isValidUsername, messagesC
 app.get('/messages/getReceivedMessages/:username', authMW.isValidUsername, messagesCtrl.viewReceivedMessages);
 app.post('/messages/sendMessage', messageMW.isValidSender, messageMW.isValidReceiver, messagesCtrl.sendMessage);
 app.delete('/messages/deleteMessage/:messageId', messageMW.isValidMessageId, messagesCtrl.deleteMessage);
+
+//---------------------------Discussions----------------------
+
+app.get('/messages/getDiscussionTopMessages/:discussion', discussionsCtrl.getDiscussionTopMessages);

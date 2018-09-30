@@ -13,6 +13,7 @@ import {FolderFilesComponent} from "./gitlab/repofiles/folder-files/folder-files
 import {InboxComponent} from "./messages/inbox/inbox.component";
 import {SentboxComponent} from "./messages/sentbox/sentbox.component";
 import {ComposeComponent} from "./messages/compose/compose.component";
+import {ChatComponent} from "./chat/chat.component";
 
 const appRoutes : Routes = [
   { path : '', component :  LoginComponent },
@@ -27,7 +28,8 @@ const appRoutes : Routes = [
   { path : 'subdirectory' , component : FolderFilesComponent , runGuardsAndResolvers: 'always' },
   { path : 'messages/inbox' , component : InboxComponent},
   { path : 'messages/sentbox' , component : SentboxComponent},
-  { path : 'messages/compose' , component : ComposeComponent}
+  { path : 'messages/compose' , component : ComposeComponent},
+  { path : 'discussions' , component : ChatComponent}
 ];
 
 @NgModule({

@@ -1,0 +1,26 @@
+
+<div class="md-form">
+<div class="card mx-auto">
+  <div class="card-header">
+    <h1 class="panel-heading text-center">
+      Discussion</h1>
+    <br>
+  </div>
+  <div class="card-body">
+    <div class="panel panel-primary">
+      <div class="panel-body message">
+            <div id="output">
+
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="btn-outline-primary float-right" id="send" (click)="send()">
+        <i class="material-icons align-middle">send</i>
+      </button>
+      <i class="material-icons">textsms</i>
+      <input type="text" style="width: 680px;" class="" id="message" placeholder="..." [(ngModel)]="message" (keypress)="enterSend($event)"  mdbActive>
+    </div>
+  </div>
+</div>

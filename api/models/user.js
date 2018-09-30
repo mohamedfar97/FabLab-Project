@@ -82,6 +82,7 @@ const UserSchema = mongoose.Schema({
     }]
 });
 
+
 UserSchema.statics.findByToken = function(token) {
 
   var decoded ;

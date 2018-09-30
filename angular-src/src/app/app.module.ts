@@ -39,11 +39,14 @@ import { InboxComponent } from './messages/inbox/inbox.component';
 import { SentboxComponent } from './messages/sentbox/sentbox.component';
 import { ComposeComponent } from './messages/compose/compose.component';
 import {MessagingService} from "./services/messaging.service";
+import {ProjectDiscussionService} from "./services/project-discussion.service";
 import { ContentPeekPipe } from './services/pipes/content-peek.pipe';
+import {ChatComponent} from "./chat/chat.component";
 
 
 @NgModule({
   declarations: [
+    ChatComponent,
     AppComponent,
     HeaderComponent,
     LoginComponent,
@@ -84,7 +87,7 @@ import { ContentPeekPipe } from './services/pipes/content-peek.pipe';
     NgStringPipesModule,
     AppRoutingModule
   ],
-  providers: [AuthService , GitLabService , MessagingService , NgbModal],
+  providers: [AuthService , GitLabService , MessagingService , ProjectDiscussionService , NgbModal ],
   bootstrap: [AppComponent]
 })
 export class AppModule {  }
