@@ -1,6 +1,7 @@
 const _ = require("lodash");
 
 const {GroupMessage} = require("../models/group-messages");
+const {Discussion} = require("../models/discussion");
 
 module.exports.getDiscussionTopMessages = ( req,res ) => {
 
@@ -14,4 +15,7 @@ module.exports.getDiscussionTopMessages = ( req,res ) => {
     }).catch({
 
     })
-}
+};
+
+
+

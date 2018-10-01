@@ -6,9 +6,9 @@
       {{room}} Discussion</h1>
     <br>
   </div>
-  <div class="card-body">
+  <div class="card-body" #scrollmessages [scrollTop]="scrollmessages.scrollHeight">
     <div class="panel panel-primary">
-      <div class="panel-body message">
+      <div class="panel-body message" >
             <div id="output" *ngFor="let message of messages">
 
               <div class="incoming_msg" *ngIf="message.sender != this.user.username">
@@ -31,7 +31,7 @@
       </div>
     </div>
     <div class="card-footer">
-      <button class="btn-outline-primary float-right" id="send" (click)="send()">
+      <button class="btn-outline-warning float-right" id="send" (click)="send()">
         <i class="material-icons align-middle">send</i>
       </button>
       <i class="material-icons">textsms</i>

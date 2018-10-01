@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import * as SocketIo from 'socket.io-client';
 import {appConfig} from "../../app.config";
 import {AuthService} from "../../services/auth.service";
@@ -12,7 +12,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit  {
 
 
   private newmessage;
@@ -26,7 +26,7 @@ export class ChatComponent implements OnInit {
               private route: ActivatedRoute) {
 
     this.user = this.authService.getUserFromToken(sessionStorage.getItem('x-auth'));
-    //this.messages = new Array();
+
     this.route.queryParams
       .subscribe((queryParams: Params) => {
         this.room = queryParams['room'];
@@ -34,8 +34,7 @@ export class ChatComponent implements OnInit {
 
     this.socketService.getTopMessages(this.room).subscribe((res : any) =>{
       this.messages = JSON.parse(res._body).data;
-      console.log(this.messages.length);
-      console.log(this.messages);
+
 
     })
 
@@ -46,14 +45,13 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
 
-
-    let output = document.getElementById("output");
-
-
     this.socketService.socket.on('discussionMessage', (message) => {
       this.messages.push(message);
     });
+
   }
+
+
 
   send() {
 

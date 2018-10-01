@@ -105,14 +105,18 @@ img{ max-width:100%;}
 }
 
 .sent_msg p {
-  background: #05728f none repeat scroll 0 0;
+  background: #7386D5 none repeat scroll 0 0;
   border-radius: 3px;
   font-size: 14px;
   margin: 0; color:#fff;
   padding: 5px 10px 5px 12px;
   width:100%;
 }
-.outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
+.outgoing_msg{
+  overflow:hidden;
+  margin:26px 0 26px;
+
+}
 .sent_msg {
   float: right;
   width: 46%;
