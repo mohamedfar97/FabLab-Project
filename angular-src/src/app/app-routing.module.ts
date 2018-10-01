@@ -14,11 +14,12 @@ import {InboxComponent} from "./messages/inbox/inbox.component";
 import {SentboxComponent} from "./messages/sentbox/sentbox.component";
 import {ComposeComponent} from "./messages/compose/compose.component";
 
-import {ChatComponent} from "./chat/chat.component";
+import {ChatComponent} from "./discussions/chat/chat.component";
 
 import {PendingUsersComponent} from "./admin/pending-users/pending-users.component";
 import {UnverifiedUsersComponent} from "./admin/unverified-users/unverified-users.component";
-
+import {ClientRegComponent} from "./forms/client-reg/client-reg.component";
+import {DiscussionsComponent} from "./discussions/discussions.component";
 
 const appRoutes : Routes = [
   { path : '', component :  LoginComponent },
@@ -34,9 +35,11 @@ const appRoutes : Routes = [
   { path : 'messages/inbox' , component : InboxComponent},
   { path : 'messages/sentbox' , component : SentboxComponent},
   { path : 'messages/compose' , component : ComposeComponent},
-  { path : 'discussions' , component : ChatComponent},
   { path : 'admin/pendingUsers' , component : PendingUsersComponent },
-  { path : 'admin/unverifiedUsers' , component : UnverifiedUsersComponent }
+  { path : 'admin/unverifiedUsers' , component : UnverifiedUsersComponent },
+  { path : 'discussions' , component : DiscussionsComponent},
+  { path : 'discussion' , component : ChatComponent},
+  { path : 'forms/clientRegister' , component : ClientRegComponent }
 
 ];
 

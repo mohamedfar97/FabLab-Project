@@ -41,7 +41,7 @@ import { ComposeComponent } from './messages/compose/compose.component';
 import {MessagingService} from "./services/messaging.service";
 import {ProjectDiscussionService} from "./services/project-discussion.service";
 import { ContentPeekPipe } from './services/pipes/content-peek.pipe';
-import {ChatComponent} from "./chat/chat.component";
+import {ChatComponent} from "./discussions/chat/chat.component";
 
 import { ClientRegComponent } from './forms/client-reg/client-reg.component';
 import { AdminHeaderComponent } from './admin/admin-header/admin-header.component';
@@ -49,7 +49,7 @@ import { AdminSidebarComponent } from './admin/admin-header/admin-sidebar/admin-
 import { PendingUsersComponent } from './admin/pending-users/pending-users.component';
 import {AdminService} from "./services/admin.service";
 import { UnverifiedUsersComponent } from './admin/unverified-users/unverified-users.component';
-
+import { DiscussionsComponent } from './discussions/discussions.component';
 
 
 @NgModule({
@@ -78,7 +78,8 @@ import { UnverifiedUsersComponent } from './admin/unverified-users/unverified-us
     AdminHeaderComponent,
     AdminSidebarComponent,
     PendingUsersComponent,
-    UnverifiedUsersComponent
+    UnverifiedUsersComponent,
+    DiscussionsComponent
   ],
   exports: [BsDropdownModule, TooltipModule]
   ,

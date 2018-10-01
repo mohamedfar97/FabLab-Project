@@ -41,14 +41,20 @@ const server = app.listen(3000 , () => {
 const  io = socket(server);
 
 io.on('connection' , (socket) => {
-    console.log(socket.id);
+    let room;
+
+    socket.on('discussionRoom' , (data) => {
+        room = data.room;
+
+        socket.join(room);
+    })
     //socket.emit("hello" , {greetings : "hello "})
 
     socket.on('discussionMessage' , (message) => {
-        console.log(message);
+
         let msg = new GroupMessage(message);
         msg.save().then( (message) => {
-            return  io.sockets.emit('discussionMessage' , message);
+            return  io.to(room).emit('discussionMessage' , message);
         });
 
     })
