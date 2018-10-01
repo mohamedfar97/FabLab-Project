@@ -20,6 +20,8 @@ import {PendingUsersComponent} from "./admin/pending-users/pending-users.compone
 import {UnverifiedUsersComponent} from "./admin/unverified-users/unverified-users.component";
 import {ClientRegComponent} from "./forms/client-reg/client-reg.component";
 import {DiscussionsComponent} from "./discussions/discussions.component";
+import {ViewDiscussionComponent} from "./admin/view-discussion/view-discussion.component";
+import {CreateDiscussionComponent} from "./admin/create-discussion/create-discussion.component";
 
 const appRoutes : Routes = [
   { path : '', component :  LoginComponent },
@@ -37,6 +39,8 @@ const appRoutes : Routes = [
   { path : 'messages/compose' , component : ComposeComponent},
   { path : 'admin/pendingUsers' , component : PendingUsersComponent },
   { path : 'admin/unverifiedUsers' , component : UnverifiedUsersComponent },
+  { path : 'admin/viewDiscussions' , component : ViewDiscussionComponent },
+  { path : 'admin/createDiscussion' , component : CreateDiscussionComponent },
   { path : 'discussions' , component : DiscussionsComponent},
   { path : 'discussion' , component : ChatComponent},
   { path : 'forms/clientRegister' , component : ClientRegComponent }

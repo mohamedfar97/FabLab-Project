@@ -96,8 +96,10 @@ app.delete('/messages/deleteMessage/:messageId', messageMW.isValidMessageId, mes
 
 
 //---------------------------Discussions----------------------
-
 app.get('/messages/getDiscussionTopMessages/:discussion', discussionsCtrl.getDiscussionTopMessages);
+app.get('/messages/viewDiscussions/:adminId',authMW.isValidAdminId, discussionsCtrl.viewDiscussions);
+app.post('/messages/createDiscussion/:adminId',authMW.isValidAdminId, discussionsCtrl.createDiscussion);
+app.post('/messages/addContributor/:adminId',authMW.isValidAdminId, discussionsCtrl.addContributor);
 
 //----------------------------Logs----------------------------
 app.get('/machineLog/getMachineLogs', logs.viewMachineLogs);

@@ -36,5 +36,16 @@ export class AdminService {
       .pipe();
   }
 
+  viewDiscussions ( adminId: string ) {
+    return this.http
+      .get(appConfig.apiUrl + 'messages/viewDiscussions/' + adminId )
+      .pipe();
+  }
+
+  createDiscussion( adminId: string , body ) {
+    return this.http
+      .post(appConfig.apiUrl + 'messages/createDiscussion/' + adminId , body )
+      .pipe();
+  }
 
 }

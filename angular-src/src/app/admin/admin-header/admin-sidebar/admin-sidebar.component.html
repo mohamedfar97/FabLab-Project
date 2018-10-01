@@ -68,11 +68,33 @@
       </ul>
     </div>
 
+    <div class="sidebar-header">
+      <a href="#discussionSubmenu" data-toggle="collapse" aria-expanded="false" >
+        <i class="material-icons  align-middle">group_work</i>
+        Discussions
+        <i class="material-icons align-middle">keyboard_arrow_down</i> </a>
+
+      <ul class="collapse list-unstyled" id="discussionSubmenu"> <br>
+        <li>
+          <div>
+            <a [routerLink]="['/admin/viewDiscussions']">
+              View Discussions</a>
+          </div>
+
+          <div>
+            <a [routerLink]="['/admin/createDiscussion']">
+              Create Discussions</a>
+          </div>
+
+        </li>
+      </ul>
+    </div>
+
 
     <ul class="list-unstyled components">
-      <li> <a href="/discussions">
-        <i class="material-icons  align-middle">mail</i>
-        Discussions</a> </li>
+      <!--<li> <a href="/discussions">-->
+        <!--<i class="material-icons  align-middle">mail</i>-->
+        <!--Discussions</a> </li>-->
       <li> <a href="#">
         <i class="material-icons  align-middle">help</i>
         About</a> </li>

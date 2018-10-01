@@ -50,6 +50,8 @@ import { PendingUsersComponent } from './admin/pending-users/pending-users.compo
 import {AdminService} from "./services/admin.service";
 import { UnverifiedUsersComponent } from './admin/unverified-users/unverified-users.component';
 import { DiscussionsComponent } from './discussions/discussions.component';
+import { CreateDiscussionComponent } from './admin/create-discussion/create-discussion.component';
+import { ViewDiscussionComponent } from './admin/view-discussion/view-discussion.component';
 
 
 @NgModule({
@@ -79,7 +81,9 @@ import { DiscussionsComponent } from './discussions/discussions.component';
     AdminSidebarComponent,
     PendingUsersComponent,
     UnverifiedUsersComponent,
-    DiscussionsComponent
+    DiscussionsComponent,
+    CreateDiscussionComponent,
+    ViewDiscussionComponent
   ],
   exports: [BsDropdownModule, TooltipModule]
   ,
