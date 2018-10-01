@@ -1,0 +1,91 @@
+
+<div class="md-form">
+<div class="card mx-auto">
+  <div class="card-header">
+    <h1 class="panel-heading text-center">
+      {{room}} Discussion</h1>
+    <br>
+  </div>
+  <div class="card-body">
+    <div class="panel panel-primary">
+      <div class="panel-body message">
+            <div id="output" *ngFor="let message of messages">
+
+              <div class="incoming_msg" *ngIf="message.sender != this.user.username">
+                <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                <div class="received_msg">
+                  <div class="received_withd_msg">
+                    <p>{{message.message}}</p>
+                    <span class="time_date">{{message.messageDate | date:'medium'}} | {{message.sender}}</span></div>
+                </div>
+              </div>
+
+              <div class="outgoing_msg" *ngIf="message.sender == this.user.username">
+                <div class="sent_msg">
+                  <p>{{message.message}}</p>
+                  <span class="time_date"> {{message.messageDate | date:'medium'}}</span> </div>
+              </div>
+
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="btn-outline-primary float-right" id="send" (click)="send()">
+        <i class="material-icons align-middle">send</i>
+      </button>
+      <i class="material-icons">textsms</i>
+      <input type="text" style="width: 680px;" class="" id="message" placeholder="..." [(ngModel)]="newmessage" (keypress)="enterSend($event)"  mdbActive>
+    </div>
+  </div>
+</div>
+
+
+
+        <!--<div class="msg_history">-->
+          <!--<div class="incoming_msg">-->
+            <!--<div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>-->
+            <!--<div class="received_msg">-->
+              <!--<div class="received_withd_msg">-->
+                <!--<p>Test which is a new approach to have all-->
+                  <!--solutions</p>-->
+                <!--<span class="time_date"> 11:01 AM    |    June 9</span></div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="outgoing_msg">-->
+            <!--<div class="sent_msg">-->
+              <!--<p>Test which is a new approach to have all-->
+                <!--solutions</p>-->
+              <!--<span class="time_date"> 11:01 AM    |    June 9</span> </div>-->
+          <!--</div>-->
+          <!--<div class="incoming_msg">-->
+            <!--<div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>-->
+            <!--<div class="received_msg">-->
+              <!--<div class="received_withd_msg">-->
+                <!--<p>Test, which is a new approach to have</p>-->
+                <!--<span class="time_date"> 11:01 AM    |    Yesterday</span></div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="outgoing_msg">-->
+            <!--<div class="sent_msg">-->
+              <!--<p>Apollo University, Delhi, India Test</p>-->
+              <!--<span class="time_date"> 11:01 AM    |    Today</span> </div>-->
+          <!--</div>-->
+          <!--<div class="incoming_msg">-->
+            <!--<div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>-->
+            <!--<div class="received_msg">-->
+              <!--<div class="received_withd_msg">-->
+                <!--<p>We work directly with our designers and suppliers,-->
+                  <!--and sell direct to you, which means quality, exclusive-->
+                  <!--products, at a price anyone can afford.</p>-->
+                <!--<span class="time_date"> 11:01 AM    |    Today</span></div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="type_msg">-->
+          <!--<div class="input_msg_write">-->
+            <!--<input type="text" class="write_msg" placeholder="Type a message" />-->
+            <!--<button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>-->
+          <!--</div>-->
+        <!--</div>-->
+

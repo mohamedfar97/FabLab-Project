@@ -41,9 +41,10 @@ import { ComposeComponent } from './messages/compose/compose.component';
 import {MessagingService} from "./services/messaging.service";
 import {ProjectDiscussionService} from "./services/project-discussion.service";
 import { ContentPeekPipe } from './services/pipes/content-peek.pipe';
-import {ChatComponent} from "./chat/chat.component";
+import {ChatComponent} from "./discussions/chat/chat.component";
 
 import { ClientRegComponent } from './forms/client-reg/client-reg.component';
+import { DiscussionsComponent } from './discussions/discussions.component';
 
 
 
@@ -69,7 +70,8 @@ import { ClientRegComponent } from './forms/client-reg/client-reg.component';
     SentboxComponent,
     ComposeComponent,
     ContentPeekPipe,
-    ClientRegComponent
+    ClientRegComponent,
+    DiscussionsComponent
   ],
   exports: [BsDropdownModule, TooltipModule]
   ,
