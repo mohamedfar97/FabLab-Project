@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+</head>
+
+<body>
+<div class="wrapper">
+  <nav id="sidebar" [ngClass]="sideStatus">
+
+    <div class="sidebar-header">
+      <a href="#mailSubmenu" data-toggle="collapse" aria-expanded="false" >
+        <i class="material-icons  align-middle">mail</i>
+        Messages
+        <i class="material-icons align-middle">keyboard_arrow_down</i> </a>
+
+      <ul class="collapse list-unstyled" id="mailSubmenu"> <br>
+
+        <li>
+          <div>
+            <a [routerLink]="['/messages/compose']"
+               [queryParams] = "{full_path : h}">
+              Compose Message </a>
+          </div>
+        </li>
+
+        <li>
+          <div>
+            <a [routerLink]="['/messages/inbox']"
+               [queryParams] = "{full_path : h}">
+              Inbox </a>
+          </div>
+        </li>
+
+        <li>
+          <div>
+            <a [routerLink]="['/messages/sentbox']"
+               [queryParams] = "{full_path : h}">
+              Sent Box </a>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="sidebar-header">
+      <a href="#usersSubmenu" data-toggle="collapse" aria-expanded="false" >
+        <i class="material-icons  align-middle">group_work</i>
+        Users
+        <i class="material-icons align-middle">keyboard_arrow_down</i> </a>
+
+      <ul class="collapse list-unstyled" id="usersSubmenu"> <br>
+        <li>
+          <div>
+            <a [routerLink]="['/admin/pendingUsers']">
+              Pending Users </a>
+          </div>
+
+          <div>
+            <a [routerLink]="['/admin/unverifiedUsers']">
+              Unverified Users </a>
+          </div>
+
+        </li>
+      </ul>
+    </div>
+
+
+    <ul class="list-unstyled components">
+      <li> <a href="/discussions">
+        <i class="material-icons  align-middle">mail</i>
+        Discussions</a> </li>
+      <li> <a href="#">
+        <i class="material-icons  align-middle">help</i>
+        About</a> </li>
+      <li> <a href="#">
+        <i class="material-icons  align-middle">work</i>
+        Contact</a> </li>
+    </ul>
+  </nav>
+
+  <div id="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+</body>
+
+</html>

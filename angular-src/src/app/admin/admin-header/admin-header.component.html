@@ -1,10 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-dark" *ngIf="!isFullAdmin()">
+<nav class="navbar navbar-expand-lg navbar-dark" >
   <a class="navbar-brand">
     <img src="/assets/Fablab_logo.png" width="50" height="50" class="d-inline-block -align-left" alt="">
     <a class="collapsebtn offset-2" (click) = "onHeaderToggle(status)" type="button" *ngIf="isLoggedIn()">
-     <span class="navbar-toggler-icon collapseIcon"></span>
-   </a>
-   </a>
+      <span class="navbar-toggler-icon collapseIcon"></span>
+    </a>
+  </a>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto"></ul>
     <ul class="nav navbar-nav navbar-right" *ngIf = "!isLoggedIn()">
@@ -31,7 +31,7 @@
       <li>
         <div class="btn-group">
           <a  class="nav-link avatar dropdown-toggle waves-light pt-0" type="button" data-toggle="dropdown" aria-haspopup="true"
-                  mdbRippleRadius  aria-expanded="false">
+              mdbRippleRadius  aria-expanded="false">
             <img src="/assets/Profile-avatar.png"
                  class="img-fluid rounded-circle z-depth-0"><span
             class="caret"></span>
@@ -52,8 +52,6 @@
     </ul>
   </div>
 </nav>
-<app-sidebar *ngIf="!isFullAdmin()" [sideStatus]="status"></app-sidebar>
 
-<app-admin-header *ngIf="isFullAdmin()"></app-admin-header>
-
+<app-admin-sidebar [sideStatus]="status"></app-admin-sidebar>
 

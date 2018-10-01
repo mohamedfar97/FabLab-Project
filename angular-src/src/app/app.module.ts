@@ -44,6 +44,11 @@ import { ContentPeekPipe } from './services/pipes/content-peek.pipe';
 import {ChatComponent} from "./chat/chat.component";
 
 import { ClientRegComponent } from './forms/client-reg/client-reg.component';
+import { AdminHeaderComponent } from './admin/admin-header/admin-header.component';
+import { AdminSidebarComponent } from './admin/admin-header/admin-sidebar/admin-sidebar.component';
+import { PendingUsersComponent } from './admin/pending-users/pending-users.component';
+import {AdminService} from "./services/admin.service";
+import { UnverifiedUsersComponent } from './admin/unverified-users/unverified-users.component';
 
 
 
@@ -69,7 +74,11 @@ import { ClientRegComponent } from './forms/client-reg/client-reg.component';
     SentboxComponent,
     ComposeComponent,
     ContentPeekPipe,
-    ClientRegComponent
+    ClientRegComponent,
+    AdminHeaderComponent,
+    AdminSidebarComponent,
+    PendingUsersComponent,
+    UnverifiedUsersComponent
   ],
   exports: [BsDropdownModule, TooltipModule]
   ,
@@ -91,7 +100,13 @@ import { ClientRegComponent } from './forms/client-reg/client-reg.component';
     NgStringPipesModule,
     AppRoutingModule
   ],
-  providers: [AuthService , GitLabService , MessagingService , ProjectDiscussionService , NgbModal ],
+  providers: [
+    AuthService,
+    GitLabService,
+    MessagingService,
+    AdminService,
+    ProjectDiscussionService,
+    NgbModal],
   bootstrap: [AppComponent]
 })
 export class AppModule {  }

@@ -58,16 +58,18 @@ io.on('connection' , (socket) => {
 
 //----------------------------User----------------------------
 app.get('/profile/:id', authMW.isValidUserId, userCtrl.profile);
-app.get('/getPendingUsers/:adminId', authMW.isValidAdminId, userCtrl.getAllPendingUsers);
 app.get('/viewAllUsers', userCtrl.viewAllUsers);
-app.get('/viewUnverifiedUsers/:adminId', authMW.isValidAdminId, userCtrl.viewUnverifiedUsers);
 app.post('/register', userCtrl.registerUser);
 app.post('/logIn', userCtrl.logIn);
 app.post('/editProfile/:id', authMW.isValidUserId, userCtrl.editProfile);
-app.post('/verifyUser/:adminId', authMW.isValidAdminId, userCtrl.verifyUser);
-app.post('/addAdmin/:adminId', authMW.isValidAdminId, userCtrl.addAdmin);
 
-//----------------------------Client------------------------
+//----------------------------Admin---------------------------
+app.get('/admin/getPendingUsers/:adminId', authMW.isValidAdminId, userCtrl.getAllPendingUsers);
+app.get('/admin/viewUnverifiedUsers/:adminId', authMW.isValidAdminId, userCtrl.viewUnverifiedUsers);
+app.post('/admin/verifyUser/:adminId', authMW.isValidAdminId, userCtrl.verifyUser);
+app.post('/admin/setAsAdmin/:adminId', authMW.isValidAdminId, authMW.isValidUsername, userCtrl.setAsAdmin);
+
+//----------------------------Client--------------------------
 app.post('/client/clientRegistration',clientCtrl.register);
 
 //----------------------------GitLab--------------------------

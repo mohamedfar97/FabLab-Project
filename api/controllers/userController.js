@@ -124,7 +124,8 @@ module.exports.getAllPendingUsers = ( req,res ) => {
 module.exports.viewUnverifiedUsers = ( req,res ) => {
 
     User.find({
-        isVerified: false
+        isVerified: false,
+        isReviewed: true
     }).then( (users) => {
         if ( users ) {
             return res.status(200)
@@ -205,25 +206,45 @@ module.exports.verifyUser = ( req,res ) => {
     });
 };
 
-module.exports.addAdmin = ( req,res ) => {
+module.exports.setAsAdmin = ( req,res ) => {
 
-    let body = _.pick(req.body,['username','name','email','password','phone','gender','role']);
-    body.isAdmin = true;
-    body.isReviewed = true;
-    body.isVerified = true;
-    let user = new User(body);
+    let reqUsername = req.body.username;
 
-    user.save()
+    User.findOne( {username: reqUsername} )
         .then( (user) => {
-            return res.status(200)
-                .send({
-                    msg: "Added Admin.",
-                    data: user
-                })
+            if ( user ) {
+                if ( !user.isVerified ) {
+                    return res.status(400)
+                        .send({
+                            errMsg: "User Must Be Verified To Be Admin"
+                        })
+                } else {
+                    user.isAdmin = true;
+                    user.save()
+                        .then( (newUser) => {
+                            return res.status(200)
+                                .send({
+                                    msg: "Admin Set",
+                                    data: newUser
+                                })
+                        }).catch( (error) => {
+                            res.status(400)
+                                .send({
+                                    errMsg: "Cannot Save New User",
+                                    err: error
+                                })
+                    })
+                }
+            } else {
+                return res.status(404)
+                    .send({
+                        errMsg: "Cannot Find User"
+                    })
+            }
         }).catch( (error) => {
             return res.status(400)
                 .send({
-                    errMsg: "Cannot Create New Admin",
+                    errMsg: "Cannot Fetch User Info",
                     err: error
                 })
     })

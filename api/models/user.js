@@ -100,16 +100,35 @@ UserSchema.statics.findByToken = function(token) {
 UserSchema.methods.toJSON = function (){
   var user = this ;
   var userObject = user.toObject();
-  return _.pick(userObject , ['name' , 'email', 'role','phone','gender']);
+  return _.pick(userObject , ['name','email','role','phone','gender','_id']);
 };
 
 UserSchema.methods.generateAuthToken = function(){
 
-  var user = this;
-  var access = 'auth';
-  var token = jwt.sign({_id : user._id.toHexString(),name: user.name, username: user.username , access  },'secret').toString();
+  let user = this;
+  let access = 'auth';
+  let adminAccess = '';
 
-  var i = 0;
+  if ( user.role === "admin" && user.isAdmin ) {
+      adminAccess = 'full';
+  }
+  else if ( user.role !== 'admin' && user.isAdmin ) {
+      adminAccess = 'half';
+  }
+  else if ( user.role !== 'admin' && !user.isAdmin ) {
+      adminAccess = 'none';
+  }
+
+  let token = jwt.sign({
+      _id : user._id.toHexString(),
+      name: user.name,
+      username: user.username,
+      adminAccess,
+      access
+    },'secret').toString();
+
+  let i = 0;
+
   while ( i < user.tokens.length ) {
     if ( user.tokens[i].access === "auth" ) {
         user.tokens.splice(i,1);

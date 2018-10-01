@@ -41,6 +41,8 @@ export class LoginComponent implements OnInit {
 
           this.sidebar.loadGroups();
           this.header.user_name = user.name;
+          this.header.adminStatus = user.adminAccess;
+
           this.router.navigate(['/profile'] , {queryParams : {id:user._id}});
 
         },(error) => {

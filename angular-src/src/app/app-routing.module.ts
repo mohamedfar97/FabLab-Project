@@ -16,7 +16,8 @@ import {ComposeComponent} from "./messages/compose/compose.component";
 
 import {ChatComponent} from "./chat/chat.component";
 
-import {ClientRegComponent} from "./forms/client-reg/client-reg.component";
+import {PendingUsersComponent} from "./admin/pending-users/pending-users.component";
+import {UnverifiedUsersComponent} from "./admin/unverified-users/unverified-users.component";
 
 
 const appRoutes : Routes = [
@@ -34,7 +35,8 @@ const appRoutes : Routes = [
   { path : 'messages/sentbox' , component : SentboxComponent},
   { path : 'messages/compose' , component : ComposeComponent},
   { path : 'discussions' , component : ChatComponent},
-  { path : 'forms/clientRegister' , component : ClientRegComponent }
+  { path : 'admin/pendingUsers' , component : PendingUsersComponent },
+  { path : 'admin/unverifiedUsers' , component : UnverifiedUsersComponent }
 
 ];
 

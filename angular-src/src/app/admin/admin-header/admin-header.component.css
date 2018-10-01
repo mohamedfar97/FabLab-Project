@@ -1,12 +1,12 @@
 .navbar {
-  background: #7386D5;
+  background: #696969;
   color: #fff;
   height: 80px;
 }
 
 .collapseIcon{
   position: absolute;
-    right: 5px;
+  right: 5px;
 }
 .collapsebtn{
   width: 80px;

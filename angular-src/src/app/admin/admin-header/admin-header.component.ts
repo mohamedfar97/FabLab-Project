@@ -1,13 +1,14 @@
-import { Component, OnInit} from '@angular/core';
-import { AuthService } from "../services/auth.service";
-import { Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: 'app-admin-header',
+  templateUrl: './admin-header.component.html',
+  styleUrls: ['./admin-header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class AdminHeaderComponent implements OnInit {
+
   status : string;
   user_id : string;
   user_name : string;
@@ -63,8 +64,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(["/profile/editProfile"],
       { queryParams: {
           id: this.user_id
-      }
-    });
+        }
+      });
   }
 
 }
