@@ -36,9 +36,9 @@ export class AdminService {
       .pipe();
   }
 
-  viewDiscussions ( adminId: string ) {
+  viewDiscussions () {
     return this.http
-      .get(appConfig.apiUrl + 'messages/viewDiscussions/' + adminId )
+      .get(appConfig.apiUrl + 'messages/viewAllDiscussions')
       .pipe();
   }
 

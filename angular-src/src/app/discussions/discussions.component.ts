@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AdminService} from "../services/admin.service";
 
 @Component({
   selector: 'app-discussions',
@@ -7,18 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DiscussionsComponent implements OnInit {
 
-  discussions : Array<any>;
-  constructor() {
-    this.discussions = new Array<any>();
-    this.discussions.push({
-      room : "testProject"
-    });
-    this.discussions.push({
-      room : "testProject2"
-    });
-  }
+  discussions = [];
+
+  constructor(private adminService: AdminService) {}
 
   ngOnInit() {
+
+    this.adminService.viewDiscussions()
+      .subscribe((res:any) => {
+        this.discussions = JSON.parse(res._body).data;
+      }, (err) => {
+        console.log(err);
+      })
 
   }
 

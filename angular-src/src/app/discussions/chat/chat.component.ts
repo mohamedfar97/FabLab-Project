@@ -17,7 +17,7 @@ export class ChatComponent implements OnInit  {
 
   private newmessage;
   private room;
-  private messages = Array<any>;
+  private messages = Array<any>();
   private user;
 
 

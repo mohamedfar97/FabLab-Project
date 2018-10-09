@@ -17,6 +17,7 @@ export class CommitsComponent implements OnInit {
 
   constructor( private gitlabService: GitLabService,
                private spinnerService: NgxSpinnerService,
+               private route:ActivatedRoute
                ) { }
 
   ngOnInit() {

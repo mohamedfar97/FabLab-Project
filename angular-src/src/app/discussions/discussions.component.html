@@ -1,31 +1,27 @@
-
 <br>
-
 <div class="card">
   <div class="card-header">
     <h1 class="panel-heading">
-      Discussions</h1>
+      Discussions
+    </h1>
     <br>
   </div>
   <div class="card-body">
 
-
     <div class="panel panel-primary">
       <div class="panel-body message">
-
         <div class="list-group" *ngFor="let discussion of discussions">
-          <a class="list-group-item" [routerLink]="['/discussion']"
-             [queryParams] = "{room : discussion.room}">
+          <a class="list-group-item"
+             [routerLink]="['/discussion']"
+             [queryParams] = "{room : discussion.name}">
                 <span class="name"  style="min-width: 120px;display: inline-block;">
-                  <strong>{{discussion.room}}</strong>
-                </span> </a>
-
+                  <strong>{{discussion.name}}</strong>
+                  <p>Contributors: {{discussion.contributors.length}}</p>
+                </span>
+          </a><br>
         </div>
-
       </div>
     </div>
-
-
   </div>
 </div>
 

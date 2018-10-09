@@ -40,7 +40,7 @@ module.exports.createDiscussion = ( req,res ) => {
             return res.status(200)
                 .send({
                     msg: "Discussion Created",
-                    data: disc.reverse()
+                    data: disc
                 })
         }).catch( (error) => {
             return res.status(400)
@@ -106,7 +106,7 @@ module.exports.viewDiscussions = ( req,res ) => {
                 return res.status(200)
                     .send({
                         msg: "Fetched All Discussions",
-                        data: discs
+                        data: discs.reverse()
                     })
             } else {
                 return res.status(200)

@@ -13,17 +13,19 @@
 
         <div class="list-group" *ngFor="let disc of discussions">
 
-          <a class="list-group-item">
+          <a class="list-group-item"
+             [routerLink]="['/discussion']"
+             [queryParams] = "{room : disc.name}">
 
             <div class="float-right">
               <br><br>
               <label class="badge badge-warning float-right">
-                {{disc.contributors.length}}
+                Contributors:{{disc.contributors.length}}
               </label>
             </div>
 
             <span class="name" style="min-width: 120px;display: inline-block;">
-                  Discussion : {{disc.name}}
+                  {{disc.name}}
             </span> <br>
 
           </a>

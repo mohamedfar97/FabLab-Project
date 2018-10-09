@@ -19,7 +19,7 @@ export class ViewDiscussionComponent implements OnInit {
 
     this.adminId = this.authService.getUserFromToken(sessionStorage.getItem("x-auth"))._id;
 
-    this.adminService.viewDiscussions( this.adminId )
+    this.adminService.viewDiscussions()
       .subscribe( (res:any) => {
         this.discussions = JSON.parse(res._body).data;
         console.log(this.discussions);
