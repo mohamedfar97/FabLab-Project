@@ -22,6 +22,7 @@ import {ClientRegComponent} from "./forms/client-reg/client-reg.component";
 import {DiscussionsComponent} from "./discussions/discussions.component";
 import {ViewDiscussionComponent} from "./admin/view-discussion/view-discussion.component";
 import {CreateDiscussionComponent} from "./admin/create-discussion/create-discussion.component";
+import {ViewMessageComponent} from "./messages/view-message/view-message.component";
 
 const appRoutes : Routes = [
   { path : '', component :  LoginComponent },
@@ -37,6 +38,7 @@ const appRoutes : Routes = [
   { path : 'messages/inbox' , component : InboxComponent},
   { path : 'messages/sentbox' , component : SentboxComponent},
   { path : 'messages/compose' , component : ComposeComponent},
+  { path : 'messages/viewMessage' , component : ViewMessageComponent},
   { path : 'admin/pendingUsers' , component : PendingUsersComponent },
   { path : 'admin/unverifiedUsers' , component : UnverifiedUsersComponent },
   { path : 'admin/viewDiscussions' , component : ViewDiscussionComponent },

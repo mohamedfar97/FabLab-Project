@@ -31,4 +31,10 @@ export class MessagingService {
       .pipe();
   }
 
+  viewMessage( messageId: string ) {
+    return this.http
+      .get(appConfig.apiUrl + 'messages/viewMessage/' + messageId)
+      .pipe();
+  }
+
 }

@@ -110,3 +110,31 @@ module.exports.deleteMessage = ( req,res ) => {
     })
 
 };
+
+module.exports.viewMessage = ( req,res ) => {
+
+    let messageId = req.params.messageId;
+
+    Messages.findById(messageId)
+        .then( (message) => {
+            if ( ! message ) {
+                return res.status(404)
+                    .send({
+                        errMsg: "Cannot Find Message.",
+                    })
+            } else {
+                return res.status(200)
+                    .send({
+                        msg: "Message Fetched.",
+                        data: message
+                    })
+            }
+        }).catch( (error) => {
+            return res.status(400)
+                .send({
+                    errMsg: "Cannot Fetch Message Info.",
+                    err: error
+                })
+    })
+
+};

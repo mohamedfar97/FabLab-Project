@@ -15,7 +15,9 @@
 
             <div class="list-group" *ngFor="let message of receivedMessages">
 
-              <a class="list-group-item">
+              <a class="list-group-item"
+                 [routerLink]="['/messages/viewMessage']"
+                 [queryParams] = "{messageId : message._id}">
                 <span class="name" style="min-width: 120px;display: inline-block;">
                   From : {{message.sender}}
                 </span> <br>

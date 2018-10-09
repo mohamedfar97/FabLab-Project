@@ -15,7 +15,9 @@
 
         <div class="list-group" *ngFor="let message of sentMessages">
 
-          <a class="list-group-item">
+          <a class="list-group-item"
+             [routerLink]="['/messages/viewMessage']"
+             [queryParams] = "{messageId : message._id}">
 
             <div class="float-right">
               <a class="badge badge-danger float-right" (click)="onDeleteMessage(message)" >

@@ -90,6 +90,7 @@ app.post('/gitlab/uploadFile/:token/:projectId', gitLabCtrl.uploadFile);
 
 //----------------------------Messages------------------------
 app.get('/messages/getSentMessages/:username', authMW.isValidUsername, messagesCtrl.viewSentMessages);
+app.get('/messages/viewMessage/:messageId', messageMW.isValidMessageId, messagesCtrl.viewMessage);
 app.get('/messages/getReceivedMessages/:username', authMW.isValidUsername, messagesCtrl.viewReceivedMessages);
 app.post('/messages/sendMessage', messageMW.isValidSender, messageMW.isValidReceiver, messagesCtrl.sendMessage);
 app.delete('/messages/deleteMessage/:messageId', messageMW.isValidMessageId, messagesCtrl.deleteMessage);

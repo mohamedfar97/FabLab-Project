@@ -52,6 +52,7 @@ import { UnverifiedUsersComponent } from './admin/unverified-users/unverified-us
 import { DiscussionsComponent } from './discussions/discussions.component';
 import { CreateDiscussionComponent } from './admin/create-discussion/create-discussion.component';
 import { ViewDiscussionComponent } from './admin/view-discussion/view-discussion.component';
+import { ViewMessageComponent } from './messages/view-message/view-message.component';
 
 
 @NgModule({
@@ -83,7 +84,8 @@ import { ViewDiscussionComponent } from './admin/view-discussion/view-discussion
     UnverifiedUsersComponent,
     DiscussionsComponent,
     CreateDiscussionComponent,
-    ViewDiscussionComponent
+    ViewDiscussionComponent,
+    ViewMessageComponent
   ],
   exports: [BsDropdownModule, TooltipModule]
   ,
