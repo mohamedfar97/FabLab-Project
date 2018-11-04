@@ -10,7 +10,7 @@ module.exports.getDiscussionTopMessages = ( req,res ) => {
 
     console.log(discussion);
 
-    GroupMessage.find({project : discussion})
+    GroupMessage.find({discussion : discussion})
         .then((messages)=>{
             return res.status(200)
                 .send({

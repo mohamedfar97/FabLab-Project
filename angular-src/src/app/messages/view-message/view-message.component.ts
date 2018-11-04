@@ -11,6 +11,7 @@ export class ViewMessageComponent implements OnInit {
 
   messageId: string;
   messageBody = {
+    message : "",
     sender: String,
     subject: String,
     messageDate: Date

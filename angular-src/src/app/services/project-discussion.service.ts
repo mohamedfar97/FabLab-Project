@@ -19,6 +19,8 @@ export class ProjectDiscussionService {
   });
 
   getTopMessages( discussion ){
-    return this.http.get(appConfig.apiUrl + "messages/getDiscussionTopMessages/" + discussion , {headers : this.headers}).pipe();
+    return this.http
+      .get(appConfig.apiUrl + "messages/getDiscussionTopMessages/" + discussion , {headers : this.headers})
+      .pipe();
   }
 }

@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 const DiscussionSchema = mongoose.Schema({
     name:{
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
-    contributors : [],
-    messages : []
+    contributors : []
 });
 
 const Discussion = mongoose.model('Discussion', DiscussionSchema);

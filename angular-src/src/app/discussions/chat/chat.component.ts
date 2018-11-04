@@ -1,10 +1,7 @@
-import {Component, OnInit } from '@angular/core';
-import * as SocketIo from 'socket.io-client';
-import {appConfig} from "../../app.config";
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {ProjectDiscussionService} from "../../services/project-discussion.service";
 import {ActivatedRoute, Params} from "@angular/router";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 
 @Component({
@@ -14,12 +11,10 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class ChatComponent implements OnInit  {
 
-
-  private newmessage;
-  private room;
-  private messages = Array<any>();
-  private user;
-
+  newMessage;
+  room;
+  messages = Array<any>();
+  user;
 
   constructor(private authService: AuthService ,
               private socketService : ProjectDiscussionService,
@@ -30,43 +25,40 @@ export class ChatComponent implements OnInit  {
     this.route.queryParams
       .subscribe((queryParams: Params) => {
         this.room = queryParams['room'];
+        console.log(this.room);
       });
 
-    this.socketService.getTopMessages(this.room).subscribe((res : any) =>{
-      this.messages = JSON.parse(res._body).data;
+    this.socketService.getTopMessages(this.room)
+      .subscribe((res : any) => {
+        this.messages = JSON.parse(res._body).data;
+    });
 
-
-    })
-
-    socketService.socket.emit("discussionRoom",{
-      room : this.room
+    socketService.socket.emit('joinDiscussion', {
+      room: this.room,
+      userId: this.user._id,
+      userUsername: this.user.username,
+      userName: this.user.name
     });
   }
 
   ngOnInit() {
-
     this.socketService.socket.on('discussionMessage', (message) => {
       this.messages.push(message);
     });
-
   }
 
-
-
   send() {
-
     this.socketService.socket.emit('discussionMessage', {
       sender: this.user.username,
-      project : this.room,
-      message: this.newmessage,
-      messageDate : new Date()
+      discussion: this.room,
+      message: this.newMessage,
+      messageDate: new Date()
     });
-    this.newmessage = "";
+    this.newMessage = "";
   }
 
   enterSend(event) {
     if (event.keyCode === 13) {
-      // Trigger the button element with a click
       document.getElementById("send").click();
     }
   }

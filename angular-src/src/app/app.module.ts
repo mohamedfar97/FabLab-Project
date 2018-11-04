@@ -108,6 +108,7 @@ import { ViewMessageComponent } from './messages/view-message/view-message.compo
     AppRoutingModule
   ],
   providers: [
+    ViewMessageComponent,
     AuthService,
     GitLabService,
     MessagingService,

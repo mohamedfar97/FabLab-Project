@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const socket = require('socket.io');
 const cors = require('cors');
 
 const {mongoose} = require('./dbConnect/dbConnect');
@@ -17,8 +18,9 @@ const clientCtrl =  require('./controllers/clientController');
 const logs =  require('./controllers/logsController');
 
 
-const {GroupMessage} = require("./models/group-messages");
-const socket = require('socket.io');
+const {GroupMessage} = require('./models/group-messages');
+const {Discussion} = require('./models/discussion');
+
 const app = express();
 
 app.use(
@@ -28,39 +30,53 @@ app.use(
       "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
       "preflightContinue": false,
       "optionsSuccessStatus": 204
-})
+    })
 );
+
 app.use(bodyParser.json());
 
 const server = app.listen(3000 , () => {
     console.log("Server up on port 3000");
 });
 
-//-----------------------SOCKETS--------------------------
+//----------------------------Sockets---------------------------
 
-const  io = socket(server);
+const io = socket(server);
 
-io.on('connection' , (socket) => {
-    let room;
+io.on('connection', (socket) => {
 
-    socket.on('discussionRoom' , (data) => {
-        room = data.room;
+    socket.on('joinDiscussion', (discInfo) => {
+        let room = discInfo.room;
+        let user = {
+            _id: discInfo.userId,
+            username: discInfo.userUsername,
+            name: discInfo.userName
+        };
 
         socket.join(room);
-    })
-    //socket.emit("hello" , {greetings : "hello "})
 
-    socket.on('discussionMessage' , (message) => {
+        console.log(`User (${user.username}) has joined`);
 
-        let msg = new GroupMessage(message);
-        msg.save().then( (message) => {
-            return  io.to(room).emit('discussionMessage' , message);
+        Discussion.findOne( {name:room} )
+            .then( (disc) => {
+                disc.contributors.push(user);
+                disc.save();
+        }).catch( (error) => {
+            return console.log("Cannot Join Discussion." , error);
+        })
+    });
+
+    socket.on('discussionMessage', (userMessage) => {
+        let userMsg = new GroupMessage(userMessage);
+
+        userMsg.save()
+            .then( (userMessage) => {
+                return io.to(userMessage.discussion).emit('discussionMessage', userMessage );
+        }).catch( (error) => {
+            return console.log("Cannot Send Your Message." , error);
         });
-
     })
 });
-
-
 
 //----------------------------User----------------------------
 app.get('/profile/:id', authMW.isValidUserId, userCtrl.profile);

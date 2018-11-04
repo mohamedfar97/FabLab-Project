@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MessagingService} from "../../services/messaging.service";
 import {AuthService} from "../../services/auth.service";
+import {ViewMessageComponent} from "../view-message/view-message.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-inbox',
@@ -12,7 +14,9 @@ export class InboxComponent implements OnInit {
   receivedMessages = [];
 
   constructor(private messagingService: MessagingService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private viewMsg: ViewMessageComponent,
+              private router: Router) { }
 
   ngOnInit() {
 
@@ -25,6 +29,17 @@ export class InboxComponent implements OnInit {
       }, (err) => {
         console.log(err);
       })
+  }
+
+  viewMessage( message ){
+
+    this.router.navigate(['/messages/viewMessage'] ,
+      {
+        queryParams : {
+          messageId: message._id
+        }
+      })
+
   }
 
 }

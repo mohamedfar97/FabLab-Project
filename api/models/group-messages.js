@@ -5,7 +5,7 @@ const GroupMessageSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    project:{
+    discussion:{
         type: String,
         required: true
     },
