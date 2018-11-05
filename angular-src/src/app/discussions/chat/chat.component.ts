@@ -15,6 +15,7 @@ export class ChatComponent implements OnInit  {
   room;
   messages = Array<any>();
   user;
+  contributors = [];
 
   constructor(private authService: AuthService ,
               private socketService : ProjectDiscussionService,
@@ -25,7 +26,6 @@ export class ChatComponent implements OnInit  {
     this.route.queryParams
       .subscribe((queryParams: Params) => {
         this.room = queryParams['room'];
-        console.log(this.room);
       });
 
     this.socketService.getTopMessages(this.room)
@@ -45,6 +45,18 @@ export class ChatComponent implements OnInit  {
     this.socketService.socket.on('discussionMessage', (message) => {
       this.messages.push(message);
     });
+
+    this.socketService.socket
+      .on('errorMessage', (errorBody) => {
+        alert(errorBody.errMsg);
+        console.log(errorBody.err);
+      });
+
+    this.socketService.socket
+      .on('updateContributors' , (newUser) => {
+        this.contributors.push(newUser);
+        console.log(this.contributors);
+      })
   }
 
   send() {

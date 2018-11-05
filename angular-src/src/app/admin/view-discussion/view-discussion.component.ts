@@ -22,7 +22,6 @@ export class ViewDiscussionComponent implements OnInit {
     this.adminService.viewDiscussions()
       .subscribe( (res:any) => {
         this.discussions = JSON.parse(res._body).data;
-        console.log(this.discussions);
       } , (err) => {
         console.log(err);
       })

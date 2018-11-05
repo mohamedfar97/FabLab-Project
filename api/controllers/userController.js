@@ -314,3 +314,23 @@ module.exports.editProfile = ( req,res ) => {
         });
     }
 };
+
+module.exports.addDiscussion = (id, disc, callback) => {
+    if ( !ObjectID.isValid(id) ) {
+        return callback("Invalid User Id");
+    }
+
+    User.findById(id)
+        .then( (user) => {
+            let found = user.discussions
+                .filter((discVal) => discVal === disc);
+            if( found.length === 0 ) {
+                user.discussions.push(disc);
+                user.save();
+            }
+        }).catch( () => {
+            console.log("Cannot Find User");
+    });
+
+    callback();
+};

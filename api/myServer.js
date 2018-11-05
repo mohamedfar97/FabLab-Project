@@ -45,6 +45,8 @@ const io = socket(server);
 
 io.on('connection', (socket) => {
 
+    console.log("User Connected");
+
     socket.on('joinDiscussion', (discInfo) => {
         let room = discInfo.room;
         let user = {
@@ -53,16 +55,29 @@ io.on('connection', (socket) => {
             name: discInfo.userName
         };
 
+        console.log(`User (${user.username}) has joined`);
         socket.join(room);
 
-        console.log(`User (${user.username}) has joined`);
+        userCtrl.addDiscussion(user._id,room,(err) => {
+            if(err) {
+                console.log(err);
+            }
+        });
 
         Discussion.findOne( {name:room} )
             .then( (disc) => {
-                disc.contributors.push(user);
-                disc.save();
+                let found = disc.contributors
+                    .filter((discUser) => user._id === discUser._id);
+                if( found.length === 0) {
+                    disc.contributors.push(user);
+                    disc.save();
+                    socket.emit('updateContributors',user);
+                }
         }).catch( (error) => {
-            return console.log("Cannot Join Discussion." , error);
+            socket.emit('errorMessage', {
+                errMsg: "Cannot Find Discussion",
+                err: error
+            })
         })
     });
 
@@ -73,9 +88,18 @@ io.on('connection', (socket) => {
             .then( (userMessage) => {
                 return io.to(userMessage.discussion).emit('discussionMessage', userMessage );
         }).catch( (error) => {
-            return console.log("Cannot Send Your Message." , error);
+            socket.emit('errorMessage', {
+                errMsg: 'Cannot Send Your Message',
+                err: error
+            })
         });
-    })
+    });
+
+    socket.on('disconnect', () => {
+       console.log('User Disconnected');
+    });
+
+
 });
 
 //----------------------------User----------------------------
