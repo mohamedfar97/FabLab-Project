@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg navbar-dark" *ngIf="!isFullAdmin()">
+  <a class="navbar-brand">
+    <img src="/assets/Fablab_logo.png" width="50" height="50" class="d-inline-block -align-left" alt="">
+    <a class="collapsebtn offset-2" (click) = "onHeaderToggle(status)" type="button" *ngIf="isLoggedIn()">
+     <span class="navbar-toggler-icon collapseIcon"></span>
+   </a>
+   </a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto"></ul>
+    <ul class="nav navbar-nav navbar-right" *ngIf = "!isLoggedIn()">
+      <li class="nav-item">
+        <a class="nav-link" href="/login">Log In </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/signup">Sign Up </a>
+      </li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right" *ngIf = "isLoggedIn()">
+
+      <li class="nav-item d-none d-lg-block d-md-block d-xl-block" *ngIf="isLoggedIn()">
+        <h5 class="nav-link waves-effect waves-light">Hi {{ user_name | firstName }} ! </h5>
+      </li>
+
+
+      <li class="nav-item d-none d-lg-block d-md-block d-xl-block" *ngIf="isLoggedIn()">
+        <a class="nav-link waves-effect waves-light">0 <i class="fa fa-envelope"></i></a>
+      </li>
+
+
+      <li>
+        <div class="btn-group">
+          <a  class="nav-link avatar dropdown-toggle waves-light pt-0" type="button" data-toggle="dropdown" aria-haspopup="true"
+                  mdbRippleRadius  aria-expanded="false">
+            <img src="/assets/Profile-avatar.png"
+                 class="img-fluid rounded-circle z-depth-0"><span
+            class="caret"></span>
+
+          </a>
+
+          <div class="dropdown-menu dropdown-primary pull-left">
+            <a class="dropdown-item waves-light" mdbRippleRadius
+               (click)="onProfile()">Profile</a>
+
+            <a class="dropdown-item"
+               (click)="onEditProfile()">Edit Profile</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" (click) = "logOut()" href="/login">Log Out</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+<app-sidebar *ngIf="!isFullAdmin()" [sideStatus]="status"></app-sidebar>
+
+<app-admin-header *ngIf="isFullAdmin()"></app-admin-header>
+
+

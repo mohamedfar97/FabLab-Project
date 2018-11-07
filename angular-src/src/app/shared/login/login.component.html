@@ -1,0 +1,36 @@
+<div class="divider" style="padding-top:80px;"></div>
+<div class="container">
+  <div class="myContainer">
+    <div class="card card-signin w-70" >
+      <div class="card-body">
+
+
+        <!-- Login form -->
+        <form class="form-signin" (ngSubmit) = "onLogIn(user)" [formGroup]="user" novalidate>
+
+          <p class="h3 text-center mb-4">Log in</p>
+          <div class="col-auto">
+          <div class="md-form">
+              <i class="material-icons prefix">email</i>
+
+              <input class="form-control" type="text" id="defaultForm-email" placeholder="email" formControlName="email" mdbActive >
+              <br>
+          </div>
+
+          <div class="md-form">
+            <i class="material-icons prefix">lock</i>
+
+            <input class="form-control" type="password" id="defaultForm-pass" placeholder="password" formControlName="password" mdbActive >
+            <br>
+          </div>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-warning waves-light">Login</button>
+          </div>
+        </form>
+        <!-- Login form -->
+
+      </div>
+    </div>
+  </div>
+</div>

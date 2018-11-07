@@ -1,0 +1,54 @@
+.navbar {
+  background: #696969;
+  color: #fff;
+  height: 80px;
+}
+
+.collapseIcon{
+  position: absolute;
+  right: 5px;
+}
+.collapsebtn{
+  width: 80px;
+  height: 60px;
+  font-size: 20px;
+  border-radius: 8px;
+  opacity: 0.9;
+}
+
+.collapsebtn span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.collapsebtn span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -25px;
+  transition: 0.3s;
+}
+
+.collapsebtn:hover span {
+  padding-right: 25px;
+}
+
+.collapsebtn:hover span:after {
+  opacity: 0.8;
+  right: -15px;
+}
+
+.avatar {
+  height: 40px;
+}
+
+.avatar img {
+  height: 40px;
+}
+
+.dropdown-menu {
+  left: -100px;
+}

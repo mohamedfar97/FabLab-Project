@@ -1,0 +1,24 @@
+<br><br>
+<div class="card card-cascade wider reverse my-4 myCardSize" id = "profile">
+  <div class="view overlay hm-white-slight waves-light" mdbRippleRadius>
+    <a>
+      <div class="mask"></div>
+    </a>
+  </div>
+
+  <div class="card-body text-center">
+    <div class="avatar">
+      <img src="../assets/Profile-avatar.png" class="rounded-circle">
+    </div>
+    <h3 class="card-title"><strong>{{name}}</strong></h3>
+    <h4 class="indigo-text"><strong>{{role | capitalizeRole }}</strong></h4>
+    <h4 class="indigo-text"><strong>{{email}}</strong></h4>
+    <h4 class="indigo-text"><strong>{{phone}}</strong></h4>
+
+    <button class="btn btn-warning" (click)="onEditProfile()">
+      Edit Profile
+    </button>
+
+  </div>
+</div>
+

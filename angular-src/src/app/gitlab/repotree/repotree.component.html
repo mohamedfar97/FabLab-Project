@@ -1,0 +1,38 @@
+<br>
+<div class="mx-auto">
+  <div *ngFor="let group of groups" >
+    <div *ngIf = "group.id == this.rootId">
+      <div class = "mx-auto">
+        <div class="card text-center mx-auto rounded" style="width: 50rem;" >
+          <div class="card-body mx-auto">
+            <h3 class="text-warning">{{group.name}}</h3> <br>
+            <h6 class="card-subtitle mb-2 text-muted ">/{{group.full_path}}</h6>
+            <h6 class="card-subtitle mb-2 text-muted ">{{group.description}}</h6> <br><br>
+            <div class = "inline">
+              <div *ngFor="let project of projects">
+                <div *ngIf = "project.namespace.full_path === group.full_path">
+                  <a [routerLink]="['/repofiles']"
+                     [queryParams] = "{full_path : project.path_with_namespace , project_id : project.id }"
+                     class="card-link text-warning rounded">
+                    <i class="material-icons prefix align-bottom ">folder</i>
+                    {{project.name}}
+                  </a>
+                </div>
+              </div>
+              <div *ngFor = 'let subgroup of groups'>
+                <div *ngIf = "subgroup.parent_id === group.id">
+                    <a [routerLink]="['/repotree']"
+                       [queryParams] = "{full_path : subgroup.full_path}"
+                       class="card-link text-info rounded">
+                        {{subgroup.name}}
+                      <i class="material-icons prefix align-bottom ">keyboard_arrow_right</i>
+                    </a> <br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <br><br>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,4 @@
+node_modules/
+.idea/
+api/.vs
+angular-src/.vs

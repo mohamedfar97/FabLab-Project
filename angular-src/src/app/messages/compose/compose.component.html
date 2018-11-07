@@ -1,0 +1,52 @@
+<br>
+
+<div class="card">
+  <div class="card-header">
+    <h1 class="panel-heading">
+      Compose Message</h1>
+    <br>
+  </div>
+  <div class="card-body">
+
+
+      <div class="panel panel-primary">
+        <div class="panel-body message">
+
+
+          <form class="form-horizontal" role="form" (ngSubmit) = "onSend(message)" [formGroup]="message">
+            <div class="md-form">
+              <div class="col-sm-11">
+                <i class="material-icons prefix">account_box</i>
+                <input type="email" class="form-control" id="to" placeholder="Username" formControlName="to"  mdbActive>
+              </div>
+            </div>
+            <div class="md-form">
+              <div class="col-sm-11">
+                <i class="material-icons prefix">subject</i>
+                <input type="email" class="form-control " id="subject" placeholder="Subject" formControlName="subject"  mdbActive>
+              </div>
+            </div>
+            <div class="md-form">
+              <br>
+              <div class="col-xl-12">
+              <quill-editor  formControlName="content" [modules]="editorOptions"></quill-editor>
+              </div>
+            </div>
+
+            <div class="float-right">
+              <button type="submit" class="btn btn-warning waves-light" (onClick) ="onSend()">
+                <i class="material-icons align-middle">send</i>
+                Send</button>
+            </div>
+
+          </form>
+
+
+        </div>
+      </div>
+
+
+  </div>
+</div>
+
+

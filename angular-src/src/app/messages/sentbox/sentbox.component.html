@@ -1,0 +1,57 @@
+
+<br>
+
+<div class="card">
+  <div class="card-header">
+    <h1 class="panel-heading">
+      Sentbox</h1>
+    <br>
+  </div>
+  <div class="card-body">
+
+
+    <div class="panel panel-primary">
+      <div class="panel-body message">
+
+        <div class="list-group" *ngFor="let message of sentMessages">
+
+          <a class="list-group-item"
+             [routerLink]="['/messages/viewMessage']"
+             [queryParams] = "{messageId : message._id}">
+
+            <div class="float-right">
+              <a class="badge badge-danger float-right" (click)="onDeleteMessage(message)" >
+                <i class="material-icons prefix">delete</i>
+              </a>
+              <br><br>
+              <label class="badge badge-warning float-right">
+                {{message.messageDate | date:'medium'}}
+              </label>
+            </div>
+
+            <span class="name" style="min-width: 120px;display: inline-block;">
+                  To : {{message.receiver}}
+            </span> <br>
+
+            <span class="">
+                  Subject : {{message.subject}}
+            </span> <br>
+
+            <span class="text-muted" style="font-size: 11px;">
+                  Message : {{message.message | contentPeek }}
+            </span>
+
+          </a>
+          <br>
+        </div>
+
+
+
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+

@@ -1,0 +1,105 @@
+<div class="divider" style="padding-top:50px;"></div>
+<div class="container">
+  <div class="myContainer">
+    <div class="card card-signup">
+      <div class="card-body">
+        <!--Register form-->
+        <form class="formGroup" novalidate (ngSubmit)="onSubmit(user)" [formGroup]="user" >
+          <p class="h5 text-center mb-4">Sign up</p>
+
+          <div class="md-form mb-0">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="md-form mb-0">
+                  <i class="material-icons prefix">face</i>
+                  <input type="text" id="orangeForm-name" class="form-control" placeholder="name" formControlName="name" mdbActive #nameInput>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="md-form mb-0">
+                  <i class="material-icons prefix">card_travel</i>
+                  <label for = "orangeForm-role" > role
+                    <select  id="orangeForm-role" class="col-form-select" placeholder="role" formControlName="role" #roleInput>
+
+                      <option>CEO</option>
+                      <option>Foundation Manager</option>
+                      <option>Education Manager</option>
+                      <option>Makerspace Manager</option>
+                      <option>FLoW Manager</option>
+                      <option>FLiNC Manager</option>
+                      <option>Fixed Fablab Manager</option>
+                      <option>Saudia Lab Manager</option>
+                      <option>Lab Specialist</option>
+                      <option>Public Relation</option>
+                      <option>Accountant</option>
+                      <option>Foundation Admin</option>
+
+                    </select>
+                  </label> <br><br>
+                </div>
+              </div>
+            </div>
+
+          <div class="md-form">
+            <i class="material-icons prefix">account_box</i>
+            <input type="text" id="orangeForm-username" class="form-control" placeholder="username" formControlName="username" mdbActive #usernameInput>
+          </div>
+
+          <div class="md-form">
+            <i class="material-icons prefix">mail</i>
+            <input type="text" id="orangeForm-email" class="form-control" placeholder="email" formControlName="email" mdbActive #emailInput>
+          </div>
+
+          <div class="md-form">
+            <i class="material-icons prefix">lock</i>
+            <input type="password" id="orangeForm-pass" class="form-control" placeholder="password" formControlName="password" mdbActive #passwordInput>
+          </div>
+
+          <div class="md-form">
+            <i class="material-icons prefix">lock</i>
+            <input type="password" id="orangeForm-passConfirm" class="form-control" placeholder="confirm password" formControlName="confirmPassword" mdbActive #confirmedPasswordInput>
+          </div>
+
+          <div class="md-form">
+            <i class="material-icons prefix">phone</i>
+            <input type="text" id="orangeForm-phone" class="form-control" placeholder="mobile number" formControlName="phone" mdbActive #phoneInput>
+          </div>
+
+          <div class="md-form">
+            <div class="md-form mb-0">
+              <div class="row align-items-center">
+
+                <div class="col-lg-2">
+                    <i class="material-icons prefix">people</i>
+                </div>
+
+                <div class="col-sm-1">
+                    <label class="form-check-label" for="inlineCheckbox1">Male</label>
+                </div>
+
+                <div class="col-md-2">
+                    <input class="form-check-input" name="gender" type="radio" id="inlineCheckbox1" value="male" formControlName="gender" #maleInput>
+                </div>
+
+                <div class="col-sm-1">
+                    <label class="form-check-label" for="inlineCheckbox1">Female</label>
+                </div>
+
+                <div class="col-md-2">
+                    <input class="form-check-input"  name="gender" type="radio" id="inlineCheckbox2" value="female" formControlName="gender" #femaleInput>
+                </div>
+              </div>
+            </div>
+          </div> <br><br>
+          </div>
+
+          <div class="text-center">
+            <button class="btn btn-deep-orange waves-light" type="submit" [disabled]="!user.valid"  mdbRippleRadius>Sign up</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
