@@ -64,9 +64,25 @@ export class ChatComponent implements OnInit  {
 
     this.socketService.socket
       .on('updateContributors', (contributors) => {
-        this.contributors = contributors;
+        this.contributors = contributors.contributors;
         console.log(this.contributors);
       })
+  }
+
+  onRemoveContributor( username ) {
+
+    let body = {
+      username,
+      disc: this.room
+    }
+
+    this.adminService.removeContributor(this.user._id, body)
+    .subscribe((res:any) => {
+      console.log(JSON.parse(res._body));
+    }, (error) => {
+      console.log("Cannot Remove Contributor");
+    })
+
   }
 
   onAddContributor( {value, valid}: { value: Contributor, valid: boolean } ) {
@@ -90,6 +106,10 @@ export class ChatComponent implements OnInit  {
       console.log("Invalid Inputs");
     }
 
+  }
+
+  isFullAdmin() {
+    return (this.user.adminAccess === "full");
   }
 
   send() {
