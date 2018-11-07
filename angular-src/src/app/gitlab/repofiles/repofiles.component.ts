@@ -9,6 +9,8 @@ import {ModalDismissReasons, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-boots
 import { saveAs } from 'file-saver/FileSaver';
 import * as FileSaver from "file-saver";
 
+import {HttpClient , HttpRequest , HttpResponse , HttpEventType} from "@angular/common/http";
+
 @Component({
   selector: 'app-repofiles',
   templateUrl: './repofiles.component.html',
@@ -20,8 +22,11 @@ export class RepofilesComponent implements OnInit {
   fullPath : string;
   files = [];
   treeFiles = [];
+  uploadRequests = [];
+  uploadInfo = [];
 
   public uploadedFiles: UploadFile[] = [];
+
 
   afuConfig = {
     multiple: false,
@@ -55,6 +60,10 @@ export class RepofilesComponent implements OnInit {
   commitMessage = 'Message';
 
   ngOnInit() {
+    this.uploadRequests = [];
+   this.uploadInfo = [];
+   this.uploadedFiles = [];
+
     this.route.queryParams
       .subscribe((queryParams: Params) => {
         this.project_id = queryParams['project_id'];
@@ -104,13 +113,18 @@ export class RepofilesComponent implements OnInit {
   }
 
   public dropped(event: UploadEvent) {
-    this.uploadedFiles = event.files;
+
+    
+    for (const file of event.files) {
+      this.uploadedFiles.push(file);
+    }
+    console.log(this.uploadedFiles);
 
      interface  Action   {
        action : string ;
        file_path : string ;
        encoding : string ;
-       content : string ;
+       content : Blob ;
      }
 
     for (const droppedFile of event.files) {
@@ -128,6 +142,7 @@ export class RepofilesComponent implements OnInit {
 
 
              console.log(fileReader.result);
+            
 
              let ReqBody =  {
 
@@ -138,13 +153,12 @@ export class RepofilesComponent implements OnInit {
                    action : 'create',
                    file_path : droppedFile.relativePath,
                     encoding : 'base64',
-                   content : fileReader.result.replace(/^data:(image|application)\/(png|jpg|pdf);base64,/, '')
+                   content : fileReader.result.replace(/^data:(image|application)\/(png|jpg|pdf|jpeg);base64,/, '')
                  }
-
-           ]
-
+                ]
              };
 
+             
 
              for (const existingFile of this.files) {
 
@@ -153,10 +167,18 @@ export class RepofilesComponent implements OnInit {
                }
              }
 
+             let fileInfo = {
+              name : file.name,
+              size : file.size,
+              lastModified : file.lastModified,
+              status : ReqBody.actions[0].action
 
-             this.gitLabService.uploadFile(this.project_id , ReqBody ).subscribe((res) => {
-               console.log(res);
-             });
+             };
+
+             this.uploadRequests.push(ReqBody);
+             this.uploadInfo.push(fileInfo);
+
+            
 
            };
         });
@@ -170,6 +192,34 @@ export class RepofilesComponent implements OnInit {
     }
 
 
+  }
+
+
+  push(){
+    console.log();
+    console.log(this.uploadRequests);
+
+    for (const i in this.uploadRequests){
+      console.log(this.uploadRequests[i]);
+
+      this.gitLabService.uploadFile(this.project_id , this.uploadRequests[i] ).subscribe((event) => {
+
+        if (event.type === HttpEventType.UploadProgress) {
+          // This is an upload progress event. Compute and show the % done:
+          console.log(event);
+          const percentDone = Math.round(100 * event.loaded / event.total);
+          
+        } else if (event instanceof HttpResponse) {
+          console.log('File is completely uploaded!');
+        }
+       
+      });
+      
+
+    }
+   this.uploadRequests = [];
+   this.uploadInfo = [];
+   this.uploadedFiles = [];
   }
 
   saveToFileSystem() {

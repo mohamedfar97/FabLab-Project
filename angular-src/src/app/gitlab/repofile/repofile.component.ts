@@ -67,7 +67,7 @@ export class RepofileComponent implements OnInit {
             this.file = JSON.parse(res._body);
             this.fileName = this.file.file_name;
             this.fileSize = this.file.size;
-
+            console.log(this.file);
             if( this.path.includes('png') ){
               this.fileContent = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,'
                          + this.file.content);

@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import {Http, ResponseContentType} from "@angular/http";
-
 import { appConfig } from '../app.config';
+
+
+import {HttpClient , HttpRequest , HttpResponse , HttpEventType} from "@angular/common/http";
 
 @Injectable()
 export class GitLabService {
 
-  constructor(private http:Http){};
+  constructor(private http:Http,
+    private httpClient : HttpClient) {};
 
   getGroups(){
     return this.http
@@ -33,9 +36,12 @@ export class GitLabService {
   }
 
   uploadFile(projectId : string , body ){
-    return this.http
-      .post(appConfig.apiUrl + "gitLab/uploadFile/" + appConfig.private_token + "/" + projectId ,body)
-      .pipe();
+    const req = new HttpRequest('POST', appConfig.apiUrl + "gitLab/uploadFile/" + appConfig.private_token + "/" + projectId, body, {
+      reportProgress: true
+    });
+
+
+    return this.httpClient.request(req).pipe();
   }
 
   downloadProject( projectId : string , projectName : string ){

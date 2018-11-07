@@ -23,6 +23,12 @@ const {Discussion} = require('./models/discussion');
 
 const app = express();
 
+<<<<<<< HEAD
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
+=======
+>>>>>>> 767f2cee8bcbac25e0b9fc6a84b5bfaa5c463d03
 app.use(
     cors({
       "exposedHeaders":"x-auth",
