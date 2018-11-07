@@ -1,11 +1,35 @@
+<div class="divider" style="padding-top:50px;">
+  <div class="container col-xs-2">
+        <div class="card-body ">
+          <form class="formGroup" novalidate (ngSubmit)="onAddContributor(contributor)" [formGroup]="contributor" >
+            <p class="h5 text-center mb-4">Add Contributor</p>
+            <div class="md-form mb-0">
+                <div class="col-md-8">
+                  <div class="md-form mb-0">
+                    <i class="material-icons prefix">chat</i>
+                    <input type="text" id="orangeForm-name" class="form-control" placeholder="Contributor Username" formControlName="username" mdbActive #nameInput>
+                  </div>
+                </div>
+            </div><br>
+
+            <div class="text-center">
+              <button class="btn btn-deep-orange waves-light" type="submit" mdbRippleRadius>Add</button>
+            </div>
+
+          </form>
+        </div>
+  </div>
+</div>
+
 <div class="md-form">
-<div class="card mx-auto">
+  <div class="card mx-auto">
   <div class="card-header">
     <h1 class="panel-heading text-center">
       {{room}} Discussion</h1>
     <br>
   </div>
-  <div class="card-body" #scrollmessages [scrollTop]="scrollmessages.scrollHeight">
+
+    <div class="card-body" #scrollmessages [scrollTop]="scrollmessages.scrollHeight">
     <div class="panel panel-primary">
       <div class="panel-body message" >
             <div id="output" *ngFor="let message of messages">

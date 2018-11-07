@@ -46,8 +46,10 @@ const io = socket(server);
 io.on('connection', (socket) => {
 
     console.log("User Connected");
+    console.log(socket.id);
 
     socket.on('joinDiscussion', (discInfo) => {
+
         let room = discInfo.room;
         let user = {
             _id: discInfo.userId,
@@ -55,30 +57,24 @@ io.on('connection', (socket) => {
             name: discInfo.userName
         };
 
-        console.log(`User (${user.username}) has joined`);
-        socket.join(room);
-
-        userCtrl.addDiscussion(user._id,room,(err) => {
-            if(err) {
-                console.log(err);
-            }
-        });
-
-        Discussion.findOne( {name:room} )
-            .then( (disc) => {
-                let found = disc.contributors
-                    .filter((discUser) => user._id === discUser._id);
-                if( found.length === 0) {
-                    disc.contributors.push(user);
-                    disc.save();
-                    socket.emit('updateContributors',user);
+        Discussion.findOne({name: room})
+            .then((disc) => {
+                if (disc) {
+                    console.log(`User (${user.username}) has joined (${room}) discussion`);
+                    socket.join(room);
+                    socket.emit('updateContributors', disc);
+                } else {
+                    socket.emit('errorMessage', {
+                        errMsg: 'No such discussion exists',
+                        err: error
+                    })
                 }
-        }).catch( (error) => {
-            socket.emit('errorMessage', {
-                errMsg: "Cannot Find Discussion",
-                err: error
+            }).catch((error) => {
+                socket.emit('errorMessage', {
+                    errMsg: 'Cannot Send Your Message',
+                    err: error
             })
-        })
+        });
     });
 
     socket.on('discussionMessage', (userMessage) => {
@@ -97,6 +93,7 @@ io.on('connection', (socket) => {
 
     socket.on('disconnect', () => {
        console.log('User Disconnected');
+       console.log("-----------------------");
     });
 
 
@@ -141,6 +138,10 @@ app.get('/messages/getDiscussionTopMessages/:discussion', discussionsCtrl.getDis
 app.get('/messages/viewAllDiscussions', discussionsCtrl.viewDiscussions);
 app.post('/messages/createDiscussion/:adminId',authMW.isValidAdminId, discussionsCtrl.createDiscussion);
 app.post('/messages/addContributor/:adminId',authMW.isValidAdminId, discussionsCtrl.addContributor);
+app.post('/messages/removeContributor/:adminId',authMW.isValidAdminId, discussionsCtrl.removeContributor);
+app.post('/messages/userDiscussions',discussionsCtrl.viewUserDiscussions);
+app.post('/messages/leaveDiscussion', discussionsCtrl.leaveDiscussion);
+app.post('/messages/deleteDiscussion/:adminId',authMW.isValidAdminId, discussionsCtrl.deleteDiscussion);
 
 //----------------------------Logs----------------------------
 app.get('/machineLog/getMachineLogs', logs.viewMachineLogs);
