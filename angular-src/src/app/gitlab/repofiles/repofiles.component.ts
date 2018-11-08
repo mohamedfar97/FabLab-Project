@@ -60,7 +60,7 @@ export class RepofilesComponent implements OnInit {
   commitMessage = 'Message';
 
   ngOnInit() {
-    this.uploadRequests = [];
+   this.uploadRequests = [];
    this.uploadInfo = [];
    this.uploadedFiles = [];
 
@@ -244,7 +244,10 @@ export class RepofilesComponent implements OnInit {
           path: folder.path
         }
       });
+      
+      this.ngOnInit();
   }
+  
 }
 
 

@@ -68,7 +68,6 @@
           </file-drop>
           <div class="upload-table">
             <table class="table">
-<<<<<<< HEAD
               <thead >
               <tr>
                 <th>Name</th>
@@ -81,26 +80,13 @@
                 <td><strong>{{ item.name }}</strong></td>
                 <td>{{ item.status }}</td>
                 <td>{{ item.size | filesize}}</td>
-=======
-              <thead *ngIf="uploadedFiles.length>0">
-              <tr>
-                <th>Name</th>
-              </tr>
-              </thead>
-              <tbody class="upload-name-style">
-              <tr *ngFor="let item of uploadedFiles; let i=index">
-                <td><strong>{{ item.relativePath }}</strong></td>
->>>>>>> 767f2cee8bcbac25e0b9fc6a84b5bfaa5c463d03
               </tr>
               </tbody>
             </table>
           </div>
-<<<<<<< HEAD
           <div class = "footer-right">
             <button class="btn btn-lg btn-outline-warning pull-right" (click)="push()">Push</button>
           </div>
-=======
->>>>>>> 767f2cee8bcbac25e0b9fc6a84b5bfaa5c463d03
         </div>
 
       </div>
@@ -116,7 +102,7 @@
   <div class = "panel panel-primary">
 
     <h1 class="panel-heading">Files</h1>
-
+    <h6 class="panel-heading">{{this.fullPath}}</h6>
     <br>
     <div class="panel-body">
       <div>
@@ -128,7 +114,7 @@
             <div class="d-flex w-100 justify-content-between">
               <h5 class="list-group-item-heading"><strong>{{treeFile.name}}</strong></h5>
               <span class="badge badge-warning badge-pill">
-                  <i class="material-icons prefix">navigate_next</i>
+                  <i class="material-icons prefix">arrow_forward_ios</i>
                 </span>
             </div>
           </a>

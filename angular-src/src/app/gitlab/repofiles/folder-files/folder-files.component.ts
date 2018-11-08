@@ -13,22 +13,35 @@ export class FolderFilesComponent implements OnInit {
   projectId: string;
   fullPath: string;
   folderPath: string;
-
-  folderFiles = [];
-  treeFolderFiles = [];
+  directoryPath: string;
+  folderFiles ;
+  treeFolderFiles;
 
   constructor(private gitLabService: GitLabService,
               private route: ActivatedRoute,
               private router: Router,
-              private spinnerService: NgxSpinnerService) {}
+              private spinnerService: NgxSpinnerService) {
 
-  ngOnInit() {
-    this.route.queryParams
-      .subscribe((queryParams: Params) => {
-        this.projectId = queryParams['project_id'];
-        this.fullPath = queryParams['full_path'];
-        this.folderPath = queryParams['path'];
-      });
+                this.route.queryParams
+                .subscribe((queryParams: Params) => {
+                  this.projectId = queryParams['project_id'];
+                  this.fullPath = queryParams['full_path'];
+                  this.folderPath = encodeURIComponent(queryParams['path']);
+                });
+              }
+
+   ngOnInit(){
+
+    this.directoryPath = this.fullPath+'/'+this.folderPath.replace(/%2F/g,'/');;
+
+    
+    
+
+    console.log(this.directoryPath);
+    
+    this.folderFiles = [];
+    this.treeFolderFiles = [];
+
     console.log(this.folderPath);
 
     this.spinnerService.show();
@@ -67,16 +80,46 @@ export class FolderFilesComponent implements OnInit {
   }
 
   onOpenFolder(folder) {
-    const urlEncodedPath = encodeURIComponent(folder.path);
-    console.log(urlEncodedPath);
-    this.router.navigate(['/subdirectory'] ,
-      {
-        queryParams: {
-          full_path: this.fullPath,
-          project_id : this.projectId,
-          path: urlEncodedPath
-        }
-      });
+   
+    this.folderPath = encodeURIComponent(folder.path);
+
+    this.router.navigate(['/subdirectory'],
+    { queryParams: {
+        full_path: this.fullPath,
+        project_id: this.projectId,
+        path: folder.path
+      }
+    });
+    
+    this.ngOnInit();
   }
 
+  onBack(){
+    
+    if(!this.folderPath.includes("%")){
+      
+      this.router.navigate(['/repofiles'],
+      { queryParams: {
+          full_path: this.fullPath,
+          project_id: this.projectId
+        }
+      });
+      this.ngOnInit();
+    }else{
+      let indx = this.folderPath.lastIndexOf('%');
+      let newPath = this.folderPath.slice(0,indx);
+      this.folderPath = newPath;
+      this.router.navigate(['/subdirectory'],
+      { queryParams: {
+          full_path: this.fullPath,
+          project_id: this.projectId,
+          path: newPath
+        }
+      });
+      
+      this.ngOnInit();
+    }
+   
+  }
+  
 }
