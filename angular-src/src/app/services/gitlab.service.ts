@@ -44,11 +44,21 @@ export class GitLabService {
     return this.httpClient.request(req).pipe();
   }
 
-  downloadProject( projectId : string , projectName : string ){
-    return this.http
+  downloadProject( projectId : string , projectName : string, commitId : string ){
+   
+    if ( commitId ) {
+      return this.http
+      .get(appConfig.apiUrl + "gitlab/downloadProject/" + appConfig.private_token + "/" + projectId
+        + "/" + projectName + "/" + commitId ,{ responseType: ResponseContentType.Blob })
+      .pipe();
+    }
+    else {
+      return this.http
       .get(appConfig.apiUrl + "gitlab/downloadProject/" + appConfig.private_token + "/" + projectId
         + "/" + projectName ,{ responseType: ResponseContentType.Blob })
       .pipe();
+    }
+
   }
 
   getProjectCommits(projectId : string ){
