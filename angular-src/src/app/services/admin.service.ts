@@ -48,4 +48,22 @@ export class AdminService {
       .pipe();
   }
 
+  addContributor ( adminId: string , body ) {
+    return this.http
+      .post(appConfig.apiUrl + "messages/addContributor/" + adminId , body)
+      .pipe();
+  }
+
+  removeContributor ( adminId: string , body ) {
+    return this.http
+      .post(appConfig.apiUrl + "messages/removeContributor/" + adminId , body)
+      .pipe();
+  }
+
+  deleteDiscussion( adminId: string , body ) {
+    return this.http
+      .post(appConfig.apiUrl + "messages/deleteDiscussion/" + adminId , body)
+      .pipe();
+  }
+
 }

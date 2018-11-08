@@ -3,6 +3,7 @@ const {ObjectID} = require("mongodb");
 
 const {GroupMessage} = require("../models/group-messages");
 const {Discussion} = require("../models/discussion");
+const {User} = require("../models/user");
 
 module.exports.getDiscussionTopMessages = ( req,res ) => {
 
@@ -54,47 +55,72 @@ module.exports.createDiscussion = ( req,res ) => {
 
 module.exports.addContributor = ( req,res ) => {
 
-    let contrId = req.body.userId;
-    let discId = req.body.discId;
+    let contributorUsername = req.body.username;
+    let discName = req.body.disc;
+    let user = {};
 
-    if ( ! ObjectID.isValid(discId) ) {
-        return res.status(404)
-            .send({
-                errMsg: "Invalid Discussion ID"
-            })
-    }
+    User.findOne( {username:contributorUsername} )
+        .then( (contributor) => {
+            if( contributor ) {
+                user._id = contributor._id;
+                user.name = contributor.name;
+                user.username = contributor.username;
 
-    Discussion.findById(discId)
-        .then( (disc) => {
-            if ( disc ) {
-                disc.contributors.push(contrId);
-                disc.save()
-                    .then( (newDisc) => {
-                        return res.status(200)
-                            .send({
-                                msg: "Contributor Added.",
-                                data: newDisc
-                            })
+                Discussion.findOne( {name:discName} )
+                    .then( (disc) => {
+                        if ( disc ) {
+                            for( let i = 0; i < disc.contributors.length; i++ ) {
+                                if( disc.contributors[i].username === contributorUsername ) {
+                                    return res.status(200)
+                                        .send({
+                                            msg: "This user is already a contributor to this discussion."
+                                        })
+                                }
+                            }
+
+                            disc.contributors.push(user);
+                            disc.save()
+                                .then( (newDisc) => {
+                                    return res.status(200)
+                                        .send({
+                                            msg: "Contributor Added.",
+                                            data: newDisc
+                                        })
+                                }).catch( (error) => {
+                                return res.status(400)
+                                    .send({
+                                        errMsg: "Cannot Add Contributor",
+                                        err: error
+                                    })
+                            });
+                        } else {
+                            return res.status(404)
+                                .send({
+                                    errMsg: "Cannot Find Discussion"
+                                })
+                        }
                     }).catch( (error) => {
-                        return res.status(400)
-                            .send({
-                                errMsg: "Cannot Add Contributor",
-                                err: error
-                            })
-                });
-            } else {
+                    return res.status(400)
+                        .send({
+                            errMsg: "Cannot Fetch Discussion Info",
+                            err: error
+                        })
+                })
+
+            }
+            else {
                 return res.status(404)
                     .send({
-                        errMsg: "Cannot Find Discussion"
+                        errMsg: "No such user exists."
                     })
             }
         }).catch( (error) => {
-            return res.status(400)
-                .send({
-                    errMsg: "Cannot Fetch Discussion Info",
-                    err: error
-                })
-    })
+        return res.status(400)
+            .send({
+                errMsg: "Cannot fetch user.",
+                err: error
+            })
+    });
 
 };
 
@@ -125,3 +151,165 @@ module.exports.viewDiscussions = ( req,res ) => {
 
 };
 
+module.exports.removeContributor = ( req,res ) => {
+
+    let contributorUsername = req.body.username;
+    let discName = req.body.disc;
+
+    Discussion.findOne( { name:discName } )
+        .then( (disc) => {
+            if( disc ) {
+                for (let i = 0; i < disc.contributors.length; i++) {
+                    if (disc.contributors[i].username === contributorUsername) {
+                        disc.contributors.splice(i,1);
+                        disc.save();
+                        return res.status(200)
+                            .send({
+                                msg: "User removed as a contributor."
+                            })
+                    }
+                }
+
+                return res.status(404)
+                    .send({
+                        errMsg: "User is not a contributor in this discussion."
+                    })
+
+            } else {
+                return res.status(404)
+                    .send({
+                        errMsg: "Cannot find such discussion."
+                    })
+            }
+        })
+
+};
+
+module.exports.viewUserDiscussions = ( req,res ) => {
+
+    let username = req.body.username;
+    let userDiscussions = [];
+
+    User.findOne( {username} )
+        .then( (user) => {
+            if( user ) {}
+            else {
+                return res.status(404)
+                    .send({
+                        errMsg: "No such user exists."
+                    })
+            }
+        }).catch( (error) => {
+            return res.status(400)
+                .send({
+                    errMsg: "Cannot fetch user.",
+                    err: error
+                })
+    });
+
+    Discussion.find()
+        .then( (discs) => {
+            if(discs) {
+                for(let i = 0; i < discs.length; i++ ) {
+                    for(let j = 0; j < discs[i].contributors.length; j++) {
+                        if( discs[i].contributors[j].username === username) {
+                            userDiscussions.push(discs[i]);
+                            break;
+                        }
+                    }
+                }
+
+                if( userDiscussions.length === 0 ) {
+                    return res.status(200)
+                        .send({
+                            msg: "You are not a contributor in any discussions.",
+                            data: userDiscussions
+                        })
+                } else {
+                    return res.status(200)
+                        .send({
+                            msg: "Fetch all contributed discussions.",
+                            data: userDiscussions
+                        })
+                }
+
+            } else {
+                return res.status(404)
+                    .send({
+                        errMsg:"No discussions exists."
+                    })
+            }
+        }).catch( (error) => {
+            return res.status(400)
+                .send({
+                    errMsg: "Cannot fetch discussions.",
+                    err: error
+                })
+    })
+};
+
+module.exports.leaveDiscussion = ( req,res ) => {
+
+    let username = req.body.username;
+    let discussion = req.body.disc;
+
+    Discussion.findOne( {name:discussion} )
+        .then( (disc) => {
+            if( disc ) {
+                for(let i = 0; i < disc.contributors.length; i++) {
+                    if( disc.contributors[i].username === username ) {
+                        disc.contributors.splice(i, 1);
+                        disc.save();
+                        return res.status(200)
+                            .send({
+                                msg: "User removed from discussion."
+                            })
+                    }
+                }
+                return res.status(200)
+                    .send({
+                        msg: `${username} is not a contributor in ${disc.name}`
+                    })
+            } else {
+                return res.status(404)
+                    .send({
+                        errMsg: "Cannot find such discussion."
+                    })
+            }
+        }).catch( (error) => {
+            return res.status(400)
+                .send({
+                    errMsg: "Cannot fetch discussion.",
+                    err: error
+                })
+    })
+
+};
+
+module.exports.deleteDiscussion = ( req,res ) => {
+
+    let discussion = req.body.disc;
+
+    Discussion.findOneAndDelete( {name:discussion} )
+        .then( (disc) => {
+            if(disc) {
+                GroupMessage.remove({discussion:discussion}).exec();
+                return res.status(200)
+                    .send({
+                        msg: "Discussion Deleted."
+                    })
+            } else {
+                return res.status(404)
+                    .send({
+                        errMsg: "Cannot Find Discussion."
+                    })
+            }
+        }).catch( (error) => {
+            return res.status(400)
+                .send({
+                    errMsg: "Cannot Fetch Discussion Info.",
+                    err: error
+                })
+    })
+
+};

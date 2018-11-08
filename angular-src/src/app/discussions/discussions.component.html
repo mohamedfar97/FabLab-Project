@@ -6,6 +6,7 @@
     </h1>
     <br>
   </div>
+
   <div class="card-body">
 
     <div class="panel panel-primary">
@@ -18,7 +19,10 @@
                   <strong>{{discussion.name}}</strong>
                   <p>Contributors: {{discussion.contributors.length}}</p>
                 </span>
-          </a><br>
+            <button class="badge badge-danger float-right" (click)="onLeaveDiscussion(discussion)" >
+              Leave</button>
+          </a>
+          <br>
         </div>
       </div>
     </div>

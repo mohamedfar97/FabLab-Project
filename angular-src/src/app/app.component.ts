@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import * as SocketIo from 'socket.io-client';
-import {appConfig} from "./app.config";
 import {ProjectDiscussionService} from "./services/project-discussion.service";
 
 @Component({
@@ -10,8 +8,13 @@ import {ProjectDiscussionService} from "./services/project-discussion.service";
 })
 export class AppComponent implements OnInit{
 
-  ngOnInit(){
-  }
   title = 'FabLab-Project';
   email = "";
+
+  constructor(private socketService : ProjectDiscussionService){
+    console.log(this.socketService.socket);
+  }
+
+  ngOnInit(){
+  }
 }

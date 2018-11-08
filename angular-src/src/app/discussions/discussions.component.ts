@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AdminService} from "../services/admin.service";
+import {ProjectDiscussionService} from "../services/project-discussion.service";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-discussions',
@@ -9,18 +11,40 @@ import {AdminService} from "../services/admin.service";
 export class DiscussionsComponent implements OnInit {
 
   discussions = [];
+  username: string;
 
-  constructor(private adminService: AdminService) {}
+  constructor(private discService: ProjectDiscussionService,
+              private authService: AuthService) {}
 
   ngOnInit() {
 
-    this.adminService.viewDiscussions()
+    this.username = this.authService.getUserFromToken(sessionStorage.getItem("x-auth")).username;
+
+    let body = {
+      username: this.username
+    };
+
+    this.discService.viewUserDiscussions(body)
       .subscribe((res:any) => {
         this.discussions = JSON.parse(res._body).data;
       }, (err) => {
         console.log(err);
       })
+  }
 
+  onLeaveDiscussion(discussion){
+
+    let body = {
+      username: this.username,
+      disc: discussion.name
+    };
+
+    this.discService.leaveDiscussion(body)
+      .subscribe((res:any) => {
+        alert(JSON.parse(res._body).msg);
+      }, (err) => {
+        console.log(err);
+      })
   }
 
 }

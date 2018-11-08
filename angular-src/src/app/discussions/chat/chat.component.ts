@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {ProjectDiscussionService} from "../../services/project-discussion.service";
 import {ActivatedRoute, Params} from "@angular/router";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {AdminService} from "../../services/admin.service";
+import {Disc} from "../../admin/create-discussion/create-discussion.component";
 
 
 @Component({
@@ -16,9 +19,11 @@ export class ChatComponent implements OnInit  {
   messages = Array<any>();
   user;
   contributors = [];
+  contributor: FormGroup;
 
-  constructor(private authService: AuthService ,
+  constructor(private authService: AuthService,
               private socketService : ProjectDiscussionService,
+              private adminService: AdminService,
               private route: ActivatedRoute) {
 
     this.user = this.authService.getUserFromToken(sessionStorage.getItem('x-auth'));
@@ -42,6 +47,11 @@ export class ChatComponent implements OnInit  {
   }
 
   ngOnInit() {
+
+    this.contributor = new FormGroup({
+      username: new FormControl('',Validators.required),
+    });
+
     this.socketService.socket.on('discussionMessage', (message) => {
       this.messages.push(message);
     });
@@ -53,10 +63,53 @@ export class ChatComponent implements OnInit  {
       });
 
     this.socketService.socket
-      .on('updateContributors' , (newUser) => {
-        this.contributors.push(newUser);
+      .on('updateContributors', (contributors) => {
+        this.contributors = contributors.contributors;
         console.log(this.contributors);
       })
+  }
+
+  onRemoveContributor( username ) {
+
+    let body = {
+      username,
+      disc: this.room
+    }
+
+    this.adminService.removeContributor(this.user._id, body)
+    .subscribe((res:any) => {
+      console.log(JSON.parse(res._body));
+    }, (error) => {
+      console.log("Cannot Remove Contributor");
+    })
+
+  }
+
+  onAddContributor( {value, valid}: { value: Contributor, valid: boolean } ) {
+
+    if(valid) {
+      let body = {
+        username: value.username,
+        disc: this.room
+      };
+
+      console.log(this.user._id);
+      console.log(JSON.stringify(body));
+
+      this.adminService.addContributor(this.user._id, body)
+        .subscribe((res:any) => {
+          console.log(res);
+        }, (error) => {
+          console.log(error);
+        })
+    } else {
+      console.log("Invalid Inputs");
+    }
+
+  }
+
+  isFullAdmin() {
+    return (this.user.adminAccess === "full");
   }
 
   send() {
@@ -74,4 +127,9 @@ export class ChatComponent implements OnInit  {
       document.getElementById("send").click();
     }
   }
+
+}
+
+export interface Contributor {
+  username: string;
 }

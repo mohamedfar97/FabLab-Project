@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { User } = require("../models/user");
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/FabLab' , { useNewUrlParser: true } );
+mongoose.connect('mongodb://localhost:27017/FabLab' , { useNewUrlParser: true, useCreateIndex: true } );
 
 
 const initializeAdmin = () => {

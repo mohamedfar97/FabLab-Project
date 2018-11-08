@@ -1,6 +1,7 @@
 const _ = require("lodash");
 const bcrypt = require('bcryptjs');
 const {User} = require("../models/user");
+const {Discussion} = require("../models/discussion");
 const {ObjectID} = require("mongodb");
 
 module.exports.registerUser = ( req,res ) => {
@@ -313,24 +314,4 @@ module.exports.editProfile = ( req,res ) => {
             errMsg : "You Cannot Edit These Properties."
         });
     }
-};
-
-module.exports.addDiscussion = (id, disc, callback) => {
-    if ( !ObjectID.isValid(id) ) {
-        return callback("Invalid User Id");
-    }
-
-    User.findById(id)
-        .then( (user) => {
-            let found = user.discussions
-                .filter((discVal) => discVal === disc);
-            if( found.length === 0 ) {
-                user.discussions.push(disc);
-                user.save();
-            }
-        }).catch( () => {
-            console.log("Cannot Find User");
-    });
-
-    callback();
 };

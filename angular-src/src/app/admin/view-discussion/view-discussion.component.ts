@@ -27,4 +27,18 @@ export class ViewDiscussionComponent implements OnInit {
       })
   }
 
+  onDeleteDiscussion( disc ) {
+
+    let body = {
+      disc: disc.name
+    };
+
+    this.adminService.deleteDiscussion(this.adminId,body)
+      .subscribe((res:any) => {
+        alert(JSON.parse(res._body).msg);
+      } , (err) => {
+        console.log(err);
+      })
+  }
+
 }

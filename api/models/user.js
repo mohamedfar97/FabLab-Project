@@ -70,7 +70,6 @@ const UserSchema = mongoose.Schema({
         type: String,
         enum: ['male','Male','female','Female']
     },
-    discussions: [],
     tokens: [{
         access: {
             type: String,

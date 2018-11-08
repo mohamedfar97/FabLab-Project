@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {GitLabService} from "../../services/gitlab.service";
 import {ActivatedRoute, Params} from "@angular/router";
 import {NgxSpinnerService} from "ngx-spinner";
+import { saveAs } from 'file-saver/FileSaver';
+import * as FileSaver from "file-saver";
 
 @Component({
   selector: 'app-commits',
@@ -57,6 +59,22 @@ export class CommitsComponent implements OnInit {
 
 
   }
+
+  saveToFileSystem ( commitId ) {
+    this.spinnerService.show();
+    console.log(commitId);
+    let projectName = "Project_" + this.projectId + "_" + commitId;
+    this.gitlabService.downloadProject(this.projectId , projectName, commitId)
+      .subscribe( (res:any) => {
+        this.spinnerService.hide();
+        let blob = new Blob([res._body]);
+        let file = new File([blob],projectName + '.tar.gz');
+        FileSaver.saveAs(file);
+      } , ( err ) => {
+        console.log(err);
+      });
+  }
+
 
   setradio(value : string){
     if(value === "name"){

@@ -1,7 +1,3 @@
-
-
-
-
 <a class="btn btn-light float-right" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
   Search..<i class="material-icons prefix">search</i>
 </a>
@@ -42,15 +38,15 @@
     <div class="panel-body">
       <div>
         <ul class="list-group list-group-flush">
-          <a class="list-group-item list-group-item-action" *ngFor = "let commit of searchCommits">
+          <label class="list-group-item list-group-item-action" *ngFor = "let commit of searchCommits">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="list-group-item-heading">{{commit.title}}</h5>
               <h6 class="list-group-item-heading">{{commit.author_name}}</h6>
-              <span class="badge badge-warning badge-pill">
+              <a class="badge badge-warning badge-pill" (click)="saveToFileSystem(commit.id)">
                   <i class="material-icons prefix">get_app</i>
-                </span>
+              </a>
             </div>
-          </a>
+          </label>
         </ul>
       </div>
     </div>

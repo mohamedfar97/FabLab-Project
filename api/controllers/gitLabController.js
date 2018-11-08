@@ -124,10 +124,16 @@ module.exports.downProject = ( req,res ) => {
     let token = req.params.token;
     let projectId = req.params.projectId;
     let projectName = req.params.projectName;
+    let commitId = req.params.commitId;
 
-    let url = 'https://gitlab.com/api/v4/projects/' + projectId
+    if ( commitId ) {
+        var url = 'https://gitlab.com/api/v4/projects/' + projectId
+        + '/repository/archive?private_token=' + token + '&sha=' + commitId;
+    } else{
+        var url = 'https://gitlab.com/api/v4/projects/' + projectId
         + '/repository/archive?private_token=' + token;
-
+    }
+    
     let filePath = path.join(__dirname , '../assets/' + projectName + '.tar.gz');
     let fileContent = fs.createWriteStream(filePath);
 
@@ -156,7 +162,7 @@ module.exports.getProjectCommits = ( req,res ) => {
 
     var options = {
         host: gitLabHost ,
-        path: '/api/v4/projects/' + projectId + '/repository/commits?private_token=' + token
+        path: '/api/v4/projects/' + projectId + '/repository/commits?per_page=100&private_token=' + token
     };
 
     getFromGitLab( options , res );

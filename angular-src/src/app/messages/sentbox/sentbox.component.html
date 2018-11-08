@@ -20,9 +20,6 @@
              [queryParams] = "{messageId : message._id}">
 
             <div class="float-right">
-              <a class="badge badge-danger float-right" (click)="onDeleteMessage(message)" >
-                <i class="material-icons prefix">delete</i>
-              </a>
               <br><br>
               <label class="badge badge-warning float-right">
                 {{message.messageDate | date:'medium'}}
@@ -40,6 +37,10 @@
             <span class="text-muted" style="font-size: 11px;">
                   Message : {{message.message | contentPeek }}
             </span>
+
+            <button class="badge badge-danger float-right" (click)="onDeleteMessage(message)" >
+              <i class="material-icons prefix">delete</i>
+            </button>
 
           </a>
           <br>
