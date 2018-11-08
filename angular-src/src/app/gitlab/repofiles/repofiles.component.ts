@@ -225,7 +225,7 @@ export class RepofilesComponent implements OnInit {
   saveToFileSystem() {
     this.spinnerService.show();
     let projectName = "Project_" + this.project_id;
-    this.gitLabService.downloadProject(this.project_id , projectName)
+    this.gitLabService.downloadProject(this.project_id , projectName , undefined)
       .subscribe( (res:any) => {
         this.spinnerService.hide();
         let blob = new Blob([res._body]);
