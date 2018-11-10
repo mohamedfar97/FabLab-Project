@@ -3,6 +3,16 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from "@angular/http";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { QuillModule } from "ngx-quill";
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { NgStringPipesModule } from 'angular-pipes';
+import { NgxSpinnerModule} from 'ngx-spinner';
+import { FileDropModule } from 'ngx-file-drop';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from "./app-routing.module";
 
@@ -17,43 +27,35 @@ import { RepofileComponent } from './gitlab/repofile/repofile.component';
 import { SidebarComponent } from './header/sidebar/sidebar.component';
 
 import { AuthService } from "./services/auth.service";
+import { AdminService } from "./services/admin.service";
 import { GitLabService } from "./services/gitlab.service";
+import { MessagingService } from "./services/messaging.service";
+import { ProjectDiscussionService } from "./services/project-discussion.service";
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { QuillModule } from "ngx-quill";
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { NgStringPipesModule } from 'angular-pipes';
-import { EditProfileComponent } from './shared/edit-profile/edit-profile.component';
-import { FirstNamePipe } from './services/pipes/first-name.pipe';
 import { CapitalizeRolePipe } from './services/pipes/capitalize-role.pipe';
-import { NgxSpinnerModule} from 'ngx-spinner';
+import { FirstNamePipe } from './services/pipes/first-name.pipe';
 import { SizePipePipe } from './services/pipes/size-pipe.pipe';
-import { FileDropModule } from 'ngx-file-drop';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { CommitsComponent } from './gitlab/commits/commits.component';
+import { ContentPeekPipe } from './services/pipes/content-peek.pipe';
+
+import { EditProfileComponent } from './shared/edit-profile/edit-profile.component';
 import { FolderFilesComponent } from './gitlab/repofiles/folder-files/folder-files.component';
+import { CommitsComponent } from './gitlab/commits/commits.component';
 import { InboxComponent } from './messages/inbox/inbox.component';
 import { SentboxComponent } from './messages/sentbox/sentbox.component';
 import { ComposeComponent } from './messages/compose/compose.component';
-import {MessagingService} from "./services/messaging.service";
-import {ProjectDiscussionService} from "./services/project-discussion.service";
-import { ContentPeekPipe } from './services/pipes/content-peek.pipe';
-import {ChatComponent} from "./discussions/chat/chat.component";
-
+import { ChatComponent } from "./discussions/chat/chat.component";
 import { ClientRegComponent } from './forms/client-reg/client-reg.component';
 import { AdminHeaderComponent } from './admin/admin-header/admin-header.component';
 import { AdminSidebarComponent } from './admin/admin-header/admin-sidebar/admin-sidebar.component';
 import { PendingUsersComponent } from './admin/pending-users/pending-users.component';
-import {AdminService} from "./services/admin.service";
 import { UnverifiedUsersComponent } from './admin/unverified-users/unverified-users.component';
 import { DiscussionsComponent } from './discussions/discussions.component';
 import { CreateDiscussionComponent } from './admin/create-discussion/create-discussion.component';
 import { ViewDiscussionComponent } from './admin/view-discussion/view-discussion.component';
 import { ViewMessageComponent } from './messages/view-message/view-message.component';
 
+import { LoggedInGuard } from './services/guards/loggedInGuard.service';
+import { NonLoggedInGuard } from './services/guards/notLoggedInGuard.service';
 
 @NgModule({
   declarations: [
@@ -109,6 +111,8 @@ import { ViewMessageComponent } from './messages/view-message/view-message.compo
   ],
   providers: [
     ViewMessageComponent,
+    LoggedInGuard,
+    NonLoggedInGuard,
     AuthService,
     GitLabService,
     MessagingService,

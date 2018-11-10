@@ -1,17 +1,29 @@
 <div class="container">
   <div class = "panel panel-primary">
     <h1 class="panel-heading">Files</h1>
+    <h6 class="panel-heading">{{this.directoryPath}}</h6>
     <br>
     <div class="panel-body">
       <div>
         <ul class="list-group list-group-flush">
 
+
+          <a (click)="onBack()"
+             class="list-group-item list-group-item-action" >
+            <div class="d-flex w-100 justify-content-between">
+             <h5 class="list-group-item-heading"><strong>...</strong></h5>
+             <span class="badge badge-warning badge-pill">
+              <i class="material-icons prefix">arrow_back_ios</i>
+            </span>
+            </div>
+          </a>
+
           <a (click)="onOpenFolder(treeFile)"
              class="list-group-item list-group-item-action" *ngFor = "let treeFile of treeFolderFiles">
             <div class="d-flex w-100 justify-content-between">
-              <h5 class="list-group-item-heading">{{treeFile.name}}</h5>
+             <h5 class="list-group-item-heading"> <strong>{{treeFile.name}}</strong></h5>
               <span class="badge badge-warning badge-pill">
-                  <i class="material-icons prefix">navigate_next</i>
+                  <i class="material-icons prefix">arrow_forward_ios</i>
                 </span>
             </div>
           </a>
@@ -20,9 +32,7 @@
              class="list-group-item list-group-item-action" *ngFor = "let file of folderFiles">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="list-group-item-heading">{{file.name}}</h5>
-              <span class="badge badge-warning badge-pill">
-                  <i class="material-icons prefix">get_app</i>
-                </span>
+              
             </div>
           </a>
         </ul>

@@ -60,7 +60,7 @@ export class RepofilesComponent implements OnInit {
   commitMessage = 'Message';
 
   ngOnInit() {
-    this.uploadRequests = [];
+   this.uploadRequests = [];
    this.uploadInfo = [];
    this.uploadedFiles = [];
 
@@ -225,7 +225,7 @@ export class RepofilesComponent implements OnInit {
   saveToFileSystem() {
     this.spinnerService.show();
     let projectName = "Project_" + this.project_id;
-    this.gitLabService.downloadProject(this.project_id , projectName, undefined)
+    this.gitLabService.downloadProject(this.project_id , projectName , undefined)
       .subscribe( (res:any) => {
         this.spinnerService.hide();
         let blob = new Blob([res._body]);
@@ -244,7 +244,10 @@ export class RepofilesComponent implements OnInit {
           path: folder.path
         }
       });
+      
+      this.ngOnInit();
   }
+  
 }
 
 

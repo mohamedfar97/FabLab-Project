@@ -23,28 +23,44 @@ import {DiscussionsComponent} from "./discussions/discussions.component";
 import {ViewDiscussionComponent} from "./admin/view-discussion/view-discussion.component";
 import {CreateDiscussionComponent} from "./admin/create-discussion/create-discussion.component";
 import {ViewMessageComponent} from "./messages/view-message/view-message.component";
+import {LoggedInGuard} from "./services/guards/loggedInGuard.service";
+import {NonLoggedInGuard} from "./services/guards/notLoggedInGuard.service";
 
 const appRoutes : Routes = [
   { path : '', component :  LoginComponent },
-  { path : 'login', component :  LoginComponent },
-  { path : 'signup', component : SignupComponent },
-  { path : 'profile' , component: ProfileComponent },
-  { path : 'profile/editProfile' , component: EditProfileComponent },
-  { path : 'repotree' , component : RepotreeComponent },
-  { path : 'repofiles' , component : RepofilesComponent },
-  { path : 'repofile' , component : RepofileComponent },
-  { path : 'commits' , component : CommitsComponent },
+
+  { path : 'login', canActivate: [NonLoggedInGuard], component :  LoginComponent },
+  { path : 'signup', canActivate: [NonLoggedInGuard], component : SignupComponent },
+
+  { path : 'profile', canActivate:[LoggedInGuard], component: ProfileComponent , children: [
+      { path : 'editProfile', component: EditProfileComponent }
+    ] },
+
+  { path : 'repotree', canActivate:[LoggedInGuard] , component : RepotreeComponent },
+  { path : 'repofiles', canActivate:[LoggedInGuard] , component : RepofilesComponent },
+  { path : 'repofile', canActivate:[LoggedInGuard] , component : RepofileComponent },
+  { path : 'commits', canActivate:[LoggedInGuard] , component : CommitsComponent },
+
   { path : 'subdirectory' , component : FolderFilesComponent , runGuardsAndResolvers: 'always' },
-  { path : 'messages/inbox' , component : InboxComponent},
-  { path : 'messages/sentbox' , component : SentboxComponent},
-  { path : 'messages/compose' , component : ComposeComponent},
-  { path : 'messages/viewMessage' , component : ViewMessageComponent},
-  { path : 'admin/pendingUsers' , component : PendingUsersComponent },
-  { path : 'admin/unverifiedUsers' , component : UnverifiedUsersComponent },
-  { path : 'admin/viewDiscussions' , component : ViewDiscussionComponent },
-  { path : 'admin/createDiscussion' , component : CreateDiscussionComponent },
-  { path : 'discussions' , component : DiscussionsComponent},
-  { path : 'discussion' , component : ChatComponent},
+
+  { path : 'messages' , canActivate:[LoggedInGuard], children :[
+      { path : 'inbox' , component : InboxComponent},
+      { path : 'sentbox' , component : SentboxComponent},
+      { path : 'compose' , component : ComposeComponent},
+      { path : 'viewMessage', component : ViewMessageComponent}
+    ]
+  },
+
+  { path : 'admin', canActivate:[LoggedInGuard] , children: [
+      { path : 'pendingUsers', component : PendingUsersComponent },
+      { path : 'unverifiedUsers', component : UnverifiedUsersComponent },
+      { path : 'viewDiscussions', component : ViewDiscussionComponent },
+      { path : 'createDiscussion', component : CreateDiscussionComponent }
+    ]
+  },
+
+  { path : 'discussions', canActivate:[LoggedInGuard] , component : DiscussionsComponent},
+  { path : 'discussion', canActivate:[LoggedInGuard] , component : ChatComponent},
   { path : 'forms/clientRegister' , component : ClientRegComponent }
 
 ];
@@ -59,5 +75,6 @@ const appRoutes : Routes = [
   ]
 })
 export class AppRoutingModule {
+
 
 }
