@@ -16,13 +16,11 @@ import {ComposeComponent} from "./messages/compose/compose.component";
 
 import {ChatComponent} from "./discussions/chat/chat.component";
 
-import {PendingUsersComponent} from "./admin/pending-users/pending-users.component";
-import {UnverifiedUsersComponent} from "./admin/unverified-users/unverified-users.component";
+
 import {ClientRegComponent} from "./forms/client-reg/client-reg.component";
 import {DiscussionsComponent} from "./discussions/discussions.component";
-import {ViewDiscussionComponent} from "./admin/view-discussion/view-discussion.component";
-import {CreateDiscussionComponent} from "./admin/create-discussion/create-discussion.component";
 import {ViewMessageComponent} from "./messages/view-message/view-message.component";
+
 import {LoggedInGuard} from "./services/guards/loggedInGuard.service";
 import {NonLoggedInGuard} from "./services/guards/notLoggedInGuard.service";
 
@@ -51,14 +49,6 @@ const appRoutes : Routes = [
     ]
   },
 
-  { path : 'admin', canActivate:[LoggedInGuard] , children: [
-      { path : 'pendingUsers', component : PendingUsersComponent },
-      { path : 'unverifiedUsers', component : UnverifiedUsersComponent },
-      { path : 'viewDiscussions', component : ViewDiscussionComponent },
-      { path : 'createDiscussion', component : CreateDiscussionComponent }
-    ]
-  },
-
   { path : 'discussions', canActivate:[LoggedInGuard] , component : DiscussionsComponent},
   { path : 'discussion', canActivate:[LoggedInGuard] , component : ChatComponent},
   { path : 'forms/clientRegister' , component : ClientRegComponent }
@@ -74,7 +64,4 @@ const appRoutes : Routes = [
     RouterModule
   ]
 })
-export class AppRoutingModule {
-
-
-}
+export class AppRoutingModule {}
