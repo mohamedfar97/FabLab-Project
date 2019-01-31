@@ -8,7 +8,7 @@ import {UnverifiedUsersComponent} from "./unverified-users/unverified-users.comp
 import {ViewDiscussionComponent} from "./view-discussion/view-discussion.component";
 import {CreateDiscussionComponent} from "./create-discussion/create-discussion.component";
 
-const routes:Routes = [
+const adminRoutes:Routes = [
     { path : 'admin', canActivate:[LoggedInGuard] , children: [
         { path : 'pendingUsers', component : PendingUsersComponent },
         { path : 'unverifiedUsers', component : UnverifiedUsersComponent },
@@ -20,7 +20,7 @@ const routes:Routes = [
 
 @NgModule({
     imports:[
-        RouterModule.forChild(routes)
+        RouterModule.forChild(adminRoutes)
     ],
     exports:[
         RouterModule

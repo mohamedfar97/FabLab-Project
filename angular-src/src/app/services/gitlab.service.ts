@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Http, ResponseContentType} from "@angular/http";
+import { Http, ResponseContentType} from "@angular/http";
 import { appConfig } from '../app.config';
 
 

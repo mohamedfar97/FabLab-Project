@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FileDropModule } from 'ngx-file-drop';
 import { QuillModule } from "ngx-quill";
+import { HttpClientModule } from '@angular/common/http';
 
 import { GitlabRoutingModule } from "./gitlab-routing.module";
 import { SharedModule } from "../shared/shared.module";
@@ -26,6 +27,7 @@ import { FolderFilesComponent } from '../gitlab/repofiles/folder-files/folder-fi
         QuillModule,
         GitlabRoutingModule,
         SharedModule,
+        HttpClientModule
     ]
 })
 export class GitlabModule {}

@@ -36,14 +36,6 @@ const appRoutes : Routes = [
 
   { path : 'subdirectory' , component : FolderFilesComponent , runGuardsAndResolvers: 'always' },
 
-  { path : 'messages' , canActivate:[LoggedInGuard], children :[
-      { path : 'inbox' , component : InboxComponent},
-      { path : 'sentbox' , component : SentboxComponent},
-      { path : 'compose' , component : ComposeComponent},
-      { path : 'viewMessage', component : ViewMessageComponent}
-    ]
-  },
-
   { path : 'discussions', canActivate:[LoggedInGuard] , component : DiscussionsComponent},
   { path : 'discussion', canActivate:[LoggedInGuard] , component : ChatComponent},
   { path : 'forms/clientRegister' , component : ClientRegComponent }
@@ -52,8 +44,7 @@ const appRoutes : Routes = [
 
 @NgModule({
   imports:[
-    RouterModule.forRoot(appRoutes
-      , {onSameUrlNavigation: 'reload'})
+    RouterModule.forRoot(appRoutes)
   ],
   exports:[
     RouterModule

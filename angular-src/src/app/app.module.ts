@@ -1,10 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from "@angular/http";
-import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule} from 'ngx-spinner';
-import { QuillModule } from "ngx-quill";
 
 // Unknown Purpose Modules
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -15,14 +13,14 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 // Custom Modules
 import { AppRoutingModule } from "./app-routing.module";
-import { AdminModule } from './admin/admin.module';
 import { SharedModule } from './shared/shared.module';
+import { AdminModule } from './admin/admin.module';
 import { GitlabModule } from './gitlab/gitlab.module';
+import { MessagesModule } from './messages/messages.module';
 
 // General Use Services
 import { AuthService } from "./services/auth.service";
 import { GitLabService } from "./services/gitlab.service";
-import { MessagingService } from "./services/messaging.service";
 import { ProjectDiscussionService } from "./services/project-discussion.service";
 
 // Guards
@@ -42,11 +40,6 @@ import { EditProfileComponent } from './shared/edit-profile/edit-profile.compone
 import { AdminHeaderComponent } from './admin/admin-header/admin-header.component';
 import { AdminSidebarComponent } from './admin/admin-header/admin-sidebar/admin-sidebar.component';
 
-import { InboxComponent } from './messages/inbox/inbox.component';
-import { SentboxComponent } from './messages/sentbox/sentbox.component';
-import { ComposeComponent } from './messages/compose/compose.component';
-import { ViewMessageComponent } from './messages/view-message/view-message.component';
-
 import { ChatComponent } from "./discussions/chat/chat.component";
 import { DiscussionsComponent } from './discussions/discussions.component';
 
@@ -65,12 +58,8 @@ import { ClientRegComponent } from './forms/client-reg/client-reg.component';
     ProfileComponent,
     SidebarComponent,
     EditProfileComponent,
-    InboxComponent,
-    SentboxComponent,
-    ComposeComponent,
     ClientRegComponent,
-    DiscussionsComponent,
-    ViewMessageComponent
+    DiscussionsComponent
   ],
   exports: [BsDropdownModule, TooltipModule]
   ,
@@ -82,23 +71,21 @@ import { ClientRegComponent } from './forms/client-reg/client-reg.component';
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
-    QuillModule,
-    HttpClientModule,
     HttpModule,
     AppRoutingModule,
     AdminModule,
     GitlabModule,
+    MessagesModule,
     SharedModule
   ],
   providers: [
-    ViewMessageComponent,
     LoggedInGuard,
     NonLoggedInGuard,
     AuthService,
     GitLabService,
-    MessagingService,
     ProjectDiscussionService,
-    NgbModal],
+    NgbModal
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {  }

@@ -8,7 +8,7 @@ import { RepofilesComponent } from '../gitlab/repofiles/repofiles.component';
 import { RepofileComponent } from '../gitlab/repofile/repofile.component';
 import { CommitsComponent } from '../gitlab/commits/commits.component';
 
-const routes:Routes = [
+const gitlabRoutes:Routes = [
     { path : 'repotree', canActivate:[LoggedInGuard] , component : RepotreeComponent },
     { path : 'repofiles', canActivate:[LoggedInGuard] , component : RepofilesComponent },
     { path : 'repofile', canActivate:[LoggedInGuard] , component : RepofileComponent },
@@ -17,7 +17,7 @@ const routes:Routes = [
 
 @NgModule({
     imports:[
-        RouterModule.forChild(routes)
+        RouterModule.forChild(gitlabRoutes)
     ],
     exports:[
         RouterModule
