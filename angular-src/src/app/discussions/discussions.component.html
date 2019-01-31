@@ -13,7 +13,7 @@
       <div class="panel-body message">
         <div class="list-group" *ngFor="let discussion of discussions">
           <a class="list-group-item"
-             [routerLink]="['/discussion']"
+             [routerLink]="['/discussions/discussion']"
              [queryParams] = "{room : discussion.name}">
                 <span class="name"  style="min-width: 120px;display: inline-block;">
                   <strong>{{discussion.name}}</strong>

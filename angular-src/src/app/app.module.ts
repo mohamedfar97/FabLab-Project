@@ -17,11 +17,11 @@ import { SharedModule } from './shared/shared.module';
 import { AdminModule } from './admin/admin.module';
 import { GitlabModule } from './gitlab/gitlab.module';
 import { MessagesModule } from './messages/messages.module';
+import { DiscussionsModule } from './discussions/discussions.module';
 
 // General Use Services
 import { AuthService } from "./services/auth.service";
 import { GitLabService } from "./services/gitlab.service";
-import { ProjectDiscussionService } from "./services/project-discussion.service";
 
 // Guards
 import { LoggedInGuard } from './services/guards/loggedInGuard.service';
@@ -40,9 +40,6 @@ import { EditProfileComponent } from './shared/edit-profile/edit-profile.compone
 import { AdminHeaderComponent } from './admin/admin-header/admin-header.component';
 import { AdminSidebarComponent } from './admin/admin-header/admin-sidebar/admin-sidebar.component';
 
-import { ChatComponent } from "./discussions/chat/chat.component";
-import { DiscussionsComponent } from './discussions/discussions.component';
-
 import { ClientRegComponent } from './forms/client-reg/client-reg.component';
 
 
@@ -50,7 +47,6 @@ import { ClientRegComponent } from './forms/client-reg/client-reg.component';
   declarations: [
     AdminHeaderComponent,
     AdminSidebarComponent,
-    ChatComponent,
     AppComponent,
     HeaderComponent,
     LoginComponent,
@@ -58,11 +54,9 @@ import { ClientRegComponent } from './forms/client-reg/client-reg.component';
     ProfileComponent,
     SidebarComponent,
     EditProfileComponent,
-    ClientRegComponent,
-    DiscussionsComponent
+    ClientRegComponent
   ],
-  exports: [BsDropdownModule, TooltipModule]
-  ,
+  exports: [BsDropdownModule, TooltipModule],
   imports: [
     BrowserModule,
     NgxSpinnerModule,
@@ -76,6 +70,7 @@ import { ClientRegComponent } from './forms/client-reg/client-reg.component';
     AdminModule,
     GitlabModule,
     MessagesModule,
+    DiscussionsModule,
     SharedModule
   ],
   providers: [
@@ -83,7 +78,6 @@ import { ClientRegComponent } from './forms/client-reg/client-reg.component';
     NonLoggedInGuard,
     AuthService,
     GitLabService,
-    ProjectDiscussionService,
     NgbModal
   ],
   bootstrap: [AppComponent]

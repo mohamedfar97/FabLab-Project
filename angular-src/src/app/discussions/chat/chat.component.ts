@@ -4,7 +4,6 @@ import {ProjectDiscussionService} from "../../services/project-discussion.servic
 import {ActivatedRoute, Params} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AdminService} from "../../services/admin.service";
-import {Disc} from "../../admin/create-discussion/create-discussion.component";
 
 
 @Component({
