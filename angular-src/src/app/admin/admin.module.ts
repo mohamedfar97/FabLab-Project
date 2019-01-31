@@ -3,8 +3,8 @@ import { CommonModule } from "@angular/common";
 
 import { AdminRoutingModule } from "./admin-routing.module";
 
-import { AdminHeaderComponent } from './admin-header/admin-header.component';
-import { AdminSidebarComponent } from './admin-header/admin-sidebar/admin-sidebar.component';
+import { AdminService } from "../services/admin.service";
+
 import { PendingUsersComponent } from './pending-users/pending-users.component';
 import { UnverifiedUsersComponent } from './unverified-users/unverified-users.component';
 import { CreateDiscussionComponent } from './create-discussion/create-discussion.component';
@@ -22,6 +22,9 @@ import { SharedModule } from "../shared/shared.module";
         CommonModule,
         SharedModule,
         AdminRoutingModule
+    ],
+    providers:[
+        AdminService
     ]
 })
 export class AdminModule {}

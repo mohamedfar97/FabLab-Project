@@ -34,11 +34,6 @@ const appRoutes : Routes = [
       { path : 'editProfile', component: EditProfileComponent }
     ] },
 
-  { path : 'repotree', canActivate:[LoggedInGuard] , component : RepotreeComponent },
-  { path : 'repofiles', canActivate:[LoggedInGuard] , component : RepofilesComponent },
-  { path : 'repofile', canActivate:[LoggedInGuard] , component : RepofileComponent },
-  { path : 'commits', canActivate:[LoggedInGuard] , component : CommitsComponent },
-
   { path : 'subdirectory' , component : FolderFilesComponent , runGuardsAndResolvers: 'always' },
 
   { path : 'messages' , canActivate:[LoggedInGuard], children :[

@@ -42,9 +42,7 @@ export class CreateDiscussionComponent implements OnInit {
     } else {
       console.log("Invalid Inputs");
     }
-
   }
-
 }
 
 export interface Disc {
