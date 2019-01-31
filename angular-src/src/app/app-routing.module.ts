@@ -21,6 +21,8 @@ const appRoutes : Routes = [
       { path : 'editProfile', component: EditProfileComponent }
     ] },
 
+  { path: 'admin', loadChildren: "./admin/admin.module#AdminModule"},
+
   { path : 'forms/clientRegister' , component : ClientRegComponent }
 
 ];

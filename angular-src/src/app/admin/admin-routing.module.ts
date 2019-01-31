@@ -9,7 +9,7 @@ import {ViewDiscussionComponent} from "./view-discussion/view-discussion.compone
 import {CreateDiscussionComponent} from "./create-discussion/create-discussion.component";
 
 const adminRoutes:Routes = [
-    { path : 'admin', canActivate:[LoggedInGuard] , children: [
+    { path : '', canActivate:[LoggedInGuard] , children: [
         { path : 'pendingUsers', component : PendingUsersComponent },
         { path : 'unverifiedUsers', component : UnverifiedUsersComponent },
         { path : 'viewDiscussions', component : ViewDiscussionComponent },

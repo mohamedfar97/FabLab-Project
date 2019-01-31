@@ -3,26 +3,22 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from "@angular/http";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule} from 'ngx-spinner';
-
 // Unknown Purpose Modules
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
 // Custom Modules
 import { AppRoutingModule } from "./app-routing.module";
 import { SharedModule } from './shared/shared.module';
-import { AdminModule } from './admin/admin.module';
+//import { AdminModule } from './admin/admin.module';
 import { GitlabModule } from './gitlab/gitlab.module';
 import { MessagesModule } from './messages/messages.module';
 import { DiscussionsModule } from './discussions/discussions.module';
-
 // General Use Services
 import { AuthService } from "./services/auth.service";
 import { GitLabService } from "./services/gitlab.service";
-
 // Guards
 import { LoggedInGuard } from './services/guards/loggedInGuard.service';
 import { NonLoggedInGuard } from './services/guards/notLoggedInGuard.service';
@@ -41,7 +37,6 @@ import { AdminHeaderComponent } from './admin/admin-header/admin-header.componen
 import { AdminSidebarComponent } from './admin/admin-header/admin-sidebar/admin-sidebar.component';
 
 import { ClientRegComponent } from './forms/client-reg/client-reg.component';
-
 
 @NgModule({
   declarations: [
@@ -67,7 +62,6 @@ import { ClientRegComponent } from './forms/client-reg/client-reg.component';
     ModalModule.forRoot(),
     HttpModule,
     AppRoutingModule,
-    AdminModule,
     GitlabModule,
     MessagesModule,
     DiscussionsModule,
