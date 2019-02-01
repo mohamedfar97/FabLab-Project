@@ -1,30 +1,14 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { SignupComponent } from "./shared/signup/signup.component";
-import { LoginComponent } from "./shared/login/login.component";
-import { ProfileComponent } from "./shared/profile/profile.component";
-import { EditProfileComponent } from "./shared/edit-profile/edit-profile.component";
-
-import {ClientRegComponent} from "./forms/client-reg/client-reg.component";
-
-import {LoggedInGuard} from "./services/guards/loggedInGuard.service";
-import {NonLoggedInGuard} from "./services/guards/notLoggedInGuard.service";
+import { LoginComponent } from "./auth/login/login.component";
 
 const appRoutes : Routes = [
-  { path : '', component :  LoginComponent },
-
-  { path : 'login', canActivate: [NonLoggedInGuard], component :  LoginComponent },
-  { path : 'signup', canActivate: [NonLoggedInGuard], component : SignupComponent },
-
-  { path : 'profile', canActivate:[LoggedInGuard], component: ProfileComponent , children: [
-      { path : 'editProfile', component: EditProfileComponent }
-    ] },
-
+  { path : '', loadChildren :  "./auth/auth.module#AuthModule" },
   { path: 'admin', loadChildren: "./admin/admin.module#AdminModule"},
-
-  { path : 'forms/clientRegister' , component : ClientRegComponent }
-
+  { path: 'gitlab', loadChildren: "./gitlab/gitlab.module#GitlabModule"},
+  { path: 'discussions', loadChildren: "./discussions/discussions.module#DiscussionsModule"},
+  { path: 'messages', loadChildren: "./messages/messages.module#MessagesModule"},
 ];
 
 @NgModule({

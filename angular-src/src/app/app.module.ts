@@ -12,44 +12,32 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 // Custom Modules
 import { AppRoutingModule } from "./app-routing.module";
 import { SharedModule } from './shared/shared.module';
-//import { AdminModule } from './admin/admin.module';
 import { GitlabModule } from './gitlab/gitlab.module';
-import { MessagesModule } from './messages/messages.module';
-import { DiscussionsModule } from './discussions/discussions.module';
+import { AuthModule } from './auth/auth.module';
 // General Use Services
 import { AuthService } from "./services/auth.service";
 import { GitLabService } from "./services/gitlab.service";
+import { ProjectDiscussionService } from "./services/project-discussion.service";
 // Guards
 import { LoggedInGuard } from './services/guards/loggedInGuard.service';
 import { NonLoggedInGuard } from './services/guards/notLoggedInGuard.service';
 
 import { AppComponent } from './app.component';
 
-import { HeaderComponent } from './header/header.component';
-import { SidebarComponent } from './header/sidebar/sidebar.component';
-
-import { LoginComponent } from './shared/login/login.component';
-import { SignupComponent } from './shared/signup/signup.component';
-import { ProfileComponent } from './shared/profile/profile.component';
-import { EditProfileComponent } from './shared/edit-profile/edit-profile.component';
+import { HeaderComponent } from './shared/header/header.component';
+import { SidebarComponent } from './shared/header/sidebar/sidebar.component';
 
 import { AdminHeaderComponent } from './admin/admin-header/admin-header.component';
 import { AdminSidebarComponent } from './admin/admin-header/admin-sidebar/admin-sidebar.component';
 
-import { ClientRegComponent } from './forms/client-reg/client-reg.component';
 
 @NgModule({
   declarations: [
+    AppComponent,
     AdminHeaderComponent,
     AdminSidebarComponent,
-    AppComponent,
     HeaderComponent,
-    LoginComponent,
-    SignupComponent,
-    ProfileComponent,
-    SidebarComponent,
-    EditProfileComponent,
-    ClientRegComponent
+    SidebarComponent
   ],
   exports: [BsDropdownModule, TooltipModule],
   imports: [
@@ -63,8 +51,7 @@ import { ClientRegComponent } from './forms/client-reg/client-reg.component';
     HttpModule,
     AppRoutingModule,
     GitlabModule,
-    MessagesModule,
-    DiscussionsModule,
+    AuthModule,
     SharedModule
   ],
   providers: [
@@ -72,6 +59,7 @@ import { ClientRegComponent } from './forms/client-reg/client-reg.component';
     NonLoggedInGuard,
     AuthService,
     GitLabService,
+    ProjectDiscussionService,
     NgbModal
   ],
   bootstrap: [AppComponent]

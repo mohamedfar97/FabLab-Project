@@ -70,7 +70,7 @@ export class FolderFilesComponent implements OnInit {
   onOpenFile(file) {
     const urlEncodedPath = encodeURIComponent(file.path);
     console.log(urlEncodedPath);
-    this.router.navigate(['/repofile'] ,
+    this.router.navigate(['/gitlab/repofile'] ,
       {
         queryParams: {
           project_id : this.projectId,
@@ -83,7 +83,7 @@ export class FolderFilesComponent implements OnInit {
    
     this.folderPath = encodeURIComponent(folder.path);
 
-    this.router.navigate(['/subdirectory'],
+    this.router.navigate(['/gitlab/subdirectory'],
     { queryParams: {
         full_path: this.fullPath,
         project_id: this.projectId,
@@ -98,7 +98,7 @@ export class FolderFilesComponent implements OnInit {
     
     if(!this.folderPath.includes("%")){
       
-      this.router.navigate(['/repofiles'],
+      this.router.navigate(['/gitlab/repofiles'],
       { queryParams: {
           full_path: this.fullPath,
           project_id: this.projectId
@@ -109,7 +109,7 @@ export class FolderFilesComponent implements OnInit {
       let indx = this.folderPath.lastIndexOf('%');
       let newPath = this.folderPath.slice(0,indx);
       this.folderPath = newPath;
-      this.router.navigate(['/subdirectory'],
+      this.router.navigate(['/gitlab/subdirectory'],
       { queryParams: {
           full_path: this.fullPath,
           project_id: this.projectId,

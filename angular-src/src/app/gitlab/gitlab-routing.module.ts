@@ -10,11 +10,13 @@ import { CommitsComponent } from './commits/commits.component';
 import {FolderFilesComponent} from "./repofiles/folder-files/folder-files.component";
 
 const gitlabRoutes:Routes = [
-    { path : 'repotree', canActivate:[LoggedInGuard] , component : RepotreeComponent },
-    { path : 'repofiles', canActivate:[LoggedInGuard] , component : RepofilesComponent },
-    { path : 'repofile', canActivate:[LoggedInGuard] , component : RepofileComponent },
-    { path : 'commits', canActivate:[LoggedInGuard] , component : CommitsComponent },
-    { path : 'subdirectory' , component : FolderFilesComponent , runGuardsAndResolvers: 'always' },
+    { path : '' , canActivate : [LoggedInGuard] , children : [
+        { path : 'repotree', component : RepotreeComponent },
+        { path : 'repofiles', component : RepofilesComponent },
+        { path : 'repofile', component : RepofileComponent },
+        { path : 'commits' , component : CommitsComponent },
+        { path : 'subdirectory' , component : FolderFilesComponent }
+    ]},
 ]
 
 @NgModule({

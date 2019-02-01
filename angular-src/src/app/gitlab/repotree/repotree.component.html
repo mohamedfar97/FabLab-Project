@@ -11,7 +11,7 @@
             <div class = "inline">
               <div *ngFor="let project of projects">
                 <div *ngIf = "project.namespace.full_path === group.full_path">
-                  <a [routerLink]="['/repofiles']"
+                  <a [routerLink]="['/gitlab/repofiles']"
                      [queryParams] = "{full_path : project.path_with_namespace , project_id : project.id }"
                      class="card-link text-warning rounded">
                     <i class="material-icons prefix align-bottom ">folder</i>
@@ -21,7 +21,7 @@
               </div>
               <div *ngFor = 'let subgroup of groups'>
                 <div *ngIf = "subgroup.parent_id === group.id">
-                    <a [routerLink]="['/repotree']"
+                    <a [routerLink]="['/gitlab/repotree']"
                        [queryParams] = "{full_path : subgroup.full_path}"
                        class="card-link text-info rounded">
                         {{subgroup.name}}

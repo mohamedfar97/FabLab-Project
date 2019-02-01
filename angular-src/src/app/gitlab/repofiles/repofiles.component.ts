@@ -237,7 +237,7 @@ export class RepofilesComponent implements OnInit {
   }
 
   onOpenFolder(folder) {
-    this.router.navigate(['/subdirectory'],
+    this.router.navigate(['/gitlab/subdirectory'],
       { queryParams: {
           full_path: this.fullPath,
           project_id: this.project_id,

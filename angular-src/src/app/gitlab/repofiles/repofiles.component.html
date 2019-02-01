@@ -11,7 +11,7 @@
   </button>
 
   <button class="btn btn-lg btn-primary badge badge-pill float-right"
-          [routerLink]="['/commits']"
+          [routerLink]="['/gitlab/commits']"
           [queryParams] = "{project_id : this.project_id }">
     Commits
   </button>
@@ -114,7 +114,7 @@
             </div>
           </a>
 
-          <a [routerLink]="['/repofile']"
+          <a [routerLink]="['/gitlab/repofile']"
              [queryParams] = "{project_id : this.project_id , path : file.path }"
              class="list-group-item list-group-item-action" *ngFor = "let file of files">
             <div class="d-flex w-100 justify-content-between">

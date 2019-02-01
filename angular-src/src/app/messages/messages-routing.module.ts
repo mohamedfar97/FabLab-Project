@@ -9,7 +9,7 @@ import { ComposeComponent } from './compose/compose.component';
 import { ViewMessageComponent } from './view-message/view-message.component';
 
 const messagesRoutes:Routes = [
-    { path : 'messages' , canActivate:[LoggedInGuard], children :[
+    { path : '' , canActivate:[LoggedInGuard], children :[
         { path : 'inbox' , component : InboxComponent},
         { path : 'sentbox' , component : SentboxComponent},
         { path : 'compose' , component : ComposeComponent},

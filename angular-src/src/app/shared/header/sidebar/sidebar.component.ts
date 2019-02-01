@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GitLabService } from "../../services/gitlab.service";
+import { GitLabService } from "../../../services/gitlab.service";
 
 @Component({
   selector: 'app-sidebar',

@@ -19,7 +19,7 @@
         <ul class="collapse list-unstyled" id="pageSubmenu"> <br>
           <li *ngFor = "let group of groups"  >
             <div *ngIf="group.parent_id === this.rootId">
-              <a [routerLink]="['/repotree']"
+              <a [routerLink]="['/gitlab/repotree']"
                  [queryParams] = "{full_path : group.full_path}">
                  {{group.name}} </a>
             </div>
@@ -63,25 +63,6 @@
 
         </ul>
       </div>
-
-      <div class="sidebar-header">
-        <a href="#formSubmenu" data-toggle="collapse" aria-expanded="false" >
-          <i class="material-icons  align-middle">group_work</i>
-          Forms
-          <i class="material-icons align-middle">keyboard_arrow_down</i> </a>
-
-        <ul class="collapse list-unstyled" id="formSubmenu"> <br>
-          <li>
-            <div>
-              <a [routerLink]="['/forms/clientRegister']">
-                Register Client </a>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-
-
 
       <ul class="list-unstyled components">
         <li> <a href="/discussions">
