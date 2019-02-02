@@ -65,7 +65,8 @@
       </div>
 
       <ul class="list-unstyled components">
-        <li> <a href="/discussions">
+        <li> <a [routerLink]="['/discussions']"
+                [queryParams] = "{}">
           <i class="material-icons  align-middle">mail</i>
           Discussions</a> </li>
         <li> <a href="#">

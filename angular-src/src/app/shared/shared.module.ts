@@ -14,11 +14,6 @@ import { ContentPeekPipe } from '../services/pipes/content-peek.pipe';
         SizePipePipe,
         ContentPeekPipe
     ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-    ],
     exports: [
         CommonModule,
         FormsModule,

@@ -5,8 +5,6 @@ import { QuillModule } from "ngx-quill";
 import { MessagesRoutingModule } from "./messages-routing.module";
 import { SharedModule } from "../shared/shared.module";
 
-import { MessagingService } from "../services/messaging.service";
-
 import { InboxComponent } from './inbox/inbox.component';
 import { SentboxComponent } from './sentbox/sentbox.component';
 import { ComposeComponent } from './compose/compose.component';
@@ -26,8 +24,7 @@ import { ViewMessageComponent } from './view-message/view-message.component';
         MessagesRoutingModule
     ],
     providers:[
-        ViewMessageComponent,
-        MessagingService
+        ViewMessageComponent
     ]
 })
 export class MessagesModule {}

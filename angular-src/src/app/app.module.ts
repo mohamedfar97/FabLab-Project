@@ -14,10 +14,12 @@ import { AppRoutingModule } from "./app-routing.module";
 import { SharedModule } from './shared/shared.module';
 import { GitlabModule } from './gitlab/gitlab.module';
 import { AuthModule } from './auth/auth.module';
-// General Use Services
+// Services
 import { AuthService } from "./services/auth.service";
 import { GitLabService } from "./services/gitlab.service";
 import { ProjectDiscussionService } from "./services/project-discussion.service";
+import { AdminService } from "./services/admin.service";
+import { MessagingService } from "./services/messaging.service";
 // Guards
 import { LoggedInGuard } from './services/guards/loggedInGuard.service';
 import { NonLoggedInGuard } from './services/guards/notLoggedInGuard.service';
@@ -60,6 +62,8 @@ import { AdminSidebarComponent } from './admin/admin-header/admin-sidebar/admin-
     AuthService,
     GitLabService,
     ProjectDiscussionService,
+    AdminService,
+    MessagingService,
     NgbModal
   ],
   bootstrap: [AppComponent]
