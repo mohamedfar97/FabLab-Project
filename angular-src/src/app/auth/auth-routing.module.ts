@@ -16,7 +16,7 @@ const authRoutes:Routes = [
        { path : 'editProfile', component: EditProfileComponent },
        { path : '', component : ProfileComponent}
      ]},
-    { path : '', canActivate: [NonLoggedInGuard], component :  LoginComponent },
+    { path : '', redirectTo : '/login', pathMatch : 'full' },
 ]
 
 @NgModule({

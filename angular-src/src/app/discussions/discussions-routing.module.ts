@@ -8,7 +8,7 @@ import {DiscussionsComponent} from "./discussions.component";
 
 const discussionsRoutes:Routes = [
     { path : '', canActivate:[LoggedInGuard], children : [
-        { path : 'discussion', canActivate:[LoggedInGuard] , component : ChatComponent},
+        { path : 'discussion', component : ChatComponent},
         { path : '', component : DiscussionsComponent}
     ]},
 ];

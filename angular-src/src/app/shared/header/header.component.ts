@@ -52,6 +52,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onProfile(){
+    console.log(this.user_id);
     this.router.navigate(["/profile"],
       { queryParams: {
           id: this.user_id
@@ -60,7 +61,6 @@ export class HeaderComponent implements OnInit {
   }
 
   onEditProfile(){
-    console.log("Edit Profile");
     this.router.navigate(["/profile/editProfile"],
       { queryParams: {
           id: this.user_id

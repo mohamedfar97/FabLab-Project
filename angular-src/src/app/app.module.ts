@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from "@angular/http";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule} from 'ngx-spinner';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 // Unknown Purpose Modules
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 // Custom Modules
 import { AppRoutingModule } from "./app-routing.module";
 import { SharedModule } from './shared/shared.module';

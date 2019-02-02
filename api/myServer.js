@@ -124,6 +124,7 @@ app.get('/gitlab/getProjects/:token', gitLabCtrl.getProjects);
 app.get('/gitlab/getProjectFiles/:token/:projectId', gitLabCtrl.getProjectFiles);
 app.get('/gitlab/getSubdirectoriesContent/:token/:projectId/:path', gitLabCtrl.getSubdirectoriesContent);
 app.get('/gitlab/getFile/:token/:projectId/:path', gitLabCtrl.getFile);
+app.get('/gitlab/downloadProject/:token/:projectId/:projectName',gitLabCtrl.downProject);
 app.get('/gitlab/downloadProject/:token/:projectId/:projectName/:commitId',gitLabCtrl.downProject);
 app.get('/gitlab/getProjectCommits/:token/:projectId' , gitLabCtrl.getProjectCommits);
 app.post('/gitlab/uploadFile/:token/:projectId', gitLabCtrl.uploadFile);
