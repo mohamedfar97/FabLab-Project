@@ -12,8 +12,9 @@ import {NonLoggedInGuard} from "../services/guards/notLoggedInGuard.service";
 const authRoutes:Routes = [
     { path : 'login', canActivate: [NonLoggedInGuard], component :  LoginComponent },
     { path : 'signup', canActivate: [NonLoggedInGuard], component : SignupComponent },
-    { path : 'profile', canActivate:[LoggedInGuard], component: ProfileComponent , children: [
-       { path : 'editProfile', component: EditProfileComponent }
+    { path : 'profile', canActivate:[LoggedInGuard] , children: [
+       { path : 'editProfile', component: EditProfileComponent },
+       { path : '', component : ProfileComponent}
      ]},
     { path : '', canActivate: [NonLoggedInGuard], component :  LoginComponent },
 ]

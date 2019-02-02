@@ -7,8 +7,10 @@ import {ChatComponent} from "./chat/chat.component";
 import {DiscussionsComponent} from "./discussions.component";
 
 const discussionsRoutes:Routes = [
-    { path : '', canActivate:[LoggedInGuard] , component : DiscussionsComponent},
-    { path : 'discussion', canActivate:[LoggedInGuard] , component : ChatComponent}
+    { path : '', canActivate:[LoggedInGuard], children : [
+        { path : 'discussion', canActivate:[LoggedInGuard] , component : ChatComponent},
+        { path : '', component : DiscussionsComponent}
+    ]},
 ];
 
 @NgModule({
