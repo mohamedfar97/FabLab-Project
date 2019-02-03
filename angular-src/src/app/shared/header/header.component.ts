@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit {
       this.user_id = this.authService.getUserFromToken(sessionStorage.getItem("x-auth"))._id;
       this.user_name = this.authService.getUserFromToken(sessionStorage.getItem("x-auth")).name;
       this.adminStatus = this.authService.getUserFromToken(sessionStorage.getItem("x-auth")).adminAccess;
+      this.status = "";
     }
   }
 

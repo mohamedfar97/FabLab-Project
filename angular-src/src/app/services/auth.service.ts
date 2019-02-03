@@ -1,30 +1,39 @@
 import { Injectable } from '@angular/core';
-import { Http , Headers } from "@angular/http";
+import { Http, Headers, RequestOptions } from "@angular/http";
 
 import { appConfig } from "../app.config";
 
 @Injectable()
 export class AuthService {
-  constructor(private http:Http){};
 
-   headers = new Headers ({
-    'Content-Type': 'application/json'
+  userToken = sessionStorage.getItem("x-auth");
+  headers = new Headers ({
+    'Authorization': this.userToken
+  });
+  httpOptions = new RequestOptions({
+    headers: this.headers
   });
 
+  constructor(private http:Http){};
+
   signUp( user ) {
-    return this.http.post(appConfig.apiUrl + "register", user, {headers:this.headers}).pipe();
+    return this.http.post(appConfig.apiUrl + "register", user, this.httpOptions )
+    .pipe();
   }
 
   logIn( user ) {
-    return this.http.post(appConfig.apiUrl + "logIn", user, {headers:this.headers}).pipe();
+    return this.http.post(appConfig.apiUrl + "logIn", user, this.httpOptions )
+    .pipe();
   }
 
   getProfile( id ){
-    return this.http.get(appConfig.apiUrl + "profile/" + id , {headers:this.headers}).pipe();
+    return this.http.get(appConfig.apiUrl + "profile/" + id , this.httpOptions )
+    .pipe();
   }
 
   editProfile ( id , body ) {
-    return this.http.post(appConfig.apiUrl + "editProfile/" + id , body,{headers:this.headers}).pipe();
+    return this.http.post(appConfig.apiUrl + "editProfile/" + id , body, this.httpOptions )
+    .pipe();
   }
 
   logOut(){
