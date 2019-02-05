@@ -21,7 +21,7 @@ module.exports.isAuthenticated = function( req,res,next ) {
        }).catch( (error) => {
             return res.status(401)
                 .send({
-                    errMsg: "Cannot Fetch Token Info.",
+                    errMsg: "You Are Not An Authenticated User.",
                     err: error
                 });
         });

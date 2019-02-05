@@ -22,7 +22,7 @@ export class UnverifiedUsersComponent implements OnInit {
       .subscribe((res:any) => {
         this.unverifiedUsers = JSON.parse(res._body).data;
       }, (err) => {
-        console.log(err);
+        alert(JSON.parse(err._body).errMsg);
       })
 
   }

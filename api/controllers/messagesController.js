@@ -11,13 +11,13 @@ module.exports.sendMessage = ( req,res ) => {
     message.save()
         .then ( (message) => {
             return res.status(200)
-                .send( {
+                .json( {
                     msg: "Message Sent",
                     data: message
                 })
         }).catch( (error) => {
-            return res.status(400)
-                .send( {
+            return res.status(422)
+                .json( {
                     errMsg: "Cannot Send Message",
                     err: error
                 })
@@ -33,22 +33,22 @@ module.exports.viewSentMessages = ( req,res ) => {
       .then( (messages) => {
           if ( messages.length > 0 ) {
               return res.status(200)
-                  .send( {
+                  .json( {
                       msg: "Retrieved All Messages.",
                       data: messages.reverse()
                   })
           } else {
              return res.status(200)
-                  .send( {
+                  .json( {
                       msg: "You Did Not Send Any Messages.",
                       data: messages
                   })
           }
       }).catch( (error) => {
-          return res.status(404)
-              .send( {
-                  errMsg: "Cannot Load Messages.",
-                  err: error
+          return res.status(422)
+              .json( {
+                  err: error,
+                  errMsg: "Cannot Load Messages."
               })
   })
 
@@ -62,20 +62,20 @@ module.exports.viewReceivedMessages = ( req,res ) => {
         .then( (messages) => {
             if ( messages.length > 0 ) {
                 return res.status(200)
-                    .send( {
+                    .json( {
                         msg: "Retrieved All Messages.",
                         data: messages.reverse()
                     })
             } else {
                 return res.status(200)
-                    .send( {
+                    .json( {
                         msg: "You Did Not Receive Any Messages.",
                         data: messages
                     })
             }
         }).catch( (error) => {
-        return res.status(404)
-            .send( {
+        return res.status(422)
+            .json( {
                 errMsg: "Cannot Load Messages.",
                 err: error
             })
@@ -90,20 +90,20 @@ module.exports.deleteMessage = ( req,res ) => {
         .then( (message) => {
             if ( message ) {
                 return res.status(200)
-                    .send({
+                    .json({
                         msg: "Message Deleted",
                         data: message
                     })
             } else {
-                return res.status(404)
-                    .send({
+                return res.status(422)
+                    .json({
                         errMsg: "Cannot Find Message To Be Deleted",
                         data:message
                     })
             }
         }).catch( (error) => {
-            return res.status(400)
-                .send({
+            return res.status(422)
+                .json({
                     errMsg: "Cannot Retrieve Message Info",
                     err: error
                 })
@@ -118,20 +118,20 @@ module.exports.viewMessage = ( req,res ) => {
     Messages.findById(messageId)
         .then( (message) => {
             if ( ! message ) {
-                return res.status(404)
-                    .send({
+                return res.status(422)
+                    .json({
                         errMsg: "Cannot Find Message.",
                     })
             } else {
                 return res.status(200)
-                    .send({
+                    .json({
                         msg: "Message Fetched.",
                         data: message
                     })
             }
         }).catch( (error) => {
-            return res.status(400)
-                .send({
+            return res.status(422)
+                .json({
                     errMsg: "Cannot Fetch Message Info.",
                     err: error
                 })

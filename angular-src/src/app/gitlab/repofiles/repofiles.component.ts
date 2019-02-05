@@ -196,7 +196,6 @@ export class RepofilesComponent implements OnInit {
 
 
   push(){
-    console.log();
     console.log(this.uploadRequests);
 
     for (const i in this.uploadRequests){
@@ -232,7 +231,7 @@ export class RepofilesComponent implements OnInit {
         let file = new File([blob],projectName + '.tar.gz');
         FileSaver.saveAs(file);
       } , ( err ) => {
-        console.log(err);
+        alert(JSON.parse(err._body).errMsg);
       });
   }
 

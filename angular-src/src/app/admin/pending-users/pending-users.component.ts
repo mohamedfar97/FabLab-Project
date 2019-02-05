@@ -24,7 +24,7 @@ export class PendingUsersComponent implements OnInit {
         this.pendingUsers = JSON.parse(res._body).data;
         console.log(this.pendingUsers);
       } , (err) => {
-        console.log(err);
+        alert(JSON.parse(err._body).errMsg);
       })
   }
 
@@ -35,9 +35,9 @@ export class PendingUsersComponent implements OnInit {
     this.adminService
       .acceptOrDeclineUser(true,user._id,this.adminId)
       .subscribe((res:any) => {
-        console.log("User Accepted");
+        alert("User Accepted");
       }, (err) => {
-        console.log(err);
+        alert(JSON.parse(err._body).errMsg);
       })
   }
 
@@ -46,9 +46,9 @@ export class PendingUsersComponent implements OnInit {
     this.adminService
       .acceptOrDeclineUser(false,user._id,this.adminId)
       .subscribe((res:any) => {
-        console.log("User Rejected");
+        alert("User Rejected");
       }, (err) => {
-        console.log(err);
+        alert(JSON.parse(err._body).errMsg);
       })
   }
 

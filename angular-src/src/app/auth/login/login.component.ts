@@ -45,13 +45,11 @@ export class LoginComponent implements OnInit {
 
           this.router.navigate(['/profile'] , {queryParams : {id:user._id}});
 
-        },(error) => {
-          // ALERT MESSAGE TO BE ADDED
-          console.log(error);
+        },(err) => {
+          alert(JSON.parse(err._body).errMsg);
         } );
     } else {
-      // ALERT MESSAGE TO BE ADDED
-      console.log("Invalid Inputs");
+      alert("Invalid Inputs");
     }
   }
 }

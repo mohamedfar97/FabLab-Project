@@ -34,8 +34,7 @@ export class SignupComponent implements OnInit {
     if ( valid ) {
       this.register(value);
     } else {
-      // ALERT MESSAGE TO BE ADDED
-      console.log("Invalid Inputs");
+      alert("Invalid Inputs");
     }
   }
 
@@ -57,9 +56,8 @@ export class SignupComponent implements OnInit {
           console.log(data);
           this.router.navigate(['/login']);
         },
-        error => {
-            // ALERT MESSAGE TO BE ADDED
-            console.log(error);
+        err => {
+          alert(JSON.parse(err._body).errMsg);
           });
   }
 }

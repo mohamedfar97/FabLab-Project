@@ -43,6 +43,8 @@ export class ProfileComponent implements OnInit {
           this.phone = user.phone;
           this.role = user.role;
           console.log(user);
+        } , (err) => {
+          alert(JSON.parse(err._body).errMsg);
         });
   }
 
@@ -53,5 +55,4 @@ export class ProfileComponent implements OnInit {
         }
       });
   }
-
 }

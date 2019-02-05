@@ -37,10 +37,10 @@ export class CreateDiscussionComponent implements OnInit {
           console.log(JSON.parse(res._body).data);
           this.router.navigate(['/admin/viewDiscussions']);
         } , (err) => {
-          console.log(err);
+          alert(JSON.parse(err._body).errMsg);
         })
     } else {
-      console.log("Invalid Inputs");
+      alert("Invalid Inputs");
     }
   }
 }

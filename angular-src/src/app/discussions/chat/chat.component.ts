@@ -35,6 +35,8 @@ export class ChatComponent implements OnInit  {
     this.socketService.getTopMessages(this.room)
       .subscribe((res : any) => {
         this.messages = JSON.parse(res._body).data;
+    }, (err) => {
+      alert(JSON.parse(err._body).errMsg);
     });
 
     socketService.socket.emit('joinDiscussion', {
@@ -78,14 +80,13 @@ export class ChatComponent implements OnInit  {
     this.adminService.removeContributor(this.user._id, body)
     .subscribe((res:any) => {
       console.log(JSON.parse(res._body));
-    }, (error) => {
+    }, (err) => {
       console.log("Cannot Remove Contributor");
+      alert(JSON.parse(err._body).errMsg);
     })
-
   }
 
   onAddContributor( {value, valid}: { value: Contributor, valid: boolean } ) {
-
     if(valid) {
       let body = {
         username: value.username,
@@ -98,13 +99,12 @@ export class ChatComponent implements OnInit  {
       this.adminService.addContributor(this.user._id, body)
         .subscribe((res:any) => {
           console.log(res);
-        }, (error) => {
-          console.log(error);
+        }, (err) => {
+          alert(JSON.parse(err._body).errMsg);
         })
     } else {
       console.log("Invalid Inputs");
     }
-
   }
 
   isFullAdmin() {
@@ -126,7 +126,6 @@ export class ChatComponent implements OnInit  {
       document.getElementById("send").click();
     }
   }
-
 }
 
 export interface Contributor {

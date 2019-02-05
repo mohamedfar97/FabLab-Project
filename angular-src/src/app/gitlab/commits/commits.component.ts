@@ -34,8 +34,8 @@ export class CommitsComponent implements OnInit {
         this.spinnerService.hide();
         this.commits = JSON.parse(res._body);
         this.searchCommits = JSON.parse(res._body);
-      }, (error) => {
-        console.log(error);
+      }, (err) => {
+        alert(JSON.parse(err._body).errMsg);
       });
   }
 
@@ -71,7 +71,7 @@ export class CommitsComponent implements OnInit {
         let file = new File([blob],projectName + '.tar.gz');
         FileSaver.saveAs(file);
       } , ( err ) => {
-        console.log(err);
+        alert(JSON.parse(err._body).errMsg);
       });
   }
 

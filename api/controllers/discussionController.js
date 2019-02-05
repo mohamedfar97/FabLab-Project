@@ -19,7 +19,7 @@ module.exports.getDiscussionTopMessages = ( req,res ) => {
                     data : messages.slice(messages.length-20,messages.length)
             })
         }).catch( (error) => {
-            return res.status(400)
+            return res.status(422)
                 .send({
                     errMsg: "Cannot Fetch Discussion",
                     err: error
@@ -44,7 +44,7 @@ module.exports.createDiscussion = ( req,res ) => {
                     data: disc
                 })
         }).catch( (error) => {
-            return res.status(400)
+            return res.status(422)
                 .send({
                     errMsg: "Cannot Create Discussion",
                     err: error
@@ -87,20 +87,20 @@ module.exports.addContributor = ( req,res ) => {
                                             data: newDisc
                                         })
                                 }).catch( (error) => {
-                                return res.status(400)
+                                return res.status(422)
                                     .send({
                                         errMsg: "Cannot Add Contributor",
                                         err: error
                                     })
                             });
                         } else {
-                            return res.status(404)
+                            return res.status(422)
                                 .send({
                                     errMsg: "Cannot Find Discussion"
                                 })
                         }
                     }).catch( (error) => {
-                    return res.status(400)
+                    return res.status(422)
                         .send({
                             errMsg: "Cannot Fetch Discussion Info",
                             err: error
@@ -109,13 +109,13 @@ module.exports.addContributor = ( req,res ) => {
 
             }
             else {
-                return res.status(404)
+                return res.status(422)
                     .send({
                         errMsg: "No such user exists."
                     })
             }
         }).catch( (error) => {
-        return res.status(400)
+        return res.status(422)
             .send({
                 errMsg: "Cannot fetch user.",
                 err: error
@@ -142,7 +142,7 @@ module.exports.viewDiscussions = ( req,res ) => {
                     })
             }
         }).catch( (error) => {
-            return res.status(400)
+            return res.status(422)
                 .send({
                     errMsg: "Cannot View Discussions",
                     err: error
@@ -170,13 +170,13 @@ module.exports.removeContributor = ( req,res ) => {
                     }
                 }
 
-                return res.status(404)
+                return res.status(403)
                     .send({
                         errMsg: "User is not a contributor in this discussion."
                     })
 
             } else {
-                return res.status(404)
+                return res.status(422)
                     .send({
                         errMsg: "Cannot find such discussion."
                     })
@@ -194,13 +194,13 @@ module.exports.viewUserDiscussions = ( req,res ) => {
         .then( (user) => {
             if( user ) {}
             else {
-                return res.status(404)
+                return res.status(422)
                     .send({
                         errMsg: "No such user exists."
                     })
             }
         }).catch( (error) => {
-            return res.status(400)
+            return res.status(422)
                 .send({
                     errMsg: "Cannot fetch user.",
                     err: error
@@ -234,13 +234,13 @@ module.exports.viewUserDiscussions = ( req,res ) => {
                 }
 
             } else {
-                return res.status(404)
+                return res.status(422)
                     .send({
                         errMsg:"No discussions exists."
                     })
             }
         }).catch( (error) => {
-            return res.status(400)
+            return res.status(422)
                 .send({
                     errMsg: "Cannot fetch discussions.",
                     err: error
@@ -271,13 +271,13 @@ module.exports.leaveDiscussion = ( req,res ) => {
                         msg: `${username} is not a contributor in ${disc.name}`
                     })
             } else {
-                return res.status(404)
+                return res.status(422)
                     .send({
                         errMsg: "Cannot find such discussion."
                     })
             }
         }).catch( (error) => {
-            return res.status(400)
+            return res.status(422)
                 .send({
                     errMsg: "Cannot fetch discussion.",
                     err: error
@@ -299,13 +299,13 @@ module.exports.deleteDiscussion = ( req,res ) => {
                         msg: "Discussion Deleted."
                     })
             } else {
-                return res.status(404)
+                return res.status(422)
                     .send({
                         errMsg: "Cannot Find Discussion."
                     })
             }
         }).catch( (error) => {
-            return res.status(400)
+            return res.status(422)
                 .send({
                     errMsg: "Cannot Fetch Discussion Info.",
                     err: error

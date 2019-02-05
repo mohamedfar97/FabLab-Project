@@ -59,6 +59,8 @@ export class RepotreeComponent implements OnInit {
           }
         }
         console.log(this.groups);
+    }, (err) => {
+      alert(JSON.parse(err._body).errMsg);
     });
 
     this.gitLabService.getProjects()
@@ -66,6 +68,8 @@ export class RepotreeComponent implements OnInit {
         this.projects = JSON.parse(res._body);
         this.spinnerService.hide();
         console.log(this.projects);
+    }, (err) => {
+      alert(JSON.parse(err._body).errMsg);
     });
   }
 }

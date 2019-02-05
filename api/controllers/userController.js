@@ -1,7 +1,6 @@
 const _ = require("lodash");
 const bcrypt = require('bcryptjs');
 const {User} = require("../models/user");
-const {Discussion} = require("../models/discussion");
 const {ObjectID} = require("mongodb");
 
 module.exports.registerUser = ( req,res ) => {
@@ -20,7 +19,7 @@ module.exports.registerUser = ( req,res ) => {
                         data: user
                     })
             }).catch( () => {
-            return res.status(400)
+            return res.status(422)
                 .send({
                     errMsg: "Cannot Create User"
                 })
@@ -44,7 +43,7 @@ module.exports.logIn = ( req,res ) => {
                   })
           }
       } else {
-          return res.status(404)
+          return res.status(422)
               .send({
                   errMsg: "No Such User"
               })
@@ -70,7 +69,7 @@ module.exports.logIn = ( req,res ) => {
             data:user
         });
       } else {
-        return res.status(400).send({
+        return res.status(422).send({
             errMsg:"Cannot Login User. :("
         });
       }
@@ -89,13 +88,13 @@ module.exports.viewAllUsers = ( req,res ) => {
                         data: users
                     })
             } else {
-                return res.status(404)
+                return res.status(422)
                     .send({
                         errMsg: "The System Has No Users."
                     })
             }
         }).catch( (error) => {
-            return res.status(400)
+            return res.status(422)
                 .send({
                     errMsg: "Cannot Fetch Users Information",
                     err: error
@@ -114,7 +113,7 @@ module.exports.getAllPendingUsers = ( req,res ) => {
                 data: users
             });
     }).catch( (error) => {
-        return res.status(400)
+        return res.status(422)
             .send({
                 errMsg: "Cannot Retrieve Pending Users.",
                 err:error
@@ -135,13 +134,13 @@ module.exports.viewUnverifiedUsers = ( req,res ) => {
                     data: users
                 })
         } else {
-            return res.status(404)
+            return res.status(200)
                 .send({
-                    errMsg: "There Are Currently No Unverified Users"
+                    msg: "There Are Currently No Unverified Users"
                 })
         }
     }).catch( (error) => {
-        return res.status(400)
+        return res.status(422)
             .send({
                 errMsg: "Cannot Fetch Users Information",
                 err: error
@@ -156,14 +155,14 @@ module.exports.verifyUser = ( req,res ) => {
     let verified = req.body.verified;
 
     if ( ! ObjectID.isValid(userId) ) {
-        return res.status(400)
+        return res.status(422)
             .send({
                 errMsg: "Invalid User ID."
             })
     }
 
     if ( ! _.isBoolean(verified) ) {
-        return res.status(400)
+        return res.status(422)
             .send({
                 errMsg: "Invalid Verification Status."
             })
@@ -182,24 +181,24 @@ module.exports.verifyUser = ( req,res ) => {
                 }).then((token)=>{
                     res.header('x-auth', token).send(user);
                 }).catch( (err1) => {
-                    return res.status(400).send({
+                    return res.status(422).send({
                         errMsg:"Cannot Generate Token.",
                         data:err1
                     });
                 }).catch( (err2) => {
-                    return res.status(400).send({
+                    return res.status(422).send({
                         errMsg:"Missing Registration Inputs",
                         data:err2
                     })
                 })
             } else {
-                return res.status(404)
+                return res.status(422)
                     .send({
                         errMsg:"No Such User Was Found To Verify"
                     })
             }
         }).catch( (error) => {
-        return res.status(400)
+        return res.status(422)
             .send({
                 errMsg: "Cannot Retrieve User Info",
                 err: error
@@ -215,7 +214,7 @@ module.exports.setAsAdmin = ( req,res ) => {
         .then( (user) => {
             if ( user ) {
                 if ( !user.isVerified ) {
-                    return res.status(400)
+                    return res.status(422)
                         .send({
                             errMsg: "User Must Be Verified To Be Admin"
                         })
@@ -229,7 +228,7 @@ module.exports.setAsAdmin = ( req,res ) => {
                                     data: newUser
                                 })
                         }).catch( (error) => {
-                            res.status(400)
+                            res.status(422)
                                 .send({
                                     errMsg: "Cannot Save New User",
                                     err: error
@@ -237,13 +236,13 @@ module.exports.setAsAdmin = ( req,res ) => {
                     })
                 }
             } else {
-                return res.status(404)
+                return res.status(422)
                     .send({
                         errMsg: "Cannot Find User"
                     })
             }
         }).catch( (error) => {
-            return res.status(400)
+            return res.status(422)
                 .send({
                     errMsg: "Cannot Fetch User Info",
                     err: error
@@ -256,14 +255,14 @@ module.exports.profile = ( req,res ) => {
   let id = req.params.id;
 
   if ( ! ObjectID.isValid(id) ) {
-      return res.status(400).send({
+      return res.status(422).send({
           errMsg:"Invalid User ID."
       })
   }
 
   User.findById(id).then( (user) => {
       if ( !user ) {
-          return res.status(404).send({
+          return res.status(422).send({
               errMsg:"No Such User ID Exists."
           });
       }
@@ -282,7 +281,7 @@ module.exports.editProfile = ( req,res ) => {
     const id = req.params.id;
 
     if ( ! ObjectID.isValid(id) ) {
-        return res.status(400).send({
+        return res.status(422).send({
             errMsg:"Invalid User ID."
         })
     }
@@ -298,8 +297,8 @@ module.exports.editProfile = ( req,res ) => {
                         });
                     })
                     .catch( (err) => {
-                        return res.status(400).send({
-                            errMsg:"Cannot Generate Token.",
+                        return res.status(422).send({
+                            errMsg:"Cannot Update User Info.",
                             data:err
                         });
                     });
@@ -310,7 +309,7 @@ module.exports.editProfile = ( req,res ) => {
                 });
         })
     } else{
-        return res.status(400).send({
+        return res.status(422).send({
             errMsg : "You Cannot Edit These Properties."
         });
     }

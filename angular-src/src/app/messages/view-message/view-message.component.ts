@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Params} from "@angular/router";
-import {MessagingService} from "../../services/messaging.service";
+import { ActivatedRoute, Params } from "@angular/router";
+import { MessagingService } from "../../services/messaging.service";
 
 @Component({
   selector: 'app-view-message',
@@ -37,7 +37,7 @@ export class ViewMessageComponent implements OnInit {
           .innerHTML = this.messageBody.message;
 
       },(err) => {
-        console.log(err);
+        alert(JSON.parse(err._body).errMsg);
       })
   }
 

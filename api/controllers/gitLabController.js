@@ -139,7 +139,10 @@ module.exports.downProject = ( req,res ) => {
 
     request.get( url )
         .on('error' , () => {
-            console.log("Error Occurred !!");
+            res.status(500)
+            .send({
+                errMsg:"Cannot Retrieve Files From Gitlab.com"
+            })
             fileContent.end();
         })
         .on('data' , (data) => {

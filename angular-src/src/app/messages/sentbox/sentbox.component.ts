@@ -24,7 +24,7 @@ export class SentboxComponent implements OnInit {
         this.sentMessages = (JSON.parse(res._body)).data;
         console.log(this.sentMessages);
       }, (err) => {
-        console.log(err);
+        alert(JSON.parse(err._body).errMsg);
       })
   }
 
@@ -34,7 +34,7 @@ export class SentboxComponent implements OnInit {
       .subscribe((res:any) => {
         console.log(res);
       },(err) => {
-        console.log(err);
+        alert(JSON.parse(err._body).errMsg);
       })
   }
 

@@ -28,7 +28,7 @@ export class DiscussionsComponent implements OnInit {
       .subscribe((res:any) => {
         this.discussions = JSON.parse(res._body).data;
       }, (err) => {
-        console.log(err);
+        alert(JSON.parse(err._body).errMsg);
       })
   }
 
@@ -43,7 +43,7 @@ export class DiscussionsComponent implements OnInit {
       .subscribe((res:any) => {
         alert(JSON.parse(res._body).msg);
       }, (err) => {
-        console.log(err);
+        alert(JSON.parse(err._body).errMsg);
       })
   }
 

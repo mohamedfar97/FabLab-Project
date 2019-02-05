@@ -38,7 +38,7 @@ export class EditProfileComponent implements OnInit {
       this.editUser(value);
     } else {
       // ALERT MESSAGE TO BE ADDED
-      console.log("Invalid Inputs");
+      alert("Invalid Inputs");
     }
   }
 
@@ -51,13 +51,13 @@ export class EditProfileComponent implements OnInit {
     this.authService.editProfile( this.id , body )
       .subscribe(
         (res) => {
+          console.log(res.headers.get('x-auth'));
           sessionStorage.setItem("x-auth" , res.headers.get('x-auth') );
           this.header.user_name = user.name;
           this.router.navigate(['/profile'],{queryParams:{id:this.id}});
         },
-        error => {
-          // ALERT MESSAGE TO BE ADDED
-          console.log(error);
+        err => {
+          alert(JSON.parse(err._body).errMsg);
         });
   }
 }

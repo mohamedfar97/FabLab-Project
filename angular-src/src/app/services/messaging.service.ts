@@ -9,7 +9,7 @@ export class MessagingService {
 
   userToken = sessionStorage.getItem("x-auth");
   headers = new Headers ({
-    'Authorization': this.userToken
+    'x-auth': this.userToken
   });
   httpOptions = new RequestOptions({
     headers: this.headers

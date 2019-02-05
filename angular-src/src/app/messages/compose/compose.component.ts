@@ -52,14 +52,8 @@ export class ComposeComponent implements OnInit {
 
   onSend({value, valid}: { value: Message, valid: boolean }){
 
-    console.log();
-
     if( valid ){
-
       let currentUser = this.authService.getUserFromToken(sessionStorage.getItem('x-auth'));
-
-      console.log(currentUser);
-
       let body = {
         sender: currentUser.username,
         receiver: value.to,
@@ -72,10 +66,10 @@ export class ComposeComponent implements OnInit {
           console.log(JSON.parse(res._body).msg);
           this.router.navigate(['/messages/sentbox'])
         } , (err) => {
-          console.log(err);
+          alert(JSON.parse(err._body).errMsg);
         })
     } else {
-      console.log("Please Fill All Required Fields Correctly");
+      alert("Please Fill All Required Fields Correctly");
     }
   }
 }

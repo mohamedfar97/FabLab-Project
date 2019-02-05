@@ -32,10 +32,7 @@ export class FolderFilesComponent implements OnInit {
 
    ngOnInit(){
 
-    this.directoryPath = this.fullPath+'/'+this.folderPath.replace(/%2F/g,'/');;
-
-    
-    
+    this.directoryPath = this.fullPath+'/'+this.folderPath.replace(/%2F/g,'/');
 
     console.log(this.directoryPath);
     
@@ -62,8 +59,8 @@ export class FolderFilesComponent implements OnInit {
       console.log(this.folderFiles);
       console.log(this.treeFolderFiles);
 
-      }, (error) => {
-        console.log(error);
+      }, (err) => {
+        alert(JSON.parse(err._body).errMsg);
       })
   }
 

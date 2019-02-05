@@ -27,7 +27,7 @@ export class InboxComponent implements OnInit {
       .subscribe((res:any) => {
         this.receivedMessages = (JSON.parse(res._body)).data;
       }, (err) => {
-        console.log(err);
+        alert(JSON.parse(err._body).errMsg);
       })
   }
 
