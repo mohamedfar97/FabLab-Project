@@ -1,41 +1,26 @@
-<br>
 <div class="card">
   <div class="card-header">
     <h1 class="panel-heading">
       Discussions </h1>
-    <br>
   </div>
   <div class="card-body">
-
-
     <div class="panel panel-primary">
       <div class="panel-body message">
-
         <div class="list-group" *ngFor="let disc of discussions">
-
           <a class="list-group-item"
-             [routerLink]="['/discussion']"
+             [routerLink]="['/discussions/discussion']"
              [queryParams] = "{room : disc.name}">
-
-            <div class="float-right">
-              <br><br>
-              <label class="badge badge-warning float-right">
-                Contributors:{{disc.contributors.length}}
-              </label>
-            </div>
-
-            <span class="name" style="min-width: 120px;display: inline-block;">
-                  {{disc.name}}
-            </span> <br>
+            <span>{{disc.name}}</span>
+            <label class="badge badge-warning disc__contributors">
+              Contributors:{{disc.contributors.length}}
+            </label>
           </a>
-          <a class="badge badge-danger float-right" (click)="onDeleteDiscussion(disc)" >
-            <i class="material-icons prefix">delete</i>
-          </a>
-          <br>
+          <button class="delete-btn" (click)="onDeleteDiscussion(disc)" >
+            <i class="material-icons prefix" style="vertical-align:bottom;">delete</i>
+          </button>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 

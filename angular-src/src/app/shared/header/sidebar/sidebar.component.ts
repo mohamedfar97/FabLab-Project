@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GitLabService } from "../../../services/gitlab.service";
-import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,7 +16,6 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     if ( this.isLoggedIn() ) {
-      console.log(this.isLoggedIn());
       this.loadGroups();
     } else {
       console.log("Not Logged");
@@ -29,6 +27,7 @@ export class SidebarComponent implements OnInit {
   }
 
   loadGroups(){
+    // console.log(sessionStorage.getItem("x-auth"));
     this.gitlabService.getGroups()
       .subscribe((res : any) => {
         this.groups = JSON.parse(res._body);

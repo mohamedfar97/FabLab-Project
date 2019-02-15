@@ -1,0 +1,43 @@
+.list-group {
+    padding: 16px;
+    border: 0.5px solid rgba(0, 0, 0, 0.5);
+    margin: 10px auto;
+    position: relative;
+}
+
+.list-group-item {
+    display: inline-block;
+    border: none;
+    width: 40%;
+    vertical-align: center;
+}
+
+.list-group-item:hover {
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+a.list-group-item span {
+    min-width: 120px;
+    display: inline-block;
+}
+
+.disc__contributors {
+    display: inline-block;
+}
+
+.delete-btn {
+    background: red;
+    color: white;
+    border-radius:50%;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.delete-btn:hover {
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}

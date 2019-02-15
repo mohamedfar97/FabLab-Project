@@ -22,7 +22,7 @@ export class GitLabService {
   });
 
   constructor(private http:Http,
-    private httpClient : HttpClient) {};
+              private httpClient : HttpClient) {};
 
   getGroups(){
     return this.http

@@ -38,10 +38,10 @@ export class LoginComponent implements OnInit {
         .subscribe( (res) => {
           sessionStorage.setItem('x-auth',res.headers.get('x-auth'));
           var user = this.authService.getUserFromToken(sessionStorage.getItem('x-auth'));
-
           this.sidebar.loadGroups();
           this.header.user_name = user.name;
           this.header.adminStatus = user.adminAccess;
+
 
           this.router.navigate(['/profile'] , {queryParams : {id:user._id}});
 
